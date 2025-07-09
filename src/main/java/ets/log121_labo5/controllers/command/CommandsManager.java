@@ -3,6 +3,14 @@ package ets.log121_labo5.controllers.command;
 import ets.log121_labo5.models.Perspective;
 import javafx.scene.image.Image;
 
+/**
+ * Class: CommandsManager
+ * Created on: 7/6/2025
+ * Description:
+ *
+ * @author liuzi | Zi heng Liu
+ */
+
 public class CommandsManager {
 
     // STATIC
