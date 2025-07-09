@@ -11,5 +11,5 @@ package ets.log121_labo5.models.observer;
 
 public interface Observer {
 
-    public void update(Subject subject);
+    public void update(Observable observable);
 }

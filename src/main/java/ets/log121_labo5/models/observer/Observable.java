@@ -11,11 +11,11 @@ import java.util.ArrayList;
  * @author liuzi | Zi heng Liu
  */
 
-public abstract class Subject {
+public abstract class Observable {
 
     protected ArrayList<Observer> observers;
 
-    public Subject() {
+    public Observable() {
         this.observers = new ArrayList<Observer>();
     }
 
