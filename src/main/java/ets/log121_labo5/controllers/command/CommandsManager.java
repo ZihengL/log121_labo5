@@ -58,4 +58,8 @@ public class CommandsManager {
     /* ------- PRESSE-PAPIER MENU ------- */
 
     // CHOOSE STRATAGEM
+
+    public void chooseStratagem() {
+
+    }
 }
