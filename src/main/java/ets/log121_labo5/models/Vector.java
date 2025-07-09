@@ -1,5 +1,7 @@
-package ets.log121_labo5.model;
+package ets.log121_labo5.models;
 
+
+import java.io.Serializable;
 
 /**
  * Class: Vector
@@ -9,7 +11,7 @@ package ets.log121_labo5.model;
  * @author liuzi | Zi heng Liu
  */
 
-public class Vector {
+public class Vector implements Serializable {
 
     public double x;
     public double y;

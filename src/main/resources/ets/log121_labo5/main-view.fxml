@@ -1,16 +1,75 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.VBox?>
 
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="ets.log121_labo5.controllers.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.shape.Rectangle?>
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="ets.log121_labo5.controllers.MainController"
+            minWidth="600" minHeight="400"
+            stylesheets="@/main.css">
+    <BorderPane.margin>
+        <Insets left="15" right="15" top="15" bottom="15"/>
+    </BorderPane.margin>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+    <!--MENUBAR-->
+    <top>
+        <MenuBar>
+            <Menu text="Fichier">
+                <MenuItem text="Sauvegarder perspective"/>
+                <MenuItem text="Charger perspective"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Charger image" onAction="#uploadImage"/>
+                <SeparatorMenuItem/>
+                <MenuItem text="Quitter"/>
+            </Menu>
+
+            <Menu text="Édition">
+                <MenuItem text="Défaire"/>
+                <MenuItem text="Refaire"/>
+            </Menu>
+
+            <Menu text="Presse-Papier">
+                <MenuItem text="Stratégie"/>
+            </Menu>
+        </MenuBar>
+    </top>
+
+
+    <!--        <ImageView onMousePressed="#onOpenSettings">-->
+    <!--            <Image url="@/settings.png"/>-->
+    <!--        </ImageView>-->
+
+    <!--PICTURES-->
+
+    <!--THUMBNAIL: CAN'T MOVE, JUST FIT IMG-->
+    <left>
+        <Pane prefWidth="33.33" style="-fx-border-color: black">
+            <Rectangle onMousePressed="#onPressRect" />
+        </Pane>
+    </left>
+
+    <!--CENTER: -->
+    <center>
+        <Pane prefWidth="33.33" style="-fx-border-color: red">
+            <Rectangle onMousePressed="#onPressRect" />
+        </Pane>
+    </center>
+
+    <right>
+        <Pane prefWidth="33.33" style="-fx-border-color: yellow">
+            <Rectangle onMousePressed="#onPressRect" />
+        </Pane>
+    </right>
+
+</BorderPane>

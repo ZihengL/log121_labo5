@@ -1,7 +1,8 @@
-package ets.log121_labo5.model;
+package ets.log121_labo5.models;
 
 
 import java.io.Serializable;
+import java.util.Objects;
 
 /**
  * Class: Perspective
@@ -13,10 +14,10 @@ import java.io.Serializable;
 
 public class Perspective implements Serializable {
 
-    public static final double MIN_ZOOM = -200.;
-    public static final double MAX_ZOOM = 200.;
-
     // STATIC
+
+    public static final double MIN_ZOOM = -2.;
+    public static final double MAX_ZOOM = 2.;
 
     public static boolean isValidZoom(double zoom) {
         return zoom >= MIN_ZOOM && zoom <= MAX_ZOOM;
@@ -74,7 +75,13 @@ public class Perspective implements Serializable {
         return false;
     }
 
+    public int hashCode() {
+        return Objects.hash(this.position, this.zoom);
+    }
+
     // OTHER
 
-    
+    public String toString() {
+        return String.format("Position: %s\nZoom: %.2f", this.position, (this.zoom * 100.));
+    }
 }

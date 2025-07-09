@@ -9,7 +9,7 @@ package ets.log121_labo5.controllers.command;
  * @author liuzi | Zi heng Liu
  */
 
-public enum PicViewerCommand {
+public enum PictureEditorCommand {
 
     SAVE_PERSPECTIVE,
     UPLOAD_PERSPECTIVE,

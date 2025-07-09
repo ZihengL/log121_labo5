@@ -1,4 +1,4 @@
-package ets.log121_labo5.model.observer;
+package ets.log121_labo5.models.observer;
 
 
 /**
@@ -9,5 +9,7 @@ package ets.log121_labo5.model.observer;
  * @author liuzi | Zi heng Liu
  */
 
-public class Observer {
+public interface Observer {
+
+    public void update(Subject subject);
 }

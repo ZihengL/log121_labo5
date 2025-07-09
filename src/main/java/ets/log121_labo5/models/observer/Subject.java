@@ -1,5 +1,7 @@
-package ets.log121_labo5.model.observer;
+package ets.log121_labo5.models.observer;
 
+
+import java.util.ArrayList;
 
 /**
  * Class: Subject
@@ -9,5 +11,24 @@ package ets.log121_labo5.model.observer;
  * @author liuzi | Zi heng Liu
  */
 
-public class Subject {
+public abstract class Subject {
+
+    protected ArrayList<Observer> observers;
+
+    public Subject() {
+        this.observers = new ArrayList<Observer>();
+    }
+
+    public void addObserver(Observer observer) {
+        this.observers.add(observer);
+    }
+
+    public void removeObserver(Observer observer) {
+        this.observers.remove(observer);
+    }
+
+    public void notifyObservers() {
+        for (Observer observer : this.observers)
+            observer.update(this);
+    }
 }
