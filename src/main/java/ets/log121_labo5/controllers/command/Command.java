@@ -13,4 +13,6 @@ package ets.log121_labo5.controllers.command;
 public interface Command {
 
     public void execute();
+
+    public void undo();
 }

@@ -1,4 +1,4 @@
-package ets.log121_labo5.controllers.actions;
+package ets.log121_labo5.controllers.command.commands;
 
 
 import ets.log121_labo5.controllers.command.Command;
@@ -11,10 +11,15 @@ import ets.log121_labo5.controllers.command.Command;
  * @author liuzi | Zi heng Liu
  */
 
-public class LoadPerspectiveAction implements Command {
+public class LoadPerspective implements Command {
 
     @Override
     public void execute() {
+
+    }
+
+    @Override
+    public void undo() {
 
     }
 }

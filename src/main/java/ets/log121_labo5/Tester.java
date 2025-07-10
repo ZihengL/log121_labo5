@@ -30,6 +30,8 @@ public class Tester {
         // Serializable
         System.out.println("BEFORE SERIALIZATION");
 
+
+
         Perspective perspective = new Perspective();
         perspective.setPosition(5., 12.);
         perspective.setZoom(1.42);
