@@ -1,13 +1,15 @@
 package ets.log121_labo5;
 
 
+import ets.log121_labo5.controllers.command.CommandsManager;
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.Vector;
+import ets.log121_labo5.models.SaveState;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
+import java.io.*;
+
+import javafx.scene.image.Image;
+
+import javax.swing.*;
 
 /**
  * Class: Tester
@@ -27,10 +29,41 @@ public class Tester {
 //        v.translate(new Vector(3., 4.));
 //        System.out.println(v);
 
-        // Serializable
-        System.out.println("BEFORE SERIALIZATION");
+        CommandsManager instance = CommandsManager.getInstance();
+        SaveState state = instance.getAsSaveState();
 
+        System.out.println(state);
 
+        instance.saveState("test.ser");
+
+        try {
+            System.out.println("FILECHOOSer");
+            JFileChooser fc = new JFileChooser();
+            int returnVal = fc.showOpenDialog(null);
+
+            if (returnVal == JFileChooser.APPROVE_OPTION) {
+                File file = fc.getSelectedFile();
+
+                FileInputStream fis = new FileInputStream(file);
+                Image image = new Image(fis);
+
+                instance.setImage(image);
+//                instance.loadState(file);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+//        FileChooser fc = new FileChooser();
+//        File file = fc.showOpenDialog(null);
+//
+//        if (file != null)
+//            try {
+//                Image image = new Image(new FileInputStream(file));
+//                instance.setImage(image);
+//            } catch (FileNotFoundException e) {
+//                    throw new RuntimeException(e);
+//                }
 
         Perspective perspective = new Perspective();
         perspective.setPosition(5., 12.);
@@ -49,10 +82,10 @@ public class Tester {
 //        Tools.serialize("Pers", perspectives);
 
         // Deserialization
-        Perspective deserialized = (Perspective) Tools.deserialize("Pers");
+//        Perspective deserialized = (Perspective) Tools.deserialize("Pers");
 
-        System.out.println("\nDESERIALIZED");
+//        System.out.println("\nDESERIALIZED");
 //        for (Perspective p : deserialized)
-        System.out.println(deserialized);
+//        System.out.println(deserialized);
     }
 }

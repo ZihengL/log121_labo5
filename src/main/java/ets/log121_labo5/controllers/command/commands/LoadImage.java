@@ -1,25 +1,14 @@
 package ets.log121_labo5.controllers.command.commands;
 
-
 import ets.log121_labo5.controllers.command.Command;
 import ets.log121_labo5.controllers.command.CommandsManager;
 import javafx.scene.image.Image;
-import javafx.stage.FileChooser;
 
 import javax.swing.*;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-/**
- * Class: LoadPerspectiveAction
- * Created on: 7/9/2025
- * Description:
- *
- * @author liuzi | Zi heng Liu
- */
-
-public class LoadPerspective implements Command {
+public class LoadImage implements Command {
 
     @Override
     public void execute() {

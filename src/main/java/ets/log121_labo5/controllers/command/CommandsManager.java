@@ -3,6 +3,7 @@ package ets.log121_labo5.controllers.command;
 import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.SaveState;
 import ets.log121_labo5.models.Vector;
+import ets.log121_labo5.models.observer.Observable;
 import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -17,7 +18,8 @@ import java.io.*;
  * @author liuzi | Zi heng Liu
  */
 
-public class CommandsManager {
+// TODO: ON INITIALIZE IN CONTROLLERS, ADD THEMSELVES TO THE LIST OF OBSERVERS
+public class CommandsManager extends Observable {
 
     private Image image;
     private Perspective leftside;
@@ -34,7 +36,11 @@ public class CommandsManager {
 
     /* --------- INSTANCE --------- */
 
-    private CommandsManager() {}
+    private CommandsManager() {
+        this.image = null;
+        this.leftside = new Perspective();
+        this.rightside = new Perspective();
+    }
 
     // ACCESSORS
 
@@ -50,7 +56,7 @@ public class CommandsManager {
         return this.rightside;
     }
 
-    public SaveState getBundledStates() {
+    public SaveState getAsSaveState() {
         return new SaveState(this.image, this.leftside, this.rightside);
     }
 
@@ -58,6 +64,8 @@ public class CommandsManager {
 
     public void setImage(Image image) {
         this.image = image;
+
+        this.notifyObservers(); // NOTIFY TO UPDATE IMAGE
     }
 
     public void setLeftside(Perspective leftside) {
@@ -71,12 +79,12 @@ public class CommandsManager {
     /* -- MENUBAR: FILE MENU -- */
 
     // SAVE APP STATE
-    public void saveState(String filename) {
-        SaveState bundledStates = this.getBundledStates();
+    public void saveState(String path) {
+        SaveState state = this.getAsSaveState();
 
         try (ObjectOutputStream outputStream = new ObjectOutputStream(
-                new FileOutputStream(filename))) {
-            outputStream.writeObject(bundledStates);
+                new FileOutputStream(path))) {
+            outputStream.writeObject(state);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -91,6 +99,8 @@ public class CommandsManager {
             this.setImage(saveState.image());
             this.setLeftside(saveState.leftside());
             this.setRightside(saveState.rightside());
+
+            System.out.println("LOADED\n" + saveState);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

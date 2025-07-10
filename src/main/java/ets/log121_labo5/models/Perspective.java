@@ -82,6 +82,6 @@ public class Perspective implements Serializable {
     // OTHER
 
     public String toString() {
-        return String.format("Position: %s\nZoom: %.2f", this.position, (this.zoom * 100.));
+        return String.format("(Position: %s | Zoom: %.2f)", this.position, (this.zoom * 100.));
     }
 }

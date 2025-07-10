@@ -59,13 +59,14 @@
         </Pane>
     </left>
 
-    <!--CENTER: -->
+    <!--LEFTSIDE-->
     <center>
         <Pane prefWidth="33.33" style="-fx-border-color: red">
-            <Rectangle onMousePressed="#onPressRect" />
+            <Rectangle onMousePressed="#onPressRect" style="-fx-border-color: green"/>
         </Pane>
     </center>
 
+    <!--RIGHTSIDE-->
     <right>
         <Pane prefWidth="33.33" style="-fx-border-color: yellow">
             <Rectangle onMousePressed="#onPressRect" />

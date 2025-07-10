@@ -1,15 +1,30 @@
 package ets.log121_labo5.controllers;
 
+import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.models.observer.Observable;
+import ets.log121_labo5.models.observer.Observer;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.FileChooser;
 
-public class MainController {
+import java.awt.*;
+
+public class MainController implements Observer {
+
+    @FXML private Rectangle rect;
+
+    @Override
+    public void update(Observable observable) {
+
+    }
+
+    // UI
 
     @FXML
     private void initialize() {
-
+        CommandsManager instance = CommandsManager.getInstance();
+        instance.addObserver(this);
     }
 
     @FXML
