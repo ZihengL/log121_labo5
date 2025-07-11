@@ -12,7 +12,7 @@ public class Application extends javafx.application.Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Application.class.getResource("main-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
 
-        stage.setTitle("Hello!");
+        stage.setTitle("Navigateur d'image");
         stage.setScene(scene);
         stage.show();
     }

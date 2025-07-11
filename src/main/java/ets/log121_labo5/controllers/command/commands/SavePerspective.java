@@ -19,19 +19,15 @@ import java.util.Arrays;
 
 public class SavePerspective implements Command {
 
-    private final Image image;
-    private final Perspective leftside;
-    private final Perspective rightside;
+    public SavePerspective() {
 
-    public SavePerspective(Image image, Perspective leftside, Perspective rightside) {
-        this.image = image;
-        this.leftside = leftside;
-        this.rightside = rightside;
     }
 
     @Override
     public void execute() {
         CommandsManager manager = CommandsManager.getInstance();
+
+        // TODO
     }
 
     @Override

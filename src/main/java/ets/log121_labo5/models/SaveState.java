@@ -7,6 +7,8 @@ import java.io.Serializable;
 public record SaveState(Image image, Perspective leftside, Perspective rightside) implements Serializable {
 
     public String toString() {
-        return String.format("Leftside: %s - Rightside: %s", this.leftside, this.rightside);
+        String url = this.image != null ? this.image.getUrl() : "";
+
+        return String.format("(L: %s, R: %s, url=\"%s\")", this.leftside, this.rightside, url);
     }
 }

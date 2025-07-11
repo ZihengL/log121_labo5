@@ -14,63 +14,129 @@
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.shape.Rectangle?>
-<BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="ets.log121_labo5.controllers.MainController"
-            minWidth="600" minHeight="400"
-            stylesheets="@/main.css">
-    <BorderPane.margin>
-        <Insets left="15" right="15" top="15" bottom="15"/>
-    </BorderPane.margin>
+<!--<BorderPane xmlns:fx="http://javafx.com/fxml"-->
+<!--            fx:controller="ets.log121_labo5.controllers.MainController"-->
+<!--            prefWidth="1280" prefHeight="720"-->
+<!--            stylesheets="@/main.css">-->
+<!--    <BorderPane.margin>-->
+<!--        <Insets left="15" right="15" top="15" bottom="15"/>-->
+<!--    </BorderPane.margin>-->
+
+<!--    &lt;!&ndash;MENUBAR&ndash;&gt;-->
+<!--    <top>-->
+<!--        <MenuBar>-->
+<!--            <Menu text="Fichier">-->
+<!--                <MenuItem fx:id="itemSavePerspective" text="Sauvegarder perspective"/>-->
+<!--                <MenuItem text="Charger perspective"/>-->
+<!--                <SeparatorMenuItem/>-->
+<!--                <MenuItem fx:id="itemLoadImage" text="Charger image" onAction="#uploadImage"/>-->
+<!--                <SeparatorMenuItem/>-->
+<!--                <MenuItem text="Quitter"/>-->
+<!--            </Menu>-->
+
+<!--            <Menu text="Édition">-->
+<!--                <MenuItem text="Défaire"/>-->
+<!--                <MenuItem text="Refaire"/>-->
+<!--            </Menu>-->
+
+<!--            <Menu text="Presse-Papier">-->
+<!--                <MenuItem text="Stratégie"/>-->
+<!--            </Menu>-->
+<!--        </MenuBar>-->
+<!--    </top>-->
+
+
+<!--    &lt;!&ndash;        <ImageView onMousePressed="#onOpenSettings">&ndash;&gt;-->
+<!--    &lt;!&ndash;            <Image url="@/settings.png"/>&ndash;&gt;-->
+<!--    &lt;!&ndash;        </ImageView>&ndash;&gt;-->
+
+<!--    &lt;!&ndash;PICTURES&ndash;&gt;-->
+
+<!--    &lt;!&ndash;THUMBNAIL: CAN'T MOVE, JUST FIT IMG&ndash;&gt;-->
+<!--    <left>-->
+<!--        <Pane prefWidth="33.33" style="-fx-border-color: black">-->
+<!--            <ImageView fx:id="imageContainer">-->
+<!--            </ImageView>-->
+<!--        </Pane>-->
+<!--    </left>-->
+
+<!--    &lt;!&ndash;LEFTSIDE&ndash;&gt;-->
+<!--    <center>-->
+<!--        <Pane prefWidth="33.33" style="-fx-border-color: red">-->
+<!--            <Rectangle onMousePressed="#onPressRect" style="-fx-border-color: green"/>-->
+<!--        </Pane>-->
+<!--    </center>-->
+
+<!--    &lt;!&ndash;RIGHTSIDE&ndash;&gt;-->
+<!--    <right>-->
+<!--        <Pane prefWidth="33.33" style="-fx-border-color: yellow">-->
+<!--            <Rectangle onMousePressed="#onPressRect" />-->
+<!--        </Pane>-->
+<!--    </right>-->
+
+<!--</BorderPane>-->
+
+<GridPane xmlns:fx="http://javafx.com/fxml"
+          fx:controller="ets.log121_labo5.controllers.MainController"
+          prefWidth="2000" prefHeight="720"
+          stylesheets="@/main.css">
+    <columnConstraints>
+        <ColumnConstraints percentWidth="33.33"/>
+        <ColumnConstraints percentWidth="33.33"/>
+        <ColumnConstraints percentWidth="33.33"/>
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints percentHeight="5" />
+        <RowConstraints percentHeight="95" />
+    </rowConstraints>
 
     <!--MENUBAR-->
-    <top>
-        <MenuBar>
-            <Menu text="Fichier">
-                <MenuItem text="Sauvegarder perspective"/>
-                <MenuItem text="Charger perspective"/>
-                <SeparatorMenuItem/>
-                <MenuItem text="Charger image" onAction="#uploadImage"/>
-                <SeparatorMenuItem/>
-                <MenuItem text="Quitter"/>
-            </Menu>
+    <MenuBar GridPane.rowIndex="0" GridPane.columnIndex="0"
+             GridPane.columnSpan="3">
+        <Menu text="Fichier">
+            <MenuItem fx:id="itemSavePerspective" text="Sauvegarder perspective"/>
+            <MenuItem text="Charger perspective"/>
+            <SeparatorMenuItem/>
+            <MenuItem fx:id="itemLoadImage" text="Charger image" onAction="#uploadImage"/>
+            <SeparatorMenuItem/>
+            <MenuItem text="Quitter"/>
+        </Menu>
 
-            <Menu text="Édition">
-                <MenuItem text="Défaire"/>
-                <MenuItem text="Refaire"/>
-            </Menu>
+        <Menu text="Édition">
+            <MenuItem text="Défaire"/>
+            <MenuItem text="Refaire"/>
+        </Menu>
 
-            <Menu text="Presse-Papier">
-                <MenuItem text="Stratégie"/>
-            </Menu>
-        </MenuBar>
-    </top>
-
-
-    <!--        <ImageView onMousePressed="#onOpenSettings">-->
-    <!--            <Image url="@/settings.png"/>-->
-    <!--        </ImageView>-->
+        <Menu text="Presse-Papier">
+            <MenuItem text="Stratégie"/>
+        </Menu>
+    </MenuBar>
 
     <!--PICTURES-->
 
-    <!--THUMBNAIL: CAN'T MOVE, JUST FIT IMG-->
-    <left>
-        <Pane prefWidth="33.33" style="-fx-border-color: black">
-            <Rectangle onMousePressed="#onPressRect" />
-        </Pane>
-    </left>
+    <!--THUMBNAIL-->
+    <Pane style="-fx-border-color: blue"
+            GridPane.rowIndex="1" GridPane.columnIndex="0">
+        <ImageView fx:id="thumbnail" style="-fx-border-color: yellow"
+                   preserveRatio="true">
+
+<!--            FIGURE OUT THIS BINDING THING-->
+            <fitHeight><Binding source="$parent" property="height" /></fitHeight>
+        </ImageView>
+    </Pane>
 
     <!--LEFTSIDE-->
-    <center>
-        <Pane prefWidth="33.33" style="-fx-border-color: red">
-            <Rectangle onMousePressed="#onPressRect" style="-fx-border-color: green"/>
-        </Pane>
-    </center>
+    <Pane style="-fx-border-color: blue"
+          GridPane.rowIndex="1" GridPane.columnIndex="1">
+        <Rectangle onMousePressed="#onPressRect" style="-fx-border-color: green"/>
+    </Pane>
+
 
     <!--RIGHTSIDE-->
-    <right>
-        <Pane prefWidth="33.33" style="-fx-border-color: yellow">
-            <Rectangle onMousePressed="#onPressRect" />
-        </Pane>
-    </right>
+    <Pane style="-fx-border-color: blue"
+          GridPane.rowIndex="1" GridPane.columnIndex="2">
+        <Rectangle onMousePressed="#onPressRect"/>
+    </Pane>
 
-</BorderPane>
+</GridPane>
+

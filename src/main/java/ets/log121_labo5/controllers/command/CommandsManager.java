@@ -62,6 +62,14 @@ public class CommandsManager extends Observable {
 
     // MUTATORS
 
+    public void set(Image image, Perspective leftside, Perspective rightside) {
+        this.image = image;
+        this.leftside = leftside;
+        this.rightside = rightside;
+
+        this.notifyObservers();
+    }
+
     public void setImage(Image image) {
         this.image = image;
 
