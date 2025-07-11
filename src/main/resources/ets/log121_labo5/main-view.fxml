@@ -115,6 +115,7 @@
 
     <!--PICTURES-->
 
+<!--    WEIRD BEHAVIOR WHEN RESIZING WINDOW-->
     <!--THUMBNAIL-->
     <VBox fx:id="thumbNailPane"
           alignment="CENTER"
