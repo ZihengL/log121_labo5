@@ -10,12 +10,7 @@ import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class LoadImage implements EventHandler<ActionEvent>, Command {
-
-    @Override
-    public void handle(ActionEvent event) {
-        this.execute();
-    }
+public class LoadImage extends GenericCommand {
 
     @Override
     public void execute() {

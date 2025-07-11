@@ -17,7 +17,7 @@ import java.util.Arrays;
  * @author liuzi | Zi heng Liu
  */
 
-public class SavePerspective implements Command {
+public class SavePerspective extends GenericCommand {
 
     public SavePerspective() {
 

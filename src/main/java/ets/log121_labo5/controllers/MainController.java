@@ -16,13 +16,12 @@ import javafx.stage.FileChooser;
 
 public class MainController implements Observer {
 
-    @FXML private Rectangle rect;
-
     @FXML private MenuItem itemSavePerspective;
     @FXML private MenuItem itemLoadImage;
 
     @FXML private ImageView thumbnail;
-
+    @FXML private ImageView leftside;
+    @FXML private ImageView rightside;
 
     // OBSERVER IMPLEMENTATION
     @Override

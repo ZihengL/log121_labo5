@@ -76,9 +76,10 @@
 
 <!--</BorderPane>-->
 
+<?import javafx.beans.binding.Binding?>
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="ets.log121_labo5.controllers.MainController"
-          prefWidth="2000" prefHeight="720"
+          prefWidth="1200" prefHeight="600"
           stylesheets="@/main.css">
     <columnConstraints>
         <ColumnConstraints percentWidth="33.33"/>
@@ -115,28 +116,38 @@
     <!--PICTURES-->
 
     <!--THUMBNAIL-->
-    <Pane style="-fx-border-color: blue"
-            GridPane.rowIndex="1" GridPane.columnIndex="0">
-        <ImageView fx:id="thumbnail" style="-fx-border-color: yellow"
-                   preserveRatio="true">
-
-<!--            FIGURE OUT THIS BINDING THING-->
-            <fitHeight><Binding source="$parent" property="height" /></fitHeight>
-        </ImageView>
-    </Pane>
+    <VBox fx:id="thumbNailPane"
+          alignment="CENTER"
+          GridPane.rowIndex="1" GridPane.columnIndex="0"
+          style="-fx-border-color: blue">
+        <ImageView fx:id="thumbnail"
+                   preserveRatio="true"
+                   pickOnBounds="true"
+                   fitWidth="${thumbNailPane.width}"/>
+    </VBox>
 
     <!--LEFTSIDE-->
-    <Pane style="-fx-border-color: blue"
-          GridPane.rowIndex="1" GridPane.columnIndex="1">
-        <Rectangle onMousePressed="#onPressRect" style="-fx-border-color: green"/>
-    </Pane>
+    <VBox fx:id="leftsidePane"
+          alignment="CENTER"
+          GridPane.rowIndex="1" GridPane.columnIndex="1"
+          style="-fx-border-color: yellow">
+        <ImageView fx:id="leftside"
+                   preserveRatio="true"
+                   pickOnBounds="true"
+                   fitWidth="${leftsidePane.width}"/>
+    </VBox>
 
 
     <!--RIGHTSIDE-->
-    <Pane style="-fx-border-color: blue"
-          GridPane.rowIndex="1" GridPane.columnIndex="2">
-        <Rectangle onMousePressed="#onPressRect"/>
-    </Pane>
+    <VBox fx:id="rightsidePane"
+          alignment="CENTER"
+          GridPane.rowIndex="1" GridPane.columnIndex="2"
+          style="-fx-border-color: red">
+        <ImageView fx:id="rightside"
+                   preserveRatio="true"
+                   pickOnBounds="true"
+                   fitWidth="${rightsidePane.width}"/>
+    </VBox>
 
 </GridPane>
 

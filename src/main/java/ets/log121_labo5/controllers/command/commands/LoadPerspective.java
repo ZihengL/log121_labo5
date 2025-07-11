@@ -19,7 +19,7 @@ import java.io.FileNotFoundException;
  * @author liuzi | Zi heng Liu
  */
 
-public class LoadPerspective implements Command {
+public class LoadPerspective extends GenericCommand {
 
     @Override
     public void execute() {

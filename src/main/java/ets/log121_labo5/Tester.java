@@ -76,13 +76,13 @@ public class Tester {
         System.out.println(perspective2);
 
         // Serialization
-        Perspective[] perspectives = new Perspective[] { perspective, perspective2 };
+//        Perspective[] perspectives = new Perspective[] { perspective, perspective2 };
 //        System.out.println("SERIALIZE TEST");
 //        // Serialization
-//        Tools.serialize("Pers", perspectives);
+        Tools.serialize("test123", perspective, perspective2);
 
         // Deserialization
-//        Perspective deserialized = (Perspective) Tools.deserialize("Pers");
+//        Perspective[] deserialized = (Perspective[]) Tools.deserialize("test123");
 
 //        System.out.println("\nDESERIALIZED");
 //        for (Perspective p : deserialized)
