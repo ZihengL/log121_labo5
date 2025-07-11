@@ -1,7 +1,8 @@
 package ets.log121_labo5.controllers;
 
 import ets.log121_labo5.controllers.command.CommandsManager;
-import ets.log121_labo5.controllers.command.commands.LoadImage;
+import ets.log121_labo5.controllers.command.commands.LoadImageCommand;
+import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.observer.Observable;
 import ets.log121_labo5.models.observer.Observer;
 import javafx.event.ActionEvent;
@@ -10,7 +11,6 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.shape.Rectangle;
 import javafx.stage.FileChooser;
 
 
@@ -27,14 +27,15 @@ public class MainController implements Observer {
     @Override
     public void update(Observable observable) {
         CommandsManager manager = (CommandsManager) observable;
+        Image image = manager.getImage();
+        Perspective leftside = manager.getLeftside(),
+                    rightside = manager.getRightside();
 
         if (!this.updateImage(manager.getImage()))
             return;
-
-
     }
 
-    // TODO: NEED TO SET THUMBNAIL IMAGEVIEW SO THAT ITS MAX WIDTH IS THE WIDTH OF THE PARENT
+    // TODO: NEED TO SET THUMBNAIL IMAGEVIEW SO THAT ITS MAX WIDTH TO THE WIDTH OF THE PARENT
     public boolean updateImage(Image image) {
         Image current = this.thumbnail.getImage();
 
@@ -55,7 +56,7 @@ public class MainController implements Observer {
         instance.addObserver(this);
 
         // MENUBAR
-        this.itemLoadImage.setOnAction(new LoadImage());
+        this.itemLoadImage.setOnAction(new LoadImageCommand());
     }
 
     @FXML

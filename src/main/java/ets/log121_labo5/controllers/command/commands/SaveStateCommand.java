@@ -1,13 +1,7 @@
 package ets.log121_labo5.controllers.command.commands;
 
 
-import ets.log121_labo5.controllers.command.Command;
 import ets.log121_labo5.controllers.command.CommandsManager;
-import ets.log121_labo5.models.Perspective;
-import javafx.scene.image.Image;
-
-import java.io.IOException;
-import java.util.Arrays;
 
 /**
  * Class: SavePerspectiveAction
@@ -17,9 +11,9 @@ import java.util.Arrays;
  * @author liuzi | Zi heng Liu
  */
 
-public class SavePerspective extends GenericCommand {
+public class SaveStateCommand extends GenericCommand {
 
-    public SavePerspective() {
+    public SaveStateCommand() {
 
     }
 

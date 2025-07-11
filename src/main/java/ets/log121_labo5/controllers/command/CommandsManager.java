@@ -1,7 +1,7 @@
 package ets.log121_labo5.controllers.command;
 
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.SaveState;
+import ets.log121_labo5.models.AppState;
 import ets.log121_labo5.models.Vector;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.scene.image.Image;
@@ -18,7 +18,6 @@ import java.io.*;
  * @author liuzi | Zi heng Liu
  */
 
-// TODO: ON INITIALIZE IN CONTROLLERS, ADD THEMSELVES TO THE LIST OF OBSERVERS
 public class CommandsManager extends Observable {
 
     private Image image;
@@ -56,11 +55,15 @@ public class CommandsManager extends Observable {
         return this.rightside;
     }
 
-    public SaveState getAsSaveState() {
-        return new SaveState(this.image, this.leftside, this.rightside);
+    public AppState getAsSaveState() {
+        return new AppState(this.image, this.leftside, this.rightside);
     }
 
     // MUTATORS
+
+    public void set(AppState state) {
+        this.set(state.image(), state.leftside(), state.rightside());
+    }
 
     public void set(Image image, Perspective leftside, Perspective rightside) {
         this.image = image;
@@ -73,7 +76,7 @@ public class CommandsManager extends Observable {
     public void setImage(Image image) {
         this.image = image;
 
-        this.notifyObservers(); // NOTIFY TO UPDATE IMAGE
+        this.notifyObservers();
     }
 
     public void setLeftside(Perspective leftside) {
@@ -88,7 +91,7 @@ public class CommandsManager extends Observable {
 
     // SAVE APP STATE
     public void saveState(String path) {
-        SaveState state = this.getAsSaveState();
+        AppState state = this.getAsSaveState();
 
         try (ObjectOutputStream outputStream = new ObjectOutputStream(
                 new FileOutputStream(path))) {
@@ -102,13 +105,13 @@ public class CommandsManager extends Observable {
     public void loadState(File file) {
         try (ObjectInputStream inputStream = new ObjectInputStream(
                 new FileInputStream(file))) {
-            SaveState saveState = (SaveState) inputStream.readObject();
+            AppState appState = (AppState) inputStream.readObject();
 
-            this.setImage(saveState.image());
-            this.setLeftside(saveState.leftside());
-            this.setRightside(saveState.rightside());
+            this.setImage(appState.image());
+            this.setLeftside(appState.leftside());
+            this.setRightside(appState.rightside());
 
-            System.out.println("LOADED\n" + saveState);
+            System.out.println("LOADED\n" + appState);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

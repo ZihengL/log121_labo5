@@ -3,7 +3,7 @@ package ets.log121_labo5;
 
 import ets.log121_labo5.controllers.command.CommandsManager;
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.SaveState;
+import ets.log121_labo5.models.AppState;
 
 import java.io.*;
 
@@ -30,7 +30,7 @@ public class Tester {
 //        System.out.println(v);
 
         CommandsManager instance = CommandsManager.getInstance();
-        SaveState state = instance.getAsSaveState();
+        AppState state = instance.getAsSaveState();
 
         System.out.println(state);
 

@@ -1,17 +1,24 @@
 package ets.log121_labo5.controllers.command.commands;
 
-import ets.log121_labo5.controllers.command.Command;
+
 import ets.log121_labo5.controllers.command.CommandsManager;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.image.Image;
 
 import javax.swing.*;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-public class LoadImage extends GenericCommand {
+/**
+ * Class: LoadPerspectiveAction
+ * Created on: 7/9/2025
+ * Description:
+ *
+ * @author liuzi | Zi heng Liu
+ */
 
+public class LoadStateCommand extends GenericCommand {
+
+    // NOT LOADING A PERSPECTIVE, BUT AN APPSTATE
     @Override
     public void execute() {
         try {
