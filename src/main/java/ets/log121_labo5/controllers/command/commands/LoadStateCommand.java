@@ -2,11 +2,11 @@ package ets.log121_labo5.controllers.command.commands;
 
 
 import ets.log121_labo5.controllers.command.CommandsManager;
-import javafx.scene.image.Image;
+import ets.log121_labo5.controllers.command.FileDialogCommand;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
-import javax.swing.*;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
+import java.io.File;
 
 /**
  * Class: LoadPerspectiveAction
@@ -16,25 +16,29 @@ import java.io.FileNotFoundException;
  * @author liuzi | Zi heng Liu
  */
 
-public class LoadStateCommand extends GenericCommand {
+public class LoadStateCommand extends FileDialogCommand {
 
-    // NOT LOADING A PERSPECTIVE, BUT AN APPSTATE
+    // TEMPLATE INHERITED
+
     @Override
-    public void execute() {
-        try {
-            JFileChooser fc = new JFileChooser();
-
-            int option = fc.showOpenDialog(null);
-            if (option == JFileChooser.APPROVE_OPTION) {
-                FileInputStream inputStream = new FileInputStream(fc.getSelectedFile());
-                Image image = new Image(inputStream);
-
-                CommandsManager.getInstance().setImage(image);
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+    protected void setDialogOptions(FileChooser fc) {
+        fc.setTitle("Charger un état sauvegardé");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Serializable", "*.ser")
+        );
     }
+
+    @Override
+    protected File fireDialog(Stage stage, FileChooser fc) {
+        return fc.showOpenDialog(stage);
+    }
+
+    @Override
+    protected void invokeCommand(File file) {
+        CommandsManager.getInstance().loadState(file);
+    }
+
+    // COMMAND INHERITED
 
     @Override
     public void undo() {

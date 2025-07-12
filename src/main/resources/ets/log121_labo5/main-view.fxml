@@ -2,85 +2,12 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.shape.Rectangle?>
-<!--<BorderPane xmlns:fx="http://javafx.com/fxml"-->
-<!--            fx:controller="ets.log121_labo5.controllers.MainController"-->
-<!--            prefWidth="1280" prefHeight="720"-->
-<!--            stylesheets="@/main.css">-->
-<!--    <BorderPane.margin>-->
-<!--        <Insets left="15" right="15" top="15" bottom="15"/>-->
-<!--    </BorderPane.margin>-->
 
-<!--    &lt;!&ndash;MENUBAR&ndash;&gt;-->
-<!--    <top>-->
-<!--        <MenuBar>-->
-<!--            <Menu text="Fichier">-->
-<!--                <MenuItem fx:id="itemSavePerspective" text="Sauvegarder perspective"/>-->
-<!--                <MenuItem text="Charger perspective"/>-->
-<!--                <SeparatorMenuItem/>-->
-<!--                <MenuItem fx:id="itemLoadImage" text="Charger image" onAction="#uploadImage"/>-->
-<!--                <SeparatorMenuItem/>-->
-<!--                <MenuItem text="Quitter"/>-->
-<!--            </Menu>-->
-
-<!--            <Menu text="Édition">-->
-<!--                <MenuItem text="Défaire"/>-->
-<!--                <MenuItem text="Refaire"/>-->
-<!--            </Menu>-->
-
-<!--            <Menu text="Presse-Papier">-->
-<!--                <MenuItem text="Stratégie"/>-->
-<!--            </Menu>-->
-<!--        </MenuBar>-->
-<!--    </top>-->
-
-
-<!--    &lt;!&ndash;        <ImageView onMousePressed="#onOpenSettings">&ndash;&gt;-->
-<!--    &lt;!&ndash;            <Image url="@/settings.png"/>&ndash;&gt;-->
-<!--    &lt;!&ndash;        </ImageView>&ndash;&gt;-->
-
-<!--    &lt;!&ndash;PICTURES&ndash;&gt;-->
-
-<!--    &lt;!&ndash;THUMBNAIL: CAN'T MOVE, JUST FIT IMG&ndash;&gt;-->
-<!--    <left>-->
-<!--        <Pane prefWidth="33.33" style="-fx-border-color: black">-->
-<!--            <ImageView fx:id="imageContainer">-->
-<!--            </ImageView>-->
-<!--        </Pane>-->
-<!--    </left>-->
-
-<!--    &lt;!&ndash;LEFTSIDE&ndash;&gt;-->
-<!--    <center>-->
-<!--        <Pane prefWidth="33.33" style="-fx-border-color: red">-->
-<!--            <Rectangle onMousePressed="#onPressRect" style="-fx-border-color: green"/>-->
-<!--        </Pane>-->
-<!--    </center>-->
-
-<!--    &lt;!&ndash;RIGHTSIDE&ndash;&gt;-->
-<!--    <right>-->
-<!--        <Pane prefWidth="33.33" style="-fx-border-color: yellow">-->
-<!--            <Rectangle onMousePressed="#onPressRect" />-->
-<!--        </Pane>-->
-<!--    </right>-->
-
-<!--</BorderPane>-->
-
-<?import javafx.beans.binding.Binding?>
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="ets.log121_labo5.controllers.MainController"
-          prefWidth="1200" prefHeight="600"
-          stylesheets="@/main.css">
+          vgap="10"
+          prefWidth="1600" prefHeight="600">
     <columnConstraints>
         <ColumnConstraints percentWidth="33.33"/>
         <ColumnConstraints percentWidth="33.33"/>
@@ -95,60 +22,59 @@
     <MenuBar GridPane.rowIndex="0" GridPane.columnIndex="0"
              GridPane.columnSpan="3">
         <Menu text="Fichier">
-            <MenuItem fx:id="itemSavePerspective" text="Sauvegarder perspective"/>
-            <MenuItem text="Charger perspective"/>
+            <MenuItem fx:id="saveAppStateItem" text="Sauvegarder état"/>
+            <MenuItem fx:id="loadAppStateItem" text="Charger état"/>
             <SeparatorMenuItem/>
-            <MenuItem fx:id="itemLoadImage" text="Charger image" onAction="#uploadImage"/>
+            <MenuItem fx:id="loadImageItem" text="Charger image"/>
             <SeparatorMenuItem/>
-            <MenuItem text="Quitter"/>
+            <MenuItem fx:id="quitItem" text="Quitter"/>
         </Menu>
 
         <Menu text="Édition">
-            <MenuItem text="Défaire"/>
-            <MenuItem text="Refaire"/>
+            <MenuItem fx:id="undoItem" text="Défaire"/>
+            <MenuItem fx:id="redoItem" text="Refaire"/>
         </Menu>
 
         <Menu text="Presse-Papier">
-            <MenuItem text="Stratégie"/>
+            <MenuItem fx:id="pickStrategemItem" text="Stratégie"/>
         </Menu>
     </MenuBar>
 
-    <!--PICTURES-->
-
-<!--    WEIRD BEHAVIOR WHEN RESIZING WINDOW-->
     <!--THUMBNAIL-->
-    <VBox fx:id="thumbNailPane"
+    <VBox fx:id="thumbnailPane"
           alignment="CENTER"
           GridPane.rowIndex="1" GridPane.columnIndex="0"
           style="-fx-border-color: blue">
-        <ImageView fx:id="thumbnail"
+        <ImageView fx:id="thumbnailImage"
                    preserveRatio="true"
-                   pickOnBounds="true"
-                   fitWidth="${thumbNailPane.width}"/>
+                   fitWidth="${thumbnailPane.width}"
+                   fitHeight="${thumbnailPane.height}" style="-fx-border-color: black"/>
     </VBox>
 
     <!--LEFTSIDE-->
-    <VBox fx:id="leftsidePane"
-          alignment="CENTER"
-          GridPane.rowIndex="1" GridPane.columnIndex="1"
-          style="-fx-border-color: yellow">
-        <ImageView fx:id="leftside"
-                   preserveRatio="true"
-                   pickOnBounds="true"
-                   fitWidth="${leftsidePane.width}"/>
-    </VBox>
+    <fx:include fx:id="leftsidePane" source="image-navigator-view.fxml"
+                GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+<!--    <VBox fx:id="leftsidePane"-->
+<!--          alignment="CENTER"-->
+<!--          GridPane.rowIndex="1" GridPane.columnIndex="1"-->
+<!--          style="-fx-border-color: yellow">-->
+<!--        <ImageView fx:id="leftsideImage"-->
+<!--                   preserveRatio="true"-->
+<!--                   fitWidth="${leftsidePane.width}"/>-->
+<!--    </VBox>-->
 
 
     <!--RIGHTSIDE-->
-    <VBox fx:id="rightsidePane"
-          alignment="CENTER"
-          GridPane.rowIndex="1" GridPane.columnIndex="2"
-          style="-fx-border-color: red">
-        <ImageView fx:id="rightside"
-                   preserveRatio="true"
-                   pickOnBounds="true"
-                   fitWidth="${rightsidePane.width}"/>
-    </VBox>
+    <fx:include fx:id="rightsidePane" source="image-navigator-view.fxml"
+                GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+<!--    <VBox fx:id="rightsidePane"-->
+<!--          alignment="CENTER"-->
+<!--          GridPane.rowIndex="1" GridPane.columnIndex="2"-->
+<!--          style="-fx-border-color: red">-->
+<!--        <ImageView fx:id="rightsideImage"-->
+<!--                   preserveRatio="true"-->
+<!--                   fitWidth="${rightsidePane.width}"/>-->
+<!--    </VBox>-->
 
 </GridPane>
 

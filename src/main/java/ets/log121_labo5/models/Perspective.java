@@ -19,10 +19,6 @@ public class Perspective implements Serializable {
     public static final double MIN_ZOOM = -2.;
     public static final double MAX_ZOOM = 2.;
 
-    public static boolean isValidZoom(double zoom) {
-        return zoom >= MIN_ZOOM && zoom <= MAX_ZOOM;
-    }
-
     // INSTANCE
 
     private Vector position;
@@ -66,20 +62,23 @@ public class Perspective implements Serializable {
         this.position.setPosition(x, y);
     }
 
-    public boolean setZoom(double zoom) {
-        if (Perspective.isValidZoom(zoom)) {
-            this.zoom = zoom;
-            return true;
-        }
+    public void setZoom(double zoom) {
+        this.zoom = this.isValidZoom(zoom) ? zoom : this.zoom;
+    }
 
-        return false;
+    public void copyAttributes(Perspective other) {
+        this.setPosition(other.position.x, other.position.y);
+        this.setZoom(other.zoom);
+    }
+
+    // OTHER
+    public boolean isValidZoom(double zoom) {
+        return zoom >= Perspective.MIN_ZOOM && zoom <= Perspective.MAX_ZOOM;
     }
 
     public int hashCode() {
         return Objects.hash(this.position, this.zoom);
     }
-
-    // OTHER
 
     public String toString() {
         return String.format("(Position: %s | Zoom: %.2f)", this.position, (this.zoom * 100.));

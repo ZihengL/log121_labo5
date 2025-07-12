@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 import java.io.Serializable;
 
-public record AppState(Image image, Perspective leftside, Perspective rightside) implements Serializable {
+public record State(Image image, Perspective leftside, Perspective rightside) implements Serializable {
 
     public String toString() {
         String url = this.image != null ? this.image.getUrl() : "";

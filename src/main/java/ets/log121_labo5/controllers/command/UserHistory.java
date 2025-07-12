@@ -2,14 +2,14 @@ package ets.log121_labo5.controllers.command;
 
 import java.util.ArrayList;
 
-public class UserCommands {
+public class UserHistory {
 
     /* --------- STATIC --------- */
 
-    private static final UserCommands instance = new UserCommands();
+    private static final UserHistory instance = new UserHistory();
 
-    public static UserCommands getInstance() {
-        return UserCommands.instance;
+    public static UserHistory getInstance() {
+        return UserHistory.instance;
     }
 
     /* --------- INSTANCE --------- */
@@ -17,7 +17,7 @@ public class UserCommands {
     private final ArrayList<Command> commands;
     private int index;
 
-    private UserCommands() {
+    private UserHistory() {
         this.commands = new ArrayList<Command>();
         this.index = 0;
     }

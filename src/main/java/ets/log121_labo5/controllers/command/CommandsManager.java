@@ -1,7 +1,7 @@
 package ets.log121_labo5.controllers.command;
 
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.AppState;
+import ets.log121_labo5.models.State;
 import ets.log121_labo5.models.Vector;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.scene.image.Image;
@@ -20,13 +20,8 @@ import java.io.*;
 
 public class CommandsManager extends Observable {
 
-    private Image image;
-    private Perspective leftside;
-    private Perspective rightside;
+    /* --------- STATIC (SINGLETON) --------- */
 
-    /* --------- STATIC --------- */
-
-    // Implémentation du patron Singleton
     private static final CommandsManager instance = new CommandsManager();
 
     public static CommandsManager getInstance() {
@@ -34,6 +29,12 @@ public class CommandsManager extends Observable {
     }
 
     /* --------- INSTANCE --------- */
+
+    private Image image;
+    private Perspective leftside;
+    private Perspective rightside;
+
+    private Perspective currentCopy;
 
     private CommandsManager() {
         this.image = null;
@@ -55,23 +56,11 @@ public class CommandsManager extends Observable {
         return this.rightside;
     }
 
-    public AppState getAsSaveState() {
-        return new AppState(this.image, this.leftside, this.rightside);
+    public State getState() {
+        return new State(this.image, this.leftside, this.rightside);
     }
 
     // MUTATORS
-
-    public void set(AppState state) {
-        this.set(state.image(), state.leftside(), state.rightside());
-    }
-
-    public void set(Image image, Perspective leftside, Perspective rightside) {
-        this.image = image;
-        this.leftside = leftside;
-        this.rightside = rightside;
-
-        this.notifyObservers();
-    }
 
     public void setImage(Image image) {
         this.image = image;
@@ -81,64 +70,60 @@ public class CommandsManager extends Observable {
 
     public void setLeftside(Perspective leftside) {
         this.leftside = leftside;
+
+        this.notifyObservers();
     }
 
     public void setRightside(Perspective rightside) {
         this.rightside = rightside;
+
+        this.notifyObservers();
+    }
+
+    public void setState(State state) {
+        this.image = state.image();
+        this.leftside = state.leftside();
+        this.rightside = state.rightside();
+
+        this.notifyObservers();
     }
 
     /* -- MENUBAR: FILE MENU -- */
 
-    // SAVE APP STATE
-    public void saveState(String path) {
-        AppState state = this.getAsSaveState();
+    public void saveState(File file) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(
+                new FileOutputStream(file))) {
+            State state = this.getState();
 
-        try (ObjectOutputStream outputStream = new ObjectOutputStream(
-                new FileOutputStream(path))) {
-            outputStream.writeObject(state);
+            oos.writeObject(state);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    // LOAD APP STATE
     public void loadState(File file) {
         try (ObjectInputStream inputStream = new ObjectInputStream(
                 new FileInputStream(file))) {
-            AppState appState = (AppState) inputStream.readObject();
+            State state = (State) inputStream.readObject();
 
-            this.setImage(appState.image());
-            this.setLeftside(appState.leftside());
-            this.setRightside(appState.rightside());
-
-            System.out.println("LOADED\n" + appState);
+            this.setState(state);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }
     }
 
-    // LOAD IMAGE
-    public Image loadImage(Stage stage) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("");
-
-        File selectedFile = fileChooser.showOpenDialog(stage);
-
-        if (selectedFile != null) {
-            System.out.println("Selected file: " + selectedFile.getAbsolutePath());
-        }
-
-        return null;
+    public void loadImage(File file) {
+        Image image = new Image(file.toURI().toString());
+        this.setState(new State(image, new Perspective(), new Perspective()));
     }
 
-    // QUIT
-    public void quitApplication() {
-
+    // TODO: maybe not necessary, unless we save state and reload upon app start or smt.
+    public void quitApplication(Stage stage) {
+        stage.close();
     }
 
     /* -- MENUBAR: EDITION -- */
 
-    // UNDO/REDO
     public void undo() {
 
     }
@@ -149,8 +134,13 @@ public class CommandsManager extends Observable {
 
     /* -- MENUBAR: "PRESSE-PAPIER" -- */
 
-    // CHOOSE STRATAGEM
     public void chooseStratagem() {
+
+    }
+
+    /* -- CONTEXT MENU -- */
+
+    public void copyPerspective() {
 
     }
 
