@@ -1,7 +1,7 @@
-package ets.log121_labo5.controllers;
+package ets.log121_labo5.controllers.command;
 
 
-import ets.log121_labo5.controllers.command.Command;
+import ets.log121_labo5.controllers.ImageNavigatorController;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
@@ -14,7 +14,7 @@ import javafx.scene.control.MenuItem;
  * @author liuzi | Zi heng Liu
  */
 
-public abstract class ContextMenuCommand extends Command {
+public abstract class ContextMenuCommand extends Command<ActionEvent> {
 
     // Fonctionne en tandem avec les instances de lambdas dans PerspectiveGetter/PerspectiveSetter
     // afin de pouvoir accéder à la bonne instance de Perspective dépendamment de l'instance

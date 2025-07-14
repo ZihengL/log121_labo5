@@ -29,5 +29,7 @@ module ets.log121_labo5 {
 
     opens ets.log121_labo5.models.observer to javafx.fxml;
     exports ets.log121_labo5.models.observer;
+    exports ets.log121_labo5.controllers.command.actioncommands;
+    opens ets.log121_labo5.controllers.command.actioncommands to javafx.fxml;
 
 }

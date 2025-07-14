@@ -12,7 +12,7 @@ import javafx.event.ActionEvent;
  * @author liuzi | Zi heng Liu
  */
 
-public class SetStratagemCommand extends Command {
+public class SetStratagemCommand extends Command<ActionEvent> {
 
     @Override
     public void execute(ActionEvent event) {

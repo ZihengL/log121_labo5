@@ -15,7 +15,7 @@ import java.io.File;
  * @author liuzi | Zi heng Liu
  */
 
-public abstract class FileDialogCommand extends Command {
+public abstract class FileDialogCommand extends Command<ActionEvent> {
 
     public static final File DEFAULT_DIRECTORY = new File(".\\src\\main\\resources\\saves");
 

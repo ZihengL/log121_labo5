@@ -14,7 +14,7 @@ import javafx.stage.Stage;
  * @author liuzi | Zi heng Liu
  */
 
-public class QuitCommand extends Command {
+public class QuitCommand extends Command<ActionEvent> {
 
     // On n'invoque
     @Override

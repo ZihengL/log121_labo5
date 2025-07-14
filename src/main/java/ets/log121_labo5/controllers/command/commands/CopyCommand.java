@@ -1,7 +1,7 @@
 package ets.log121_labo5.controllers.command.commands;
 
 
-import ets.log121_labo5.controllers.ContextMenuCommand;
+import ets.log121_labo5.controllers.command.ContextMenuCommand;
 import ets.log121_labo5.controllers.ImageNavigatorController;
 import ets.log121_labo5.models.Perspective;
 import javafx.event.ActionEvent;

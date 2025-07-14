@@ -14,7 +14,7 @@ import java.awt.*;
  * @author liuzi | Zi heng Liu
  */
 
-public class RedoCommand extends Command {
+public class RedoCommand extends Command<ActionEvent> {
 
     @Override
     public void execute(ActionEvent event) {

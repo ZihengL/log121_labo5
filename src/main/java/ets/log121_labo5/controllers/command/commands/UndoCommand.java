@@ -12,7 +12,7 @@ import javafx.event.ActionEvent;
  * @author liuzi | Zi heng Liu
  */
 
-public class UndoCommand extends Command {
+public class UndoCommand extends Command<ActionEvent> {
 
     @Override
     public void execute(ActionEvent event) {
