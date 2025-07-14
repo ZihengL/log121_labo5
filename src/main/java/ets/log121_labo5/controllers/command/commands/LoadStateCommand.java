@@ -7,6 +7,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Class: LoadPerspectiveAction
@@ -26,6 +27,8 @@ public class LoadStateCommand extends FileDialogCommand {
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Serializable", "*.ser")
         );
+
+        super.setDialogOptions(fc);
     }
 
     @Override
@@ -35,7 +38,11 @@ public class LoadStateCommand extends FileDialogCommand {
 
     @Override
     protected void invokeCommand(File file) {
-        CommandsManager.getInstance().loadState(file);
+        try {
+            CommandsManager.getInstance().loadState(file);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     // COMMAND INHERITED

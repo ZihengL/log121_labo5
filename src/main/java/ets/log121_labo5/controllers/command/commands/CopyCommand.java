@@ -1,12 +1,10 @@
 package ets.log121_labo5.controllers.command.commands;
 
 
+import ets.log121_labo5.controllers.ContextMenuCommand;
 import ets.log121_labo5.controllers.ImageNavigatorController;
-import ets.log121_labo5.controllers.command.Command;
+import ets.log121_labo5.models.Perspective;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.stage.Stage;
 
 /**
  * Class: CopyCommand
@@ -16,22 +14,24 @@ import javafx.stage.Stage;
  * @author liuzi | Zi heng Liu
  */
 
-public class CopyCommand extends Command {
+public class CopyCommand extends ContextMenuCommand {
 
+    private Perspective perspective;
 
-
-    // TODO: FIND A WAY TO GET THE CONTROLLER OF THE EVENT AND GET THE PERSPECTIVE FROM THE CONTROLLER
     @Override
     public void execute(ActionEvent event) {
-        Node source = (Node) event.getSource();
-        FXMLLoader loader = (FXMLLoader) source.getScene().getUserData();
-        ImageNavigatorController controller = loader.getController();
+        ImageNavigatorController controller = this.getSourceController(event);
 
-
+        // Instance de Perspective donnée par le PerspectiveGetter de leftside/rightside.
+        this.perspective = controller.getPerspective();
     }
 
     @Override
     public void undo() {
 
+    }
+
+    public Perspective getPerspective() {
+        return this.perspective;
     }
 }

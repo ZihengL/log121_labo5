@@ -7,6 +7,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.io.IOException;
 
 /**
  * Class: SavePerspectiveAction
@@ -23,6 +24,8 @@ public class SaveStateCommand extends FileDialogCommand {
     @Override
     protected void setDialogOptions(FileChooser fc) {
         fc.setTitle("Sauvegarder l'état courante.");
+
+        super.setDialogOptions(fc);
     }
 
     @Override
@@ -32,7 +35,11 @@ public class SaveStateCommand extends FileDialogCommand {
 
     @Override
     protected void invokeCommand(File file) {
-        CommandsManager.getInstance().saveState(file);
+        try {
+            CommandsManager.getInstance().saveState(file);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     // COMMAND INHERITED

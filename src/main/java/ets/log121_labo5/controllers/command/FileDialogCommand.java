@@ -17,6 +17,8 @@ import java.io.File;
 
 public abstract class FileDialogCommand extends Command {
 
+    public static final File DEFAULT_DIRECTORY = new File(".\\src\\main\\resources\\saves");
+
     // TEMPLATE METHOD
     @Override
     public final void execute(ActionEvent event) {
@@ -28,7 +30,15 @@ public abstract class FileDialogCommand extends Command {
             this.invokeCommand(file);
     }
 
-    protected abstract void setDialogOptions(FileChooser fc);
+    protected void setDialogOptions(FileChooser fc) {
+//        URL resUrl = getClass().getResource("src/main/resources/saves/test.ser");
+//        System.out.println("URL: " + resUrl);
+//        System.out.println(new File(".\\src\\main\\resources\\saves").getAbsolutePath());
+
+        File target = FileDialogCommand.DEFAULT_DIRECTORY;
+        if (target.exists())
+            fc.setInitialDirectory(target);
+    }
 
     protected abstract File fireDialog(Stage stage, FileChooser fc);
 

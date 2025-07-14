@@ -1,6 +1,7 @@
 package ets.log121_labo5.models;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -16,8 +17,15 @@ public class Perspective implements Serializable {
 
     // STATIC
 
-    public static final double MIN_ZOOM = -2.;
-    public static final double MAX_ZOOM = 2.;
+    @Serial
+    private static final long serialVersionUID = 1L;
+
+    public static final double MIN_ZOOM = 0.5;
+    public static final double MAX_ZOOM = 2.5;
+
+    public static final double DEFAULT_ZOOM = 1.0;
+    public static final double ZOOM_OUT_FACTOR = 0.9;
+    public static final double ZOOM_IN_FACTOR = 1.1;
 
     // INSTANCE
 
@@ -26,7 +34,7 @@ public class Perspective implements Serializable {
 
 
     public Perspective() {
-        this(0., 0., 0.);
+        this(0., 0., Perspective.DEFAULT_ZOOM);
     }
 
     public Perspective(double x, double y, double zoom) {
@@ -71,9 +79,23 @@ public class Perspective implements Serializable {
         this.setZoom(other.zoom);
     }
 
+    public Perspective copy() {
+        Vector p = this.position;
+
+        return new Perspective(p.x, p.y, this.zoom);
+    }
+
     // OTHER
     public boolean isValidZoom(double zoom) {
         return zoom >= Perspective.MIN_ZOOM && zoom <= Perspective.MAX_ZOOM;
+    }
+
+    public void zoomInOnPosition(double x, double y) {
+        this.setZoom(this.zoom * Perspective.ZOOM_IN_FACTOR);
+    }
+
+    public void zoomOutOnPosition(double x, double y) {
+        this.setZoom(this.zoom * Perspective.ZOOM_OUT_FACTOR);
     }
 
     public int hashCode() {

@@ -1,6 +1,9 @@
 package ets.log121_labo5.models;
 
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.Serial;
 import java.io.Serializable;
 
 /**
@@ -12,6 +15,9 @@ import java.io.Serializable;
  */
 
 public class Vector implements Serializable {
+
+    @Serial
+    private static final long serialVersionUID = 1L;
 
     public double x;
     public double y;
@@ -68,9 +74,7 @@ public class Vector implements Serializable {
     // NORM/LENGTH
 
     public double norm() {
-        return Math.sqrt(
-                Math.pow(this.x, 2.) + Math.pow(this.y, 2.)
-        );
+        return Math.sqrt(Math.pow(this.x, 2.) + Math.pow(this.y, 2.));
     }
 
     // DISTANCE

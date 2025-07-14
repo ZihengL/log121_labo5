@@ -1,13 +1,14 @@
 package ets.log121_labo5.controllers;
 
 
-import ets.log121_labo5.controllers.command.Command;
 import ets.log121_labo5.controllers.command.commands.CopyCommand;
 import ets.log121_labo5.controllers.command.commands.PasteCommand;
-import ets.log121_labo5.models.Perspective;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TableView;
+import javafx.scene.input.ContextMenuEvent;
+import javafx.scene.layout.Pane;
 
 
 /**
@@ -20,16 +21,36 @@ import javafx.scene.control.TableView;
 
 public class ContextMenuController {
 
-    @FXML private TableView<MenuItem> commandsTable;
+    @FXML private final ContextMenu menu;
 
-    @FXML
-    private void initialize() {
+    // Instanciation et initialisation du menu clique-droit avec ses sous-menus(copier/coller).
+    public ContextMenuController() {
+        this.menu = new ContextMenu();
+
         MenuItem copyItem = new MenuItem("Copier");
-        copyItem.setOnAction(new CopyCommand());
+        CopyCommand copyCommand = new CopyCommand();
+        copyItem.setOnAction(copyCommand);
 
         MenuItem pasteItem = new MenuItem("Coller");
-        pasteItem.setOnAction(new PasteCommand());
+        PasteCommand pasteCommand = new PasteCommand(copyCommand);
+        pasteItem.setOnAction(pasteCommand);
 
-        this.commandsTable.getItems().addAll(copyItem, pasteItem);
+        this.menu.getItems().setAll(copyItem, pasteItem);
+    }
+
+    // On ajoute la fonctionalité du menu clique-droit à tous les panneaux en argument.
+    public void addToPanes(Pane ...panes) {
+        for (Pane pane : panes) {
+            EventHandler<ContextMenuEvent> handler = event -> {
+                if (!this.menu.isShowing())
+                    this.menu.show(pane, event.getScreenX(), event.getScreenY());
+                else
+                    this.menu.hide();
+
+                event.consume();
+            };
+
+            pane.setOnContextMenuRequested(handler);
+        }
     }
 }

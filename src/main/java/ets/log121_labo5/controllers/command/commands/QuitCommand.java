@@ -16,13 +16,13 @@ import javafx.stage.Stage;
 
 public class QuitCommand extends Command {
 
-    // On quitte en passant en argument la fenêtre principale de l'application
-    // lorsqu'on invoque quitApp() du gestionnaire de commandes.
+    // On n'invoque
     @Override
     public void execute(ActionEvent event) {
-        CommandsManager manager = CommandsManager.getInstance();
-
-        manager.quitApplication(Command.stage);
+//        CommandsManager manager = CommandsManager.getInstance();
+//
+//        manager.quitApplication(Command.stage);
+        Command.stage.close();
     }
 
     // Rien pour undo parce qu'on ne peut pas défaire l'action de quitter l'application.

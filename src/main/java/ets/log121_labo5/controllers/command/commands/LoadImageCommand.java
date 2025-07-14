@@ -17,6 +17,8 @@ public class LoadImageCommand extends FileDialogCommand {
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
         );
+
+        super.setDialogOptions(fc);
     }
 
     @Override
