@@ -1,4 +1,4 @@
-package ets.log121_labo5.controllers.command.commands;
+package ets.log121_labo5.controllers.command.commands.menubar;
 
 
 import ets.log121_labo5.controllers.command.Command;

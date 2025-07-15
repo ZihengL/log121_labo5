@@ -1,5 +1,4 @@
-package ets.log121_labo5.controllers.command.commands;
-
+package ets.log121_labo5.controllers.command.commands.menubar;
 
 import ets.log121_labo5.controllers.command.CommandsManager;
 import ets.log121_labo5.controllers.command.FileDialogCommand;
@@ -7,25 +6,16 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
-import java.io.IOException;
 
-/**
- * Class: LoadPerspectiveAction
- * Created on: 7/9/2025
- * Description:
- *
- * @author liuzi | Zi heng Liu
- */
-
-public class LoadStateCommand extends FileDialogCommand {
+public class LoadImageCommand extends FileDialogCommand {
 
     // TEMPLATE INHERITED
 
     @Override
     protected void setDialogOptions(FileChooser fc) {
-        fc.setTitle("Charger un état sauvegardé");
+        fc.setTitle("Charger un image");
         fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Serializable", "*.ser")
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
         );
 
         super.setDialogOptions(fc);
@@ -38,11 +28,7 @@ public class LoadStateCommand extends FileDialogCommand {
 
     @Override
     protected void invokeCommand(File file) {
-        try {
-            CommandsManager.getInstance().loadState(file);
-        } catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
+        CommandsManager.getInstance().loadImage(file);
     }
 
     // COMMAND INHERITED

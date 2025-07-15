@@ -1,8 +1,8 @@
 package ets.log121_labo5.controllers;
 
 
-import ets.log121_labo5.controllers.command.commands.CopyCommand;
-import ets.log121_labo5.controllers.command.commands.PasteCommand;
+import ets.log121_labo5.controllers.command.commands.contextmenu.CopyCommand;
+import ets.log121_labo5.controllers.command.commands.contextmenu.PasteCommand;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;

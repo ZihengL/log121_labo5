@@ -1,12 +1,13 @@
 package ets.log121_labo5.controllers;
 
 import ets.log121_labo5.controllers.command.CommandsManager;
-import ets.log121_labo5.controllers.command.commands.CopyCommand;
+import ets.log121_labo5.controllers.command.commands.navigation.ZoomCommand;
 import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.Vector;
 import ets.log121_labo5.models.observer.Observable;
 import ets.log121_labo5.models.observer.Observer;
 import javafx.fxml.FXML;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
@@ -33,7 +34,7 @@ public class ImageNavigatorController implements Observer {
         this.imageContainer.fitHeightProperty().bind(this.rootPane.heightProperty().subtract(20));
 
         // NAVIGATION
-//        this.imageContainer.setOnMouseD
+        this.imageContainer.setOnScroll(new ZoomCommand());
 
         // Zoom
 //        this.imageContainer.setOnScroll();
@@ -70,8 +71,10 @@ public class ImageNavigatorController implements Observer {
     public void updateImage(Image image) {
         Image current = this.imageContainer.getImage();
 
-        if (image != null && !image.equals(current))
+        if (image != null && !image.equals(current)) {
             this.imageContainer.setImage(image);
+            this.imageContainer.setViewport(new Rectangle2D(0, 0, image.getWidth(), image.getHeight()));
+        }
     }
 
     public void updateZoom(Perspective perspective) {

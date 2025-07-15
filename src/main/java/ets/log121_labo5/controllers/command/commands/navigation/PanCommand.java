@@ -1,8 +1,7 @@
-package ets.log121_labo5.controllers.command.commands;
+package ets.log121_labo5.controllers.command.commands.navigation;
 
 
 import ets.log121_labo5.controllers.command.Command;
-import javafx.event.ActionEvent;
 import javafx.scene.input.MouseEvent;
 
 /**
