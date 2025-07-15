@@ -26,7 +26,7 @@ public class ZoomCommand extends Command<ScrollEvent> {
 
         if (view.getImage() == null) return;
 
-        double delta = event.getDeltaY();
+        double delta = -event.getDeltaY();
         Rectangle2D viewport = view.getViewport();
 
         Image image = view.getImage();
@@ -48,8 +48,6 @@ public class ZoomCommand extends Command<ScrollEvent> {
                 0, image.getHeight() - newHeight);
 
         Rectangle2D newViewPort = new Rectangle2D(newMinX, newMinY, newWidth, newHeight);
-        System.out.println(viewport);
-        System.out.println(newViewPort);
         view.setViewport(newViewPort);
     }
 
@@ -58,11 +56,11 @@ public class ZoomCommand extends Command<ScrollEvent> {
 
     }
 
-    protected double clamp(double value, double min, double max) {
+    private double clamp(double value, double min, double max) {
         return Math.min(max, Math.max(min, value));
     }
 
-    protected Point2D imageViewToImage(ImageView imageView, Point2D imageViewCoordinates) {
+    private Point2D imageViewToImage(ImageView imageView, Point2D imageViewCoordinates) {
         double xProportion = imageViewCoordinates.getX() / imageView.getBoundsInLocal().getWidth();
         double yProportion = imageViewCoordinates.getY() / imageView.getBoundsInLocal().getHeight();
 

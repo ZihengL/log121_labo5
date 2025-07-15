@@ -1,12 +1,7 @@
 package ets.log121_labo5.models;
 
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
-import javafx.scene.image.PixelReader;
-import javafx.scene.image.PixelWriter;
 import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
-
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.beans.Transient;

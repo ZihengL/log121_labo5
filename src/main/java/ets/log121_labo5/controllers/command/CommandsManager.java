@@ -4,13 +4,10 @@ import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.State;
 import ets.log121_labo5.models.Vector;
 import ets.log121_labo5.models.observer.Observable;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.scene.image.Image;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
 import java.io.*;
 
 /**

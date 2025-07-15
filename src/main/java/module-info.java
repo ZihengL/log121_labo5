@@ -2,7 +2,7 @@ module ets.log121_labo5 {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
-    requires javafx.swing;
+    requires java.desktop;
 
     opens ets.log121_labo5 to javafx.fxml;
     exports ets.log121_labo5;

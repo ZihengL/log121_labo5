@@ -33,11 +33,10 @@ public class ImageNavigatorController implements Observer {
         this.imageContainer.fitWidthProperty().bind(this.rootPane.widthProperty().subtract(20));
         this.imageContainer.fitHeightProperty().bind(this.rootPane.heightProperty().subtract(20));
 
-        // NAVIGATION
+        // ZOOM
         this.imageContainer.setOnScroll(new ZoomCommand());
 
-        // Zoom
-//        this.imageContainer.setOnScroll();
+        // NAVIGATION
     }
 
     // SET/GET PERSPECTIVE LAMBDA GIVEN BY MAINCONTROLLER
