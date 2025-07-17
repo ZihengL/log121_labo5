@@ -1,7 +1,8 @@
-package ets.log121_labo5.controllers.command;
+package ets.log121_labo5.controllers.command.commands.contextmenu;
 
 
 import ets.log121_labo5.controllers.ImageNavigatorController;
+import ets.log121_labo5.controllers.command.Command;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;

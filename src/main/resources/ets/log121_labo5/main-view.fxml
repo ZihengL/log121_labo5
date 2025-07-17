@@ -5,7 +5,8 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="ets.log121_labo5.controllers.MainController"
-          prefWidth="1600" prefHeight="1100">
+          prefWidth="1600" prefHeight="1100"
+          stylesheets="@/main.css">
     <columnConstraints>
         <ColumnConstraints percentWidth="50"/>
         <ColumnConstraints percentWidth="50"/>
@@ -31,6 +32,9 @@
         <Menu text="Édition">
             <MenuItem fx:id="undoItem" text="Défaire"/>
             <MenuItem fx:id="redoItem" text="Refaire"/>
+            <SeparatorMenuItem/>
+            <MenuItem fx:id="zoomInItem" text="Zoom +"/>
+            <MenuItem fx:id="zoomOutItem" text="Zoom -"/>
         </Menu>
 
         <Menu text="Presse-Papier">

@@ -1,10 +1,11 @@
 package ets.log121_labo5.controllers.command;
 
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.State;
-import ets.log121_labo5.models.Vector;
 import ets.log121_labo5.models.observer.Observable;
+import javafx.geometry.Bounds;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 
@@ -33,6 +34,7 @@ public class CommandsManager extends Observable implements Serializable {
 
     /* --------- INSTANCE --------- */
 
+    // TODO: CONSIDER CHANGING IMAGE TO A CUSTOM IMAGEVIEW THAT'LL BE THE ORIGINAL IMAGE?
     private transient Image image;  // On opte de ne pas convertir l'Image, donc transigeant
     private Perspective leftside;
     private Perspective rightside;
@@ -59,14 +61,14 @@ public class CommandsManager extends Observable implements Serializable {
         return this.rightside;
     }
 
-    public State getState() {
-        return new State(this.image, this.leftside, this.rightside);
-    }
-
     // MUTATORS
 
     public void setImage(Image image) {
         this.image = image;
+
+        double width = this.image.getWidth(), height = this.image.getHeight();
+        this.leftside.setAll(width, height);
+        this.rightside.setAll(width, height);
 
         this.notifyObservers();
     }
@@ -97,11 +99,11 @@ public class CommandsManager extends Observable implements Serializable {
         this.notifyObservers();
     }
 
-    /* -- MENUBAR: FILE MENU -- */
+    // MENUBAR: FILE MENU
 
     public void saveState(File file) throws IOException {
         String path = file.getPath().toLowerCase();
-        file = !path.toLowerCase().endsWith(".ser") ? new File(path + ".ser") : file;
+        file = !path.endsWith(".ser") ? new File(path + ".ser") : file;
 
         try (ObjectOutputStream oos = new ObjectOutputStream(
                 new FileOutputStream(file))) {
@@ -131,7 +133,7 @@ public class CommandsManager extends Observable implements Serializable {
         stage.close();  // TODO: SAVE BEFORE QUIT??
     }
 
-    /* -- MENUBAR: EDITION -- */
+    // MENUBAR: EDITION
 
     public void undo() {
 
@@ -141,29 +143,42 @@ public class CommandsManager extends Observable implements Serializable {
 
     }
 
-    /* -- MENUBAR: "PRESSE-PAPIER" -- */
+    // MENUBAR: "PRESSE-PAPIER"
 
     public void chooseStratagem() {
 
     }
 
-    /* -- IMAGE NAVIGATION -- */
+    // ZOOM
 
-    public void translateOnLeftside(Vector translation) {
+    public void zoom(Perspective perspective, double delta) {
+        perspective.zoom(delta);
 
+        this.notifyObservers();
     }
 
-    public void translateOnRightside(Vector translation) {
+    // old zoom
+    public void zoom(Perspective perspective, Bounds bounds, Point2D target, double delta) {
+//        Point2D position = perspective.getRelativePosition(bounds, target);
+        double magnitude = perspective.getZoomMagnitude(delta);
+//        perspective.zoom(position, magnitude);
+        perspective.zoom(target, magnitude);
 
+        this.notifyObservers();
     }
 
-    public void zoomOnLeftside(double zoom) {
+    // PAN
 
+    // IT'S NOT SETTING THE POSITION TO THE REAL POSITION
+    public void pan(Perspective perspective, Point2D target, Bounds localBounds) {
+        perspective.pan(target, localBounds);
+//        System.out.println("LOCAL BOUNDS " + localBounds);
+//        System.out.println("IMG BOUNDS " + perspective.getBounds());
+
+        this.notifyObservers();
     }
 
-    public void zoomOnRightside(double zoom) {
-
-    }
+    // OTHER
 
     public String toString() {
         return String.format("Leftside: %s - Rightside: %s", this.leftside, this.rightside);

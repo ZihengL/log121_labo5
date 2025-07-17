@@ -1,9 +1,10 @@
 package ets.log121_labo5.controllers;
 
 import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.controllers.command.commands.navigation.PanCommand;
+import ets.log121_labo5.controllers.command.commands.navigation.PanningZoomCommand;
 import ets.log121_labo5.controllers.command.commands.navigation.ZoomCommand;
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.Vector;
 import ets.log121_labo5.models.observer.Observable;
 import ets.log121_labo5.models.observer.Observer;
 import javafx.fxml.FXML;
@@ -15,7 +16,7 @@ import javafx.scene.layout.BorderPane;
 public class ImageNavigatorController implements Observer {
 
     @FXML private BorderPane rootPane;
-    @FXML private ImageView imageContainer;
+    @FXML private ImageView view;
 
     private PerspectiveGetter perspectiveGetter;
     private PerspectiveSetter perspectiveSetter;
@@ -26,17 +27,25 @@ public class ImageNavigatorController implements Observer {
         manager.addObserver(this);
 
         // Sauvegarde l'instance de la classe en tant que propriété
-        // afin d'y avoir accès dans CopyCommand lorsqu'on source un événement.
+        // afin d'y avoir accès dans la commande lorsqu'on source un événement.
         this.rootPane.getProperties().put("controller", this);
+        this.view.getProperties().put("controller", this);
 
         // Liaison de données des dimensions de l'ImageView et son conteneur parent.
-        this.imageContainer.fitWidthProperty().bind(this.rootPane.widthProperty().subtract(20));
-        this.imageContainer.fitHeightProperty().bind(this.rootPane.heightProperty().subtract(20));
+        this.view.fitWidthProperty().bind(this.rootPane.widthProperty().subtract(20));
+        this.view.fitHeightProperty().bind(this.rootPane.heightProperty().subtract(20));
 
         // ZOOM
-        this.imageContainer.setOnScroll(new ZoomCommand());
+        this.view.setOnScroll(new ZoomCommand());
+//        this.view.setOnScroll(new PanningZoomCommand());
 
-        // NAVIGATION
+        // PAN
+//        this.view.setOnMouseClicked(new PanCommand());
+        this.view.setOnMousePressed(new PanCommand());
+    }
+
+    public ImageView getImageView() {
+        return this.view;
     }
 
     // SET/GET PERSPECTIVE LAMBDA GIVEN BY MAINCONTROLLER
@@ -63,28 +72,19 @@ public class ImageNavigatorController implements Observer {
         this.updateImage(image);
 
         Perspective perspective = this.getPerspective();
-        this.updateZoom(perspective);
-        this.updatePosition(perspective);
+        this.updateViewport(perspective);
     }
 
     public void updateImage(Image image) {
-        Image current = this.imageContainer.getImage();
+        Image current = this.view.getImage();
 
-        if (image != null && !image.equals(current)) {
-            this.imageContainer.setImage(image);
-            this.imageContainer.setViewport(new Rectangle2D(0, 0, image.getWidth(), image.getHeight()));
-        }
+        if (image != null && !image.equals(current))
+            this.view.setImage(image);
     }
 
-    public void updateZoom(Perspective perspective) {
-        double zoom = perspective.getZoom();
+    public void updateViewport(Perspective perspective) {
+        Rectangle2D viewport = perspective.getViewport();
 
-        // TODO UPDATE ZOOM
-    }
-
-    public void updatePosition(Perspective perspective) {
-        Vector position = perspective.getPosition();
-
-        // TODO: UPDATE POSITION
+        this.view.setViewport(viewport);
     }
 }

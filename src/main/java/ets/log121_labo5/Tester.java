@@ -30,9 +30,9 @@ public class Tester {
 //        System.out.println(v);
 
         CommandsManager instance = CommandsManager.getInstance();
-        State state = instance.getState();
+//        State state = instance.getState();
 
-        System.out.println(state);
+//        System.out.println(state);
 
 //        instance.saveState("test.ser");
 
@@ -65,21 +65,21 @@ public class Tester {
 //                    throw new RuntimeException(e);
 //                }
 
-        Perspective perspective = new Perspective();
-        perspective.setPosition(5., 12.);
-        perspective.setZoom(1.42);
-        System.out.println(perspective);
-
-        Perspective perspective2 = new Perspective();
-        perspective2.setPosition(4.7, 3.9);
-        perspective2.setZoom(1.96);
-        System.out.println(perspective2);
+//        Perspective perspective = new Perspective();
+//        perspective.setPosition(5., 12.);
+//        perspective.setViewport(1.42);
+//        System.out.println(perspective);
+//
+//        Perspective perspective2 = new Perspective();
+//        perspective2.setPosition(4.7, 3.9);
+//        perspective2.setViewport(1.96);
+//        System.out.println(perspective2);
 
         // Serialization
 //        Perspective[] perspectives = new Perspective[] { perspective, perspective2 };
 //        System.out.println("SERIALIZE TEST");
 //        // Serialization
-        Tools.serialize("test123", perspective, perspective2);
+//        Tools.serialize("test123", perspective, perspective2);
 
         // Deserialization
 //        Perspective[] deserialized = (Perspective[]) Tools.deserialize("test123");

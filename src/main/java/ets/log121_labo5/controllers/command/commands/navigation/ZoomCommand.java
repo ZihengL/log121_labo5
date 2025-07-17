@@ -1,7 +1,11 @@
 package ets.log121_labo5.controllers.command.commands.navigation;
 
 
+import ets.log121_labo5.controllers.ImageNavigatorController;
 import ets.log121_labo5.controllers.command.Command;
+import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.models.Perspective;
+import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
@@ -16,14 +20,50 @@ import javafx.scene.input.ScrollEvent;
  * @author liuzi | Zi heng Liu
  */
 
+// Code basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
 public class ZoomCommand extends Command<ScrollEvent> {
 
-    // TODO: CLEAN THIS UP
-    // TODO: GOTTA REPLACE THE 2D VECTOR IN PERSPECTIVE FOR RECTANGLE2D
     @Override
     public void execute(ScrollEvent event) {
         ImageView view = (ImageView) event.getSource();
+        if (view.getImage() == null) return;
 
+        ImageNavigatorController controller = (ImageNavigatorController) view.getProperties().get("controller");
+
+        Perspective perspective = controller.getPerspective();
+        double delta = -event.getDeltaY();
+
+        Point2D target = new Point2D(event.getX(), event.getY());
+        Point2D position;
+        position = view.sceneToLocal(target);
+        position = view.localToParent(target);
+//        position = view.localToScene(target);
+
+        CommandsManager.getInstance().zoom(perspective, delta);
+    }
+
+    @Override
+    public void undo() {
+
+    }
+
+    // OLD
+    private void oldZoom1(ScrollEvent event) {
+        ImageView view = (ImageView) event.getSource();
+        if (view.getImage() == null) return;
+
+        ImageNavigatorController controller = (ImageNavigatorController) view.getProperties().get("controller");
+
+        Perspective perspective = controller.getPerspective();
+        Bounds bounds = view.getBoundsInLocal();
+        Point2D position = new Point2D(event.getX(), event.getY());
+        double zoom = -event.getDeltaY();
+
+        CommandsManager.getInstance().zoom(perspective, bounds, position, zoom);
+    }
+
+    private void oldZoom2(ScrollEvent event) {
+        ImageView view = (ImageView) event.getSource();
         if (view.getImage() == null) return;
 
         double delta = -event.getDeltaY();
@@ -51,13 +91,14 @@ public class ZoomCommand extends Command<ScrollEvent> {
         view.setViewport(newViewPort);
     }
 
-    @Override
-    public void undo() {
-
-    }
 
     private double clamp(double value, double min, double max) {
-        return Math.min(max, Math.max(min, value));
+
+        if (value < min)
+            return min;
+        if (value > max)
+            return max;
+        return value;
     }
 
     private Point2D imageViewToImage(ImageView imageView, Point2D imageViewCoordinates) {
@@ -69,4 +110,5 @@ public class ZoomCommand extends Command<ScrollEvent> {
                 viewport.getMinX() + xProportion * viewport.getWidth(),
                 viewport.getMinY() + yProportion * viewport.getHeight());
     }
+
 }
