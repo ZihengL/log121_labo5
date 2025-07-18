@@ -108,7 +108,7 @@ public class Perspective implements Serializable {
                max = maxSize - size;
 
 //        return Math.max(0, Math.min(value, max));
-        return Math.clamp(value, 0, max);
+        return this.clamp(value, 0, max);
     }
 
     // PANNING ZOOM
@@ -129,10 +129,10 @@ public class Perspective implements Serializable {
 
         double x, y, width, height, magnitude = this.getZoomMagnitude(zoom);
         width = this.viewport.getWidth() * magnitude;
-        x = Math.clamp(target.getX() - (target.getX() - this.viewport.getMinX()) * magnitude, 0, this.bounds.getWidth() - width);
+        x = this.clamp(target.getX() - (target.getX() - this.viewport.getMinX()) * magnitude, 0, this.bounds.getWidth() - width);
 
         height = this.viewport.getHeight() * magnitude;
-        y = Math.clamp(target.getY() - (target.getY() - this.viewport.getMinY()) * magnitude, 0, this.bounds.getHeight() - height);
+        y = this.clamp(target.getY() - (target.getY() - this.viewport.getMinY()) * magnitude, 0, this.bounds.getHeight() - height);
 
         this.setViewport(x, y, width, height);
     }
@@ -145,7 +145,7 @@ public class Perspective implements Serializable {
                min = Math.min(MIN_ZOOM / width, MIN_ZOOM / height),
                max = Math.max(boundsX / width, boundsY / height);
 
-        return Math.clamp(magnitude, min, max);
+        return this.clamp(magnitude, min, max);
     }
 
     // PAN
@@ -211,7 +211,7 @@ public class Perspective implements Serializable {
     }
 
     private double getShiftedPosition(double size, double minPos, double bound, double delta) {
-        return Math.clamp(minPos - delta, 0, bound - size);
+        return this.clamp(minPos - delta, 0, bound - size);
     }
 
     public Point2D getRelativePosition(Bounds bounds, Point2D target) {
