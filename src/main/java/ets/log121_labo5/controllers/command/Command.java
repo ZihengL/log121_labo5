@@ -40,11 +40,4 @@ public abstract class Command<T extends Event> implements EventHandler<T> {
     public abstract void execute(T event);
 
     public abstract void undo();
-
-    // TODO: POTENTIALLY LOOK TO FIX THIS.
-    protected Stage getEventStage(ActionEvent event) {
-        Node node = (Node) event.getSource();
-
-        return (Stage) node.getScene().getWindow();
-    }
 }

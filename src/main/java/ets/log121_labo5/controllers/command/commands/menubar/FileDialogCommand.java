@@ -32,10 +32,6 @@ public abstract class FileDialogCommand extends Command<ActionEvent> {
     }
 
     protected void setDialogOptions(FileChooser fc) {
-//        URL resUrl = getClass().getResource("src/main/resources/saves/test.ser");
-//        System.out.println("URL: " + resUrl);
-//        System.out.println(new File(".\\src\\main\\resources\\saves").getAbsolutePath());
-
         File target = FileDialogCommand.DEFAULT_DIRECTORY;
         if (target.exists())
             fc.setInitialDirectory(target);

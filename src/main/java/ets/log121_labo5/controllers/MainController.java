@@ -9,36 +9,46 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 
-public class MainController implements Observer {
+public class MainController {
 
     // MENUBAR: FICHIER
-    @FXML private MenuItem saveAppStateItem;
-    @FXML private MenuItem loadAppStateItem;
-    @FXML private MenuItem loadImageItem;
-    @FXML private MenuItem quitItem;
+    @FXML
+    private MenuItem saveAppStateItem;
+    @FXML
+    private MenuItem loadAppStateItem;
+    @FXML
+    private MenuItem loadImageItem;
+    @FXML
+    private MenuItem quitItem;
     // MENUBAR: ÉDITION
-    @FXML private MenuItem undoItem;
-    @FXML private MenuItem redoItem;
+    @FXML
+    private MenuItem undoItem;
+    @FXML
+    private MenuItem redoItem;
     // MENUBAR: PRESSE-PAPIER
-    @FXML private MenuItem pickStrategemItem;
+    @FXML
+    private MenuItem pickStrategemItem;
 
     // SUBCONTROLLERS
-    @FXML private BorderPane thumbnailPane;
-    @FXML private ImageViewerController thumbnailPaneController;
-    @FXML private BorderPane leftsidePane;
-    @FXML private ImageNavigatorController leftsidePaneController;
-    @FXML private BorderPane rightsidePane;
-    @FXML private ImageNavigatorController rightsidePaneController;
+    @FXML
+    private BorderPane thumbnailPane;
+    @FXML
+    private ImageViewerController thumbnailPaneController;
+    @FXML
+    private BorderPane leftsidePane;
+    @FXML
+    private ImageNavigatorController leftsidePaneController;
+    @FXML
+    private BorderPane rightsidePane;
+    @FXML
+    private ImageNavigatorController rightsidePaneController;
 
-    @FXML private ContextMenuController contextMenuController;
+    @FXML
+    private ContextMenuController contextMenuController;
     // UI
 
     @FXML
     private void initialize() {
-        // OBSERVER
-        CommandsManager manager = CommandsManager.getInstance();
-        manager.addObserver(this);
-
         /* --- MENUBAR --- */
         // FICHIER
         this.saveAppStateItem.setOnAction(new SaveStateCommand());
@@ -54,6 +64,8 @@ public class MainController implements Observer {
         this.pickStrategemItem.setOnAction(new SetStratagemCommand());
 
         /* --- PERSPECTIVE & NAVIGATION --- */
+        CommandsManager manager = CommandsManager.getInstance();
+
         PerspectiveGetter leftsideGetter = manager::getLeftside;
         PerspectiveSetter leftsideSetter = manager::setLeftside;
         this.leftsidePaneController.setPerspectiveLambdas(leftsideGetter, leftsideSetter);
@@ -66,11 +78,21 @@ public class MainController implements Observer {
         this.contextMenuController = new ContextMenuController();
         this.contextMenuController.addToPanes(this.leftsidePane, this.rightsidePane);
     }
-
-    // OBSERVER
-
-    @Override
-    public void update(Observable observable) {
-        CommandsManager manager = (CommandsManager) observable;
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

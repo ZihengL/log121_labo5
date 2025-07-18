@@ -28,18 +28,12 @@ public class PanCommand extends Command<MouseEvent> {
         ImageNavigatorController controller = (ImageNavigatorController) view.getProperties().get("controller");
 
         Perspective perspective = controller.getPerspective();
-        Point2D point = new Point2D(event.getX(), event.getY());
+        Point2D position = new Point2D(event.getX(), event.getY());
         Bounds bounds = view.getBoundsInLocal();
 
-        Point2D scene = new Point2D(event.getSceneX(), event.getSceneY());
-//        Point2D parent = view.sceneTo(scene);
-        System.out.println();
-        System.out.println(point);
-        System.out.println(scene);
-//        System.out.println(parent);
-        System.out.println();
+        System.out.println("POS: " + position);
 
-        CommandsManager.getInstance().pan(perspective, scene, bounds);
+        CommandsManager.getInstance().pan(perspective, position, bounds);
     }
 
     @Override

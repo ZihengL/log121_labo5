@@ -21,6 +21,7 @@ import javafx.scene.input.ScrollEvent;
  */
 
 // Code basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
+
 public class ZoomCommand extends Command<ScrollEvent> {
 
     @Override
@@ -32,14 +33,13 @@ public class ZoomCommand extends Command<ScrollEvent> {
 
         Perspective perspective = controller.getPerspective();
         double delta = -event.getDeltaY();
+//        CommandsManager.getInstance().zoom(perspective, delta);
 
+        Bounds bounds = view.getBoundsInLocal();
         Point2D target = new Point2D(event.getX(), event.getY());
-        Point2D position;
-        position = view.sceneToLocal(target);
-        position = view.localToParent(target);
-//        position = view.localToScene(target);
+//        CommandsManager.getInstance().zoom(perspective, bounds, target, delta);
 
-        CommandsManager.getInstance().zoom(perspective, delta);
+        this.oldZoom1(event);
     }
 
     @Override

@@ -60,7 +60,9 @@ public class Perspective implements Serializable {
     // MUTATORS
 
     public void setViewport(double x, double y, double width, double height) {
+        System.out.println("BEFORE: " + this.viewport);
         this.setViewport(new Rectangle2D(x, y, width, height));
+        System.out.println("AFTER: " + this.viewport);
     }
 
     public void setViewport(Rectangle2D viewport) {

@@ -34,7 +34,6 @@ public class CommandsManager extends Observable implements Serializable {
 
     /* --------- INSTANCE --------- */
 
-    // TODO: CONSIDER CHANGING IMAGE TO A CUSTOM IMAGEVIEW THAT'LL BE THE ORIGINAL IMAGE?
     private transient Image image;  // On opte de ne pas convertir l'Image, donc transigeant
     private Perspective leftside;
     private Perspective rightside;
