@@ -67,13 +67,6 @@ public class MainController implements Observer {
         this.contextMenuController.addToPanes(this.leftsidePane, this.rightsidePane);
     }
 
-    // TODO: TEST METHOD. REMOVE LATER
-    public void onPressRect(MouseEvent mouseEvent) {
-        double x = mouseEvent.getX(), y = mouseEvent.getY();
-
-        System.out.printf("Pressed: [ %.2f, %.2f ]\n", x, y);
-    }
-
     // OBSERVER
 
     @Override
