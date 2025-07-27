@@ -1,6 +1,6 @@
-package ets.log121_labo5.controllers.command.commands.menubar;
+package ets.log121_labo5.models.command.commands.menubar;
 
-import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.models.command.CommandsManager;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 

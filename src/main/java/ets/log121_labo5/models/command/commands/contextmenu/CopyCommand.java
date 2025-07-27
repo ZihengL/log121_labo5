@@ -1,9 +1,10 @@
-package ets.log121_labo5.controllers.command.commands.contextmenu;
+package ets.log121_labo5.models.command.commands.contextmenu;
 
 
 import ets.log121_labo5.controllers.ImageNavigatorController;
 import ets.log121_labo5.models.Perspective;
 import javafx.event.ActionEvent;
+import javafx.geometry.Rectangle2D;
 
 /**
  * Class: CopyCommand
@@ -15,14 +16,15 @@ import javafx.event.ActionEvent;
 
 public class CopyCommand extends ContextMenuCommand {
 
-    private Perspective perspective;
+//    private Perspective perspective;
 
     @Override
     public void execute(ActionEvent event) {
-        ImageNavigatorController controller = this.getSourceController(event);
+        ImageNavigatorController controller = this.getEventController(event);
+        Perspective perspective = controller.getPerspective();
 
         // Instance de Perspective donnée par le PerspectiveGetter de leftside/rightside.
-        this.perspective = controller.getPerspective();
+        ContextMenuCommand.copy = new Perspective(perspective.getViewport(), perspective.getBounds());
     }
 
     @Override
@@ -30,7 +32,7 @@ public class CopyCommand extends ContextMenuCommand {
 
     }
 
-    public Perspective getPerspective() {
-        return this.perspective;
-    }
+//    public Perspective getPerspective() {
+//        return this.perspective;
+//    }
 }

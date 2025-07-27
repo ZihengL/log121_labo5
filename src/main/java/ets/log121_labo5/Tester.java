@@ -1,9 +1,7 @@
 package ets.log121_labo5;
 
 
-import ets.log121_labo5.controllers.command.CommandsManager;
-import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.State;
+import ets.log121_labo5.models.command.CommandsManager;
 
 import java.io.*;
 

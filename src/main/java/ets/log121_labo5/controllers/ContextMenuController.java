@@ -1,8 +1,8 @@
 package ets.log121_labo5.controllers;
 
 
-import ets.log121_labo5.controllers.command.commands.contextmenu.CopyCommand;
-import ets.log121_labo5.controllers.command.commands.contextmenu.PasteCommand;
+import ets.log121_labo5.models.command.commands.contextmenu.CopyCommand;
+import ets.log121_labo5.models.command.commands.contextmenu.PasteCommand;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
@@ -21,6 +21,8 @@ import javafx.scene.layout.Pane;
 
 public class ContextMenuController {
 
+    private PerspectiveGetter copyGetter;
+
     @FXML private final ContextMenu menu;
 
     // Instanciation et initialisation du menu clique-droit avec ses sous-menus(copier/coller).
@@ -28,17 +30,17 @@ public class ContextMenuController {
         this.menu = new ContextMenu();
 
         MenuItem copyItem = new MenuItem("Copier");
-        CopyCommand copyCommand = new CopyCommand();
-        copyItem.setOnAction(copyCommand);
+        copyItem.setOnAction(new CopyCommand());
 
         MenuItem pasteItem = new MenuItem("Coller");
-        PasteCommand pasteCommand = new PasteCommand(copyCommand);
-        pasteItem.setOnAction(pasteCommand);
+        pasteItem.setOnAction(new PasteCommand());
 
         this.menu.getItems().setAll(copyItem, pasteItem);
     }
 
     // On ajoute la fonctionalité du menu clique-droit à tous les panneaux en argument.
+    // Pas de classe Command puisque nous n'avons pas de raison d'enregistrer l'ouverture
+    // ou la fermeture d'une fenêtre de contexte.
     public void addToPanes(Pane ...panes) {
         for (Pane pane : panes) {
             EventHandler<ContextMenuEvent> handler = event -> {

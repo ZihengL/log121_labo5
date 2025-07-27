@@ -1,18 +1,18 @@
-package ets.log121_labo5.controllers.command.commands.menubar;
+package ets.log121_labo5.models.command.commands.menubar;
 
 
-import ets.log121_labo5.controllers.command.Command;
+import ets.log121_labo5.models.command.Command;
 import javafx.event.ActionEvent;
 
 /**
- * Class: SetStratagemCommand
+ * Class: RedoCommand
  * Created on: 7/11/2025
  * Description:
  *
  * @author liuzi | Zi heng Liu
  */
 
-public class SetStratagemCommand extends Command<ActionEvent> {
+public class RedoCommand extends Command<ActionEvent> {
 
     @Override
     public void execute(ActionEvent event) {

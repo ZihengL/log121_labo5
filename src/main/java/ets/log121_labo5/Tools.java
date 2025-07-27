@@ -1,6 +1,9 @@
 package ets.log121_labo5;
 
 
+import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
+
 import java.io.*;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -52,5 +55,9 @@ public class Tools {
         } catch (IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static Point2D centerOf(Rectangle2D rectangle) {
+        return new Point2D(rectangle.getWidth() / 2, rectangle.getHeight() / 2);
     }
 }

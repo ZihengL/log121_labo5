@@ -1,14 +1,13 @@
-package ets.log121_labo5.controllers.command.commands.navigation;
+package ets.log121_labo5.models.command.commands.navigation;
 
 
 import ets.log121_labo5.controllers.ImageNavigatorController;
-import ets.log121_labo5.controllers.command.Command;
-import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.models.command.Command;
+import ets.log121_labo5.models.command.CommandsManager;
 import ets.log121_labo5.models.Perspective;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
 /**
@@ -31,7 +30,7 @@ public class PanningZoomCommand extends Command<ScrollEvent> {
         Perspective perspective = controller.getPerspective();
 
         double delta = -event.getDeltaY();
-        manager.zoom(perspective, delta);
+//        manager.zoom(perspective, delta);
 
         Point2D point = new Point2D(event.getX(), event.getY());
         Point2D target = view.localToParent(point);

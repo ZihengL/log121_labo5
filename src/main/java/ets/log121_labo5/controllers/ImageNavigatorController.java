@@ -1,9 +1,8 @@
 package ets.log121_labo5.controllers;
 
-import ets.log121_labo5.controllers.command.CommandsManager;
-import ets.log121_labo5.controllers.command.commands.navigation.PanCommand;
-import ets.log121_labo5.controllers.command.commands.navigation.PanningZoomCommand;
-import ets.log121_labo5.controllers.command.commands.navigation.ZoomCommand;
+import ets.log121_labo5.models.command.CommandsManager;
+import ets.log121_labo5.models.command.commands.navigation.PanCommand;
+import ets.log121_labo5.models.command.commands.navigation.ZoomCommand;
 import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.observer.Observable;
 import ets.log121_labo5.models.observer.Observer;
@@ -37,19 +36,14 @@ public class ImageNavigatorController implements Observer {
 
         // ZOOM
         this.view.setOnScroll(new ZoomCommand());
-//        this.view.setOnScroll(new PanningZoomCommand());
 
         // PAN
-//        this.view.setOnMouseClicked(new PanCommand());
-//        this.view.setOnMousePressed(new PanCommand());
+        this.view.setOnMouseClicked(new PanCommand());
     }
 
-    public ImageView getImageView() {
-        return this.view;
-    }
-
-    // SET/GET PERSPECTIVE LAMBDA GIVEN BY MAINCONTROLLER
-    public void setPerspectiveLambdas(PerspectiveGetter getter, PerspectiveSetter setter) {
+    // On passe par la voie d'interfaces fonctionnels afin de donner accès à l'objet
+    // Perspective dédié à l'instance du controleur.
+    public void setPerspectiveAccessors(PerspectiveGetter getter, PerspectiveSetter setter) {
         this.perspectiveGetter = getter;
         this.perspectiveSetter = setter;
     }
