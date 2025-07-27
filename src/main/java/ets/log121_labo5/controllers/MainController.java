@@ -1,15 +1,13 @@
 package ets.log121_labo5.controllers;
 
-import ets.log121_labo5.controllers.command.CommandsManager;
-import ets.log121_labo5.controllers.command.commands.menubar.*;
-import ets.log121_labo5.models.observer.Observable;
-import ets.log121_labo5.models.observer.Observer;
+import ets.log121_labo5.models.command.CommandsManager;
+import ets.log121_labo5.models.command.commands.menubar.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.image.Image;
 import javafx.scene.layout.BorderPane;
 
-public class MainController implements Observer {
+public class MainController {
 
     // MENUBAR: FICHIER
     @FXML private MenuItem saveAppStateItem;
@@ -29,55 +27,40 @@ public class MainController implements Observer {
     @FXML private ImageNavigatorController leftsidePaneController;
     @FXML private BorderPane rightsidePane;
     @FXML private ImageNavigatorController rightsidePaneController;
-
     @FXML private ContextMenuController contextMenuController;
-    // UI
 
+    // UI
     @FXML
     private void initialize() {
-        // OBSERVER
-        CommandsManager manager = CommandsManager.getInstance();
-        manager.addObserver(this);
-
         /* --- MENUBAR --- */
-        // FICHIER
+            // FICHIER
         this.saveAppStateItem.setOnAction(new SaveStateCommand());
         this.loadAppStateItem.setOnAction(new LoadStateCommand());
-        // --
         this.loadImageItem.setOnAction(new LoadImageCommand());
-        // --
         this.quitItem.setOnAction(new QuitCommand());
-        // ÉDITION
+            // ÉDITION
         this.undoItem.setOnAction(new UndoCommand());
         this.redoItem.setOnAction(new RedoCommand());
-        // PRESSE-PAPIER
+            // PRESSE-PAPIER
         this.pickStrategemItem.setOnAction(new SetStratagemCommand());
 
-        /* --- PERSPECTIVE & NAVIGATION --- */
+        /* --- PERSPECTIVE --- */
+        CommandsManager manager = CommandsManager.getInstance();
+
         PerspectiveGetter leftsideGetter = manager::getLeftside;
         PerspectiveSetter leftsideSetter = manager::setLeftside;
-        this.leftsidePaneController.setPerspectiveLambdas(leftsideGetter, leftsideSetter);
+        this.leftsidePaneController.setPerspectiveAccessors(leftsideGetter, leftsideSetter);
 
         PerspectiveGetter rightsideGetter = manager::getRightside;
         PerspectiveSetter rightsideSetter = manager::setRightside;
-        this.rightsidePaneController.setPerspectiveLambdas(rightsideGetter, rightsideSetter);
+        this.rightsidePaneController.setPerspectiveAccessors(rightsideGetter, rightsideSetter);
 
         /* --- CONTEXT MENU --- */
         this.contextMenuController = new ContextMenuController();
         this.contextMenuController.addToPanes(this.leftsidePane, this.rightsidePane);
-    }
 
-    // TODO: TEST METHOD. REMOVE LATER
-    public void onPressRect(MouseEvent mouseEvent) {
-        double x = mouseEvent.getX(), y = mouseEvent.getY();
-
-        System.out.printf("Pressed: [ %.2f, %.2f ]\n", x, y);
-    }
-
-    // OBSERVER
-
-    @Override
-    public void update(Observable observable) {
-        CommandsManager manager = (CommandsManager) observable;
+        // TEMPORARY: DEFAULT IMG
+        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ets\\log121_labo5\\saves\\xp_background.png";
+        manager.setImage(new Image(path));
     }
 }

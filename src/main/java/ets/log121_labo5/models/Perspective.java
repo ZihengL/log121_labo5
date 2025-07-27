@@ -4,7 +4,6 @@ package ets.log121_labo5.models;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.ImageView;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -27,7 +26,6 @@ public class Perspective implements Serializable {
     public static final double MIN_ZOOM = 10.;
 
     public static final double ZOOM_FACTOR = 1.01;
-
 
     // INSTANCE
 
@@ -67,7 +65,7 @@ public class Perspective implements Serializable {
         this.viewport = viewport;
     }
 
-    public void setAll(double width, double height) {
+    public void setDimensions(double width, double height) {
         this.viewport = this.bounds = new Rectangle2D(0., 0., width, height);
     }
 
@@ -76,70 +74,31 @@ public class Perspective implements Serializable {
     }
 
     // COPY
-
     public Perspective copy() {
         return new Perspective(this.viewport, this.bounds);
     }
 
     // ZOOM
-
-    public void zoom(double delta) {
+    public void zoom(Point2D position, double delta) {
         double magnitude = this.getZoomMagnitude(delta);
+        Rectangle2D port = this.viewport;
 
-        double x,
-               minX = this.viewport.getMinX(),
-               centerX = this.viewport.getWidth() / 2 + minX,
-               width = this.viewport.getWidth() * magnitude,
-               maxWidth = this.bounds.getWidth();
-        x = this.getZoomPosition(centerX, minX, width, maxWidth, magnitude);
+        double minX = port.getMinX(),
+               maxX = port.getWidth() * magnitude,
+               boundX = this.bounds.getWidth();
+        double x = this.getZoomPosition(position.getX(), minX, maxX, boundX, magnitude);
 
-        double y,
-               minY = this.viewport.getMinY(),
-               centerY = this.viewport.getHeight() / 2 + minY,
-               height = this.viewport.getHeight() * magnitude,
-               maxHeight = this.bounds.getHeight();
-        y = this.getZoomPosition(centerY, minY, height, maxHeight, magnitude);
+        double minY = port.getMinY(),
+               maxY = port.getHeight() * magnitude,
+               boundY = this.bounds.getHeight();
+        double y = this.getZoomPosition(position.getY(), minY, maxY, boundY, magnitude);
 
-        this.setViewport(x, y, width, height);
-    }
-
-    private double getZoomPosition(double pos, double minPos, double size, double maxSize, double magnitude) {
-        double value = pos - (pos - minPos) * magnitude,
-               max = maxSize - size;
-
-//        return Math.max(0, Math.min(value, max));
-        return this.clamp(value, 0, max);
-    }
-
-    // PANNING ZOOM
-    public void zoom(Point2D position, double magnitude) {
-        double x, y, width, height;
-
-        width = this.viewport.getWidth() * magnitude;
-        x = this.clamp(position.getX() - (position.getX() - this.viewport.getMinX()) * magnitude, 0, this.bounds.getWidth() - width);
-
-        height = this.viewport.getHeight() * magnitude;
-        y = this.clamp(position.getY() - (position.getY() - this.viewport.getMinY()) * magnitude, 0, this.bounds.getHeight() - height);
-
-        this.setViewport(x, y, width, height);
-    }
-
-    public void zoom(Bounds bounds, Point2D position, double zoom) {
-        Point2D target = this.getRelativePosition(bounds, position);
-
-        double x, y, width, height, magnitude = this.getZoomMagnitude(zoom);
-        width = this.viewport.getWidth() * magnitude;
-        x = this.clamp(target.getX() - (target.getX() - this.viewport.getMinX()) * magnitude, 0, this.bounds.getWidth() - width);
-
-        height = this.viewport.getHeight() * magnitude;
-        y = this.clamp(target.getY() - (target.getY() - this.viewport.getMinY()) * magnitude, 0, this.bounds.getHeight() - height);
-
-        this.setViewport(x, y, width, height);
+        this.setViewport(x, y, maxX, maxY);
     }
 
     public double getZoomMagnitude(double delta) {
         double width = this.viewport.getWidth(), height = this.viewport.getHeight(),
-               boundsX = this.bounds.getWidth(), boundsY = this.bounds.getHeight();
+                boundsX = this.bounds.getWidth(), boundsY = this.bounds.getHeight();
 
         double magnitude = Math.pow(ZOOM_FACTOR, delta),
                min = Math.min(MIN_ZOOM / width, MIN_ZOOM / height),
@@ -148,90 +107,45 @@ public class Perspective implements Serializable {
         return this.clamp(magnitude, min, max);
     }
 
+    private double getZoomPosition(double center, double min, double max, double bound, double magnitude) {
+        return this.clamp(center - (center - min) * magnitude, 0, bound - max);
+    }
+
     // PAN
-    public void pan(Point2D target, Bounds localBounds) {
-        double x, y;
+    public void pan(Point2D position, Bounds bounds) {
+        Rectangle2D port = this.viewport;
 
-        x = this.getRelativePosition(
-            target.getX(),
-            this.viewport.getMinX(),
-            this.viewport.getWidth(),
-            localBounds.getWidth()
-        );
+        double posX = position.getX(),
+               minX = port.getMinX(),
+               width = port.getWidth(),
+               localBoundX = bounds.getWidth(),
+               boundX = this.bounds.getWidth();
+        double x = this.getPanPosition(posX, minX, width, localBoundX, boundX);
 
-        y = this.getRelativePosition(
-            target.getY(),
-            this.viewport.getMinY(),
-            this.viewport.getHeight(),
-            localBounds.getHeight()
-        );
+        double posY = position.getY(),
+               minY = port.getMinY(),
+               height = port.getHeight(),
+               localBoundY = bounds.getHeight(),
+               boundsY = this.bounds.getHeight();
+        double y = this.getPanPosition(posY, minY, height, localBoundY, boundsY);
 
-        Point2D newCenter = new Point2D(x, y);
-        Point2D currentCenter = this.getViewportCenter();
+        Point2D center = this.getViewportCenter();
+        System.out.printf("NEW (%.2f, %.2f) -- OLD (%.2f, %.2f)\n\n", x, y, center.getX(), center.getY());
 
-        Point2D delta = currentCenter.subtract(newCenter);
-        delta = newCenter.subtract(currentCenter);
-
-        double width = this.bounds.getWidth();
-        double height = this.bounds.getHeight();
-
-        double maxX = width - this.viewport.getWidth();
-        double maxY = height - this.viewport.getHeight();
-
-//        double minX = this.clamp(this.viewport.getMinX() - delta.getX(), 0, maxX);
-//        double minY = this.clamp(this.viewport.getMinX() - delta.getY(), 0, maxY);
-        double minX = this.clamp(this.viewport.getMinX() + delta.getX(), 0, maxX);
-        double minY = this.clamp(this.viewport.getMinX() + delta.getY(), 0, maxY);
-
-        this.setViewport(minX, minY, maxX, maxY);
+        this.setViewport(x, y, width, height);
     }
 
-    public double getRelativePosition(double pos, double min, double size, double localBound) {
-        return min + size * (pos / localBound);
-    }
-
-    private void shift(Point2D delta) {
-        double minX, minY;
-
-        minX = this.getShiftedPosition(
-                this.viewport.getWidth(),
-                this.viewport.getMinX(),
-                this.bounds.getWidth(),
-                delta.getX()
-        );
-
-        minY = this.getShiftedPosition(
-                this.viewport.getHeight(),
-                this.viewport.getMinY(),
-                this.bounds.getHeight(),
-                delta.getY()
-        );
-
-        this.setViewport(minX, minY, this.viewport.getWidth(), this.viewport.getHeight());
-    }
-
-    private double getShiftedPosition(double size, double minPos, double bound, double delta) {
-        return this.clamp(minPos - delta, 0, bound - size);
-    }
-
-    public Point2D getRelativePosition(Bounds bounds, Point2D target) {
-        double minX = this.viewport.getMinX(), minY = this.viewport.getMinY(),
-                width = this.viewport.getWidth(), height = this.viewport.getHeight();
-
-        return new Point2D(
-                (target.getX() / bounds.getWidth()) * width + minX,
-                (target.getY() / bounds.getHeight()) * height + minY
-        );
+    private double getPanPosition(double center, double min, double max, double localBound, double bound) {
+        return this.clamp((min + center * (max / localBound)) - (max / 2), 0, bound);
     }
 
     // OTHER
 
     public Point2D getClosestWithin(Point2D position) {
-        return null;
-    }
-
-    public double clamp(double value, double min, double max) {
-        return Math.min(max, Math.max(min, value));
+        return new Point2D(
+            this.clamp(position.getX(), this.bounds.getMinX(), this.bounds.getMaxX()),
+            this.clamp(position.getY(), this.bounds.getMaxY(), this.bounds.getMaxY())
+        );
     }
 
     public Point2D getCenter() {
@@ -240,9 +154,16 @@ public class Perspective implements Serializable {
 
     public Point2D getViewportCenter() {
         double x = (this.viewport.getWidth() / 2) + this.viewport.getMinX(),
-               y = (this.viewport.getHeight() / 2) + this.viewport.getMinY();
+                y = (this.viewport.getHeight() / 2) + this.viewport.getMinY();
 
         return new Point2D(x, y);
+    }
+
+    // Même implémentation que Math.clamp() à l'exception des gestions d'erreurs.
+    // Méthode utilitaire pour s'assurer que les coordonnées de zoom et pan ne
+    // dépassent pas les bornes de l'image.
+    public double clamp(double value, double min, double max) {
+        return Math.min(max, Math.max(min, value));
     }
 
     public String toString() {

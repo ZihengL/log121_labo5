@@ -1,13 +1,12 @@
 package ets.log121_labo5;
 
-import ets.log121_labo5.controllers.ImageNavigatorController;
-import ets.log121_labo5.controllers.command.Command;
+import ets.log121_labo5.models.command.Command;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 
 public class Application extends javafx.application.Application {
 
@@ -20,8 +19,15 @@ public class Application extends javafx.application.Application {
 
         stage.setTitle("Navigateur d'image");
         stage.setScene(scene);
-//        stage.setResizable(false);
         stage.show();
+
+        this.test();
+    }
+
+    private void test() {
+        URL resURL = Application.class.getResource("");
+
+        System.out.println(resURL.getPath());
     }
 
     public static void main(String[] args) {

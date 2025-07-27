@@ -1,4 +1,4 @@
-package ets.log121_labo5.controllers.command;
+package ets.log121_labo5.models.command;
 
 
 import javafx.event.ActionEvent;
@@ -11,11 +11,11 @@ import javafx.stage.Stage;
  * Class: Commander
  * Created on: 7/9/2025
  * Description: Classe abstraite générique servant de racine pour la totalité
- * des commandes disponibles de l'application du laboratoire. Ainsi, la classe
- * implémente également l'interface EventHandler avec un type ambigue afin d'avoir
- * la flexibilité de créer un classe wrapper pour tous les types d'événements.
- *
- * Autrement, nous avons besoins d'avoir
+ * des commandes disponibles de l'application du laboratoire. La classe
+ * implémente également l'interface EventHandler de quelconque type dérivant
+ * d'Event. Ainsi, il permet beaucoup de flexibilité lorsque nous créons des classes
+ * enfants de Command, puisqu'ils pourront prendre en paramètre n'importe quel type d'événement
+ * sans besoins de gestions supplémentaires(ex: typecasting d'événement).
  *
  * @author liuzi | Zi heng Liu
  */

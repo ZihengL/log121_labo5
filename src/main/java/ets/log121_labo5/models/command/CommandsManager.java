@@ -1,12 +1,10 @@
-package ets.log121_labo5.controllers.command;
+package ets.log121_labo5.models.command;
 
 import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.stage.Stage;
 
 import java.io.*;
@@ -14,7 +12,8 @@ import java.io.*;
 /**
  * Class: CommandsManager
  * Created on: 7/6/2025
- * Description:
+ * Description: Classe à instance unique qui se trouve au centre de tous les commandes
+ * de l'utilisateur
  *
  * @author liuzi | Zi heng Liu
  */
@@ -35,7 +34,7 @@ public class CommandsManager extends Observable implements Serializable {
     /* --------- INSTANCE --------- */
 
     // TODO: CONSIDER CHANGING IMAGE TO A CUSTOM IMAGEVIEW THAT'LL BE THE ORIGINAL IMAGE?
-    private transient Image image;  // On opte de ne pas convertir l'Image, donc transigeant
+    private transient Image image;  // Image n'implémente pas Serializable
     private Perspective leftside;
     private Perspective rightside;
 
@@ -67,14 +66,8 @@ public class CommandsManager extends Observable implements Serializable {
         this.image = image;
 
         double width = this.image.getWidth(), height = this.image.getHeight();
-        this.leftside.setAll(width, height);
-        this.rightside.setAll(width, height);
-
-        this.notifyObservers();
-    }
-
-    public void setImage(WritableImage writableImage) {
-        this.image = writableImage;
+        this.leftside.setDimensions(width, height);
+        this.rightside.setDimensions(width, height);
 
         this.notifyObservers();
     }
@@ -129,8 +122,9 @@ public class CommandsManager extends Observable implements Serializable {
         this.setImage(new Image(file.toURI().toString()));
     }
 
+    // TODO: SAVE BEFORE QUITTING?
     public void quitApplication(Stage stage) {
-        stage.close();  // TODO: SAVE BEFORE QUIT??
+        stage.close();
     }
 
     // MENUBAR: EDITION
@@ -150,30 +144,14 @@ public class CommandsManager extends Observable implements Serializable {
     }
 
     // ZOOM
-
-    public void zoom(Perspective perspective, double delta) {
-        perspective.zoom(delta);
-
-        this.notifyObservers();
-    }
-
-    // old zoom
-    public void zoom(Perspective perspective, Bounds bounds, Point2D target, double delta) {
-//        Point2D position = perspective.getRelativePosition(bounds, target);
-        double magnitude = perspective.getZoomMagnitude(delta);
-//        perspective.zoom(position, magnitude);
-        perspective.zoom(target, magnitude);
+    public void zoom(Perspective perspective, Point2D position, double delta) {
+        perspective.zoom(position, delta);
 
         this.notifyObservers();
     }
 
-    // PAN
-
-    // IT'S NOT SETTING THE POSITION TO THE REAL POSITION
-    public void pan(Perspective perspective, Point2D target, Bounds localBounds) {
-        perspective.pan(target, localBounds);
-//        System.out.println("LOCAL BOUNDS " + localBounds);
-//        System.out.println("IMG BOUNDS " + perspective.getBounds());
+    public void pan(Perspective perspective, Point2D position, Bounds bounds) {
+        perspective.pan(position, bounds);
 
         this.notifyObservers();
     }
