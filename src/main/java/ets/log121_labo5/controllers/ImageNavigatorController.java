@@ -41,7 +41,7 @@ public class ImageNavigatorController implements Observer {
 
         // PAN
 //        this.view.setOnMouseClicked(new PanCommand());
-        this.view.setOnMousePressed(new PanCommand());
+//        this.view.setOnMousePressed(new PanCommand());
     }
 
     public ImageView getImageView() {
