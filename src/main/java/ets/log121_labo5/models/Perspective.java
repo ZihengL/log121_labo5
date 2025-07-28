@@ -5,8 +5,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
 
-import java.io.Serial;
-import java.io.Serializable;
+import java.io.*;
 
 /**
  * Class: Perspective
@@ -24,13 +23,12 @@ public class Perspective implements Serializable {
     private static final long serialVersionUID = 1L;
 
     public static final double MIN_ZOOM = 10.;
-
     public static final double ZOOM_FACTOR = 1.01;
 
     // INSTANCE
 
-    private Rectangle2D bounds;
-    private Rectangle2D viewport;
+    private transient Rectangle2D viewport;
+    private transient Rectangle2D bounds;
 
     public Perspective() {
         this(0., 0., 0., 0.);
@@ -43,6 +41,38 @@ public class Perspective implements Serializable {
     public Perspective(Rectangle2D viewport, Rectangle2D bounds) {
         this.viewport = viewport;
         this.bounds = bounds;
+    }
+
+    // SERIALIZATION
+
+    @Serial
+    private void writeObject(ObjectOutputStream output) throws IOException {
+        output.writeDouble(this.viewport.getMinX());
+        output.writeDouble(this.viewport.getMinY());
+        output.writeDouble(this.viewport.getWidth());
+        output.writeDouble(this.viewport.getHeight());
+
+        output.writeDouble(this.bounds.getMinX());
+        output.writeDouble(this.bounds.getMinY());
+        output.writeDouble(this.bounds.getWidth());
+        output.writeDouble(this.bounds.getHeight());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
+        double minX, minY, width, height;
+
+        minX = input.readDouble();
+        minY = input.readDouble();
+        width = input.readDouble();
+        height = input.readDouble();
+        this.viewport = new Rectangle2D(minX, minY, width, height);
+
+        minX = input.readDouble();
+        minY = input.readDouble();
+        width = input.readDouble();
+        height = input.readDouble();
+        this.bounds = new Rectangle2D(minX, minY, width, height);
     }
 
     // ACCESSORS
@@ -96,13 +126,14 @@ public class Perspective implements Serializable {
         this.setViewport(x, y, maxX, maxY);
     }
 
+    // Retourne
     public double getZoomMagnitude(double delta) {
         double width = this.viewport.getWidth(), height = this.viewport.getHeight(),
-                boundsX = this.bounds.getWidth(), boundsY = this.bounds.getHeight();
+                boundX = this.bounds.getWidth(), boundY = this.bounds.getHeight();
 
         double magnitude = Math.pow(ZOOM_FACTOR, delta),
                min = Math.min(MIN_ZOOM / width, MIN_ZOOM / height),
-               max = Math.max(boundsX / width, boundsY / height);
+               max = Math.max(boundX / width, boundY / height);
 
         return this.clamp(magnitude, min, max);
     }
@@ -140,13 +171,6 @@ public class Perspective implements Serializable {
     }
 
     // OTHER
-
-    public Point2D getClosestWithin(Point2D position) {
-        return new Point2D(
-            this.clamp(position.getX(), this.bounds.getMinX(), this.bounds.getMaxX()),
-            this.clamp(position.getY(), this.bounds.getMaxY(), this.bounds.getMaxY())
-        );
-    }
 
     public Point2D getCenter() {
         return new Point2D(this.bounds.getWidth() / 2, this.bounds.getHeight() / 2);

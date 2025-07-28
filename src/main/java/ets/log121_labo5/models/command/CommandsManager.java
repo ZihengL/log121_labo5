@@ -1,6 +1,8 @@
 package ets.log121_labo5.models.command;
 
 import ets.log121_labo5.models.Perspective;
+import ets.log121_labo5.models.memento.HistoryManager;
+import ets.log121_labo5.models.memento.State;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -12,8 +14,10 @@ import java.io.*;
 /**
  * Class: CommandsManager
  * Created on: 7/6/2025
- * Description: Classe à instance unique qui se trouve au centre de tous les commandes
- * de l'utilisateur
+ * Description: Classe à instance unique qui centralise la gestion de tous les commandes
+ * de l'utilisateur. Il est à noter que ce n'est pas tous les actions qui sont considérées
+ * comme une commande. L'action de copier un item ou d'ouvrir un menu, par exemple, ne se
+ * qualifient pas comme étant
  *
  * @author liuzi | Zi heng Liu
  */
@@ -33,17 +37,40 @@ public class CommandsManager extends Observable implements Serializable {
 
     /* --------- INSTANCE --------- */
 
-    // TODO: CONSIDER CHANGING IMAGE TO A CUSTOM IMAGEVIEW THAT'LL BE THE ORIGINAL IMAGE?
     private transient Image image;  // Image n'implémente pas Serializable
     private Perspective leftside;
     private Perspective rightside;
+
+    private transient HistoryManager historyManager; // On ne sauvegarde pas l'historique
 
     private CommandsManager() {
         this.image = null;
         this.leftside = new Perspective();
         this.rightside = new Perspective();
+        this.historyManager = new HistoryManager();
 
         this.notifyObservers();
+    }
+
+    // SERIALIZATION
+
+    @Serial
+    private void writeObject(ObjectOutputStream output) throws IOException {
+        output.defaultWriteObject();
+
+        boolean validImage = this.image != null && this.image.getUrl() != null;
+        output.writeBoolean(validImage);
+
+        if (validImage)
+            output.writeUTF(this.image.getUrl());
+    }
+
+    @Serial
+    private void readObject(ObjectInputStream input) throws IOException, ClassNotFoundException {
+        input.defaultReadObject();
+
+        boolean validImage = input.readBoolean();
+        this.image = validImage ? new Image(input.readUTF()) : this.image;
     }
 
     // ACCESSORS
@@ -58,6 +85,12 @@ public class CommandsManager extends Observable implements Serializable {
 
     public Perspective getRightside() {
         return this.rightside;
+    }
+
+    public State getState() {
+        String imageURL = this.image != null ? this.image.getUrl() : "";
+
+        return new State(imageURL, this.leftside, this.rightside);
     }
 
     // MUTATORS
@@ -84,10 +117,12 @@ public class CommandsManager extends Observable implements Serializable {
         this.notifyObservers();
     }
 
-    public void setAll(Image image, Perspective leftside, Perspective rightside) {
-        this.image = image;
-        this.leftside = leftside;
-        this.rightside = rightside;
+    public void setState(State state) {
+        if (state == null) return;
+
+        this.image = new Image(state.imageURL());
+        this.leftside = state.leftside();
+        this.rightside = state.rightside();
 
         this.notifyObservers();
     }
@@ -98,20 +133,22 @@ public class CommandsManager extends Observable implements Serializable {
         String path = file.getPath().toLowerCase();
         file = !path.endsWith(".ser") ? new File(path + ".ser") : file;
 
-        try (ObjectOutputStream oos = new ObjectOutputStream(
+        try (ObjectOutputStream output = new ObjectOutputStream(
                 new FileOutputStream(file))) {
-            oos.writeObject(this);
+            output.writeObject(this);
         }
     }
 
     public void loadState(File file) throws IOException, ClassNotFoundException {
-        try (ObjectInputStream ois = new ObjectInputStream(
+        try (ObjectInputStream input = new ObjectInputStream(
                 new FileInputStream(file))) {
-            Object object = ois.readObject();
+            Object object = input.readObject();
 
-            if (object instanceof CommandsManager loaded) {
-                this.leftside = loaded.leftside;
-                this.rightside = loaded.rightside;
+//            if (object instanceof CommandsManager loaded) {
+            if (object instanceof State loaded) {
+                this.image = new Image(loaded.imageURL());
+                this.leftside = loaded.leftside();
+                this.rightside = loaded.rightside();
 
                 this.notifyObservers();
             }
@@ -127,14 +164,24 @@ public class CommandsManager extends Observable implements Serializable {
         stage.close();
     }
 
-    // MENUBAR: EDITION
+    // MENUBAR: EDITING
 
     public void undo() {
+        State state = this.historyManager.getPrevious();
 
+        this.setState(state);
     }
 
     public void redo() {
+        State state = this.historyManager.getNext();
 
+        this.setState(state);
+    }
+
+    public void recordCurrentState() {
+        State state = this.getState();
+
+        this.historyManager.add(state);
     }
 
     // MENUBAR: "PRESSE-PAPIER"

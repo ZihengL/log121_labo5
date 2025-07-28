@@ -61,6 +61,9 @@ public class MainController {
 
         // TEMPORARY: DEFAULT IMG
         String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ets\\log121_labo5\\saves\\xp_background.png";
-        manager.setImage(new Image(path));
+        Image image = new Image(path);
+        manager.setImage(image);
+
+        System.out.println(image.getUrl());
     }
 }

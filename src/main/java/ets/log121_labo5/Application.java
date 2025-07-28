@@ -20,14 +20,6 @@ public class Application extends javafx.application.Application {
         stage.setTitle("Navigateur d'image");
         stage.setScene(scene);
         stage.show();
-
-        this.test();
-    }
-
-    private void test() {
-        URL resURL = Application.class.getResource("");
-
-        System.out.println(resURL.getPath());
     }
 
     public static void main(String[] args) {

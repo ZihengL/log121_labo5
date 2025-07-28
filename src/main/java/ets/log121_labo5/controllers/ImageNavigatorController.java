@@ -34,10 +34,8 @@ public class ImageNavigatorController implements Observer {
         this.view.fitWidthProperty().bind(this.rootPane.widthProperty().subtract(20));
         this.view.fitHeightProperty().bind(this.rootPane.heightProperty().subtract(20));
 
-        // ZOOM
+        // ZOOM & PAN
         this.view.setOnScroll(new ZoomCommand());
-
-        // PAN
         this.view.setOnMouseClicked(new PanCommand());
     }
 

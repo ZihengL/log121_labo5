@@ -1,13 +1,15 @@
 package ets.log121_labo5;
 
 
+import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.command.CommandsManager;
 
 import java.io.*;
+import java.util.ArrayList;
+import java.util.Stack;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
-
-import javax.swing.*;
 
 /**
  * Class: Tester
@@ -19,71 +21,64 @@ import javax.swing.*;
 
 public class Tester {
 
-    public static void main(String[] args) {
+    public static void serialPerspectiveTest() {
+        Rectangle2D viewport = new Rectangle2D(10, 20, 100, 50);
+        Rectangle2D bounds = new Rectangle2D(0, 0, 500, 500);
+        Perspective perspective = new Perspective(viewport, bounds);
 
-//        Vector v = new Vector(2., 3.);
-//
-//        System.out.println(v);
-//        v.translate(new Vector(3., 4.));
-//        System.out.println(v);
-
-        CommandsManager instance = CommandsManager.getInstance();
-//        State state = instance.getState();
-
-//        System.out.println(state);
-
-//        instance.saveState("test.ser");
-
-        try {
-            System.out.println("FILECHOOSer");
-            JFileChooser fc = new JFileChooser();
-            int returnVal = fc.showOpenDialog(null);
-
-            if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-
-                FileInputStream fis = new FileInputStream(file);
-                Image image = new Image(fis);
-
-                instance.setImage(image);
-//                instance.loadState(file);
-            }
-        } catch (FileNotFoundException e) {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream("object.ser"))) {
+            out.writeObject(perspective);
+            System.out.println("Serialized: " + perspective);
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
-//        FileChooser fc = new FileChooser();
-//        File file = fc.showOpenDialog(null);
-//
-//        if (file != null)
-//            try {
-//                Image image = new Image(new FileInputStream(file));
-//                instance.setImage(image);
-//            } catch (FileNotFoundException e) {
-//                    throw new RuntimeException(e);
-//                }
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream("object.ser"))) {
+            Perspective deserialized = (Perspective) in.readObject();
+            System.out.println("Deserialized: " + deserialized);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
-//        Perspective perspective = new Perspective();
-//        perspective.setPosition(5., 12.);
-//        perspective.setViewport(1.42);
-//        System.out.println(perspective);
-//
-//        Perspective perspective2 = new Perspective();
-//        perspective2.setPosition(4.7, 3.9);
-//        perspective2.setViewport(1.96);
-//        System.out.println(perspective2);
+    public static void serialImageTest() {
+        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ets\\log121_labo5\\saves\\xp_background.png";
+        Image image = new Image(path);
 
-        // Serialization
-//        Perspective[] perspectives = new Perspective[] { perspective, perspective2 };
-//        System.out.println("SERIALIZE TEST");
-//        // Serialization
-//        Tools.serialize("test123", perspective, perspective2);
+        System.out.println(image.getUrl());
+    }
 
-        // Deserialization
-//        Perspective[] deserialized = (Perspective[]) Tools.deserialize("test123");
+    public static void main(String[] args) {
+        CommandsManager manager = CommandsManager.getInstance();
 
-//        System.out.println("\nDESERIALIZED");
-//        for (Perspective p : deserialized)
-//        System.out.println(deserialized);
+//        serialPerspectiveTest();
+
+//        serialImageTest();
+
+        ArrayList<String> list = new ArrayList<>();
+
+        String item = "AA";
+        list.add(item);
+
+        String item2 = "BB";
+        list.add(item2);
+
+        for (int i = 0; i < 10; i++) {
+            list.add(i + "");
+        }
+        System.out.println(list + " " + list.indexOf(item) + " " + list.indexOf(item2));
+
+        list.remove(item);
+        System.out.println(list.indexOf(item2));
+        list.remove(0);
+
+        Stack<String> stack = new Stack<>();
+        stack.add(item);
+        stack.add(item2);
+
+        System.out.println(stack);
+        stack.remove(stack.getFirst());
+        System.out.println(stack);
+        System.out.println(stack.indexOf(item2));
     }
 }
