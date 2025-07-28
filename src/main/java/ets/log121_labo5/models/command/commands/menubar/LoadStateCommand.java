@@ -38,7 +38,7 @@ public class LoadStateCommand extends FileDialogCommand {
     @Override
     protected void invokeCommand(File file) {
         try {
-            CommandsManager.getInstance().loadState(file);
+            CommandsManager.getInstance().loadStateFromFiles(file);
         } catch (IOException | ClassNotFoundException e) {
             e.printStackTrace();
         }

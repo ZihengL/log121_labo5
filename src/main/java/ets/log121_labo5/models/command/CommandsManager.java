@@ -22,6 +22,7 @@ import java.io.*;
  * @author liuzi | Zi heng Liu
  */
 
+// TODO: REMOVE SERIALIZABLE
 public class CommandsManager extends Observable implements Serializable {
 
     /* --------- STATIC (SINGLETON) --------- */
@@ -129,7 +130,7 @@ public class CommandsManager extends Observable implements Serializable {
 
     // MENUBAR: FILE MENU
 
-    public void saveState(File file) throws IOException {
+    public void saveStateToFiles(File file) throws IOException {
         String path = file.getPath().toLowerCase();
         file = !path.endsWith(".ser") ? new File(path + ".ser") : file;
 
@@ -139,16 +140,15 @@ public class CommandsManager extends Observable implements Serializable {
         }
     }
 
-    public void loadState(File file) throws IOException, ClassNotFoundException {
+    public void loadStateFromFiles(File file) throws IOException, ClassNotFoundException {
         try (ObjectInputStream input = new ObjectInputStream(
                 new FileInputStream(file))) {
             Object object = input.readObject();
 
-//            if (object instanceof CommandsManager loaded) {
-            if (object instanceof State loaded) {
-                this.image = new Image(loaded.imageURL());
-                this.leftside = loaded.leftside();
-                this.rightside = loaded.rightside();
+            if (object instanceof State(String imageURL, Perspective leftside1, Perspective rightside1)) {
+                this.image = new Image(imageURL);
+                this.leftside = leftside1;
+                this.rightside = rightside1;
 
                 this.notifyObservers();
             }
