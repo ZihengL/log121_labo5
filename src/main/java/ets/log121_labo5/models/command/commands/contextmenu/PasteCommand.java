@@ -23,19 +23,4 @@ public class PasteCommand extends ContextMenuCommand {
         ImageNavigatorController controller = this.getEventController(event);
         controller.setPerspective(ContextMenuCommand.copy);
     }
-
-    @Override
-    public void undo() {
-
-    }
-
-//    public void executeOLD(ActionEvent event) {
-//        Perspective perspective = this.copyCommand.getPerspective();
-//
-//        if (perspective != null) {
-//            ImageNavigatorController controller = this.getEventController(event);
-//
-//            controller.setPerspective(perspective);
-//        }
-//    }
 }

@@ -17,13 +17,6 @@ public class QuitCommand extends Command<ActionEvent> {
     // On n'invoque
     @Override
     public void execute(ActionEvent event) {
-//        CommandsManager manager = CommandsManager.getInstance();
-//
-//        manager.quitApplication(Command.stage);
         Command.stage.close();
     }
-
-    // Rien pour undo parce qu'on ne peut pas défaire l'action de quitter l'application.
-    @Override
-    public void undo() {}
 }

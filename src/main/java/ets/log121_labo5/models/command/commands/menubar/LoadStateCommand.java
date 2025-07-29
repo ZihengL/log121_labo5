@@ -43,11 +43,4 @@ public class LoadStateCommand extends FileDialogCommand {
             e.printStackTrace();
         }
     }
-
-    // COMMAND INHERITED
-
-    @Override
-    public void undo() {
-
-    }
 }

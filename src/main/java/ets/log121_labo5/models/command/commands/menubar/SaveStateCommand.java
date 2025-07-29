@@ -40,11 +40,4 @@ public class SaveStateCommand extends FileDialogCommand {
             e.printStackTrace();
         }
     }
-
-    // COMMAND INHERITED
-
-    @Override
-    public void undo() {
-
-    }
 }

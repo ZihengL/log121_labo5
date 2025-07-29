@@ -16,8 +16,6 @@ import javafx.geometry.Rectangle2D;
 
 public class CopyCommand extends ContextMenuCommand {
 
-//    private Perspective perspective;
-
     @Override
     public void execute(ActionEvent event) {
         ImageNavigatorController controller = this.getEventController(event);
@@ -26,13 +24,4 @@ public class CopyCommand extends ContextMenuCommand {
         // Instance de Perspective donnée par le PerspectiveGetter de leftside/rightside.
         ContextMenuCommand.copy = new Perspective(perspective.getViewport(), perspective.getBounds());
     }
-
-    @Override
-    public void undo() {
-
-    }
-
-//    public Perspective getPerspective() {
-//        return this.perspective;
-//    }
 }

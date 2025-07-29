@@ -19,9 +19,4 @@ public class RedoCommand extends Command<ActionEvent> {
     public void execute(ActionEvent event) {
         CommandsManager.getInstance().redo();
     }
-
-    @Override
-    public void undo() {
-
-    }
 }

@@ -36,22 +36,6 @@ public class PanCommand extends Command<MouseEvent> {
         Point2D position = new Point2D(event.getX(), event.getY());
         Bounds bounds = view.getBoundsInLocal();
 
-//        Affine inverse = null;
-//        try {
-//            inverse = (Affine) view.getLocalToParentTransform().createInverse();
-//        } catch (NonInvertibleTransformException e) {
-//            e.printStackTrace();
-//            return;
-//        }
-//
-//        Point2D imagePoint = inverse.transform(event.getX(), event.getY());
-//        System.out.println(imagePoint);
-
         CommandsManager.getInstance().pan(perspective, position, bounds);
-    }
-
-    @Override
-    public void undo() {
-
     }
 }

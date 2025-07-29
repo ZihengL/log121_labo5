@@ -5,7 +5,6 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="ets.log121_labo5.controllers.MainController"
-          prefWidth="1600" prefHeight="900"
           stylesheets="@/main.css">
     <columnConstraints>
         <ColumnConstraints percentWidth="50"/>
@@ -15,11 +14,14 @@
         <RowConstraints percentHeight="5" />
         <RowConstraints percentHeight="35" />
         <RowConstraints percentHeight="60" />
-    </rowConstraints>
+<!--            <RowConstraints prefHeight="60" maxHeight="60" />-->
+<!--            <RowConstraints prefHeight="200" maxHeight="200" />-->
+<!--            <RowConstraints prefHeight="400"/>-->
+        </rowConstraints>
 
-    <!--MENUBAR-->
+        <!--MENUBAR-->
     <MenuBar GridPane.rowIndex="0" GridPane.columnIndex="0"
-             GridPane.columnSpan="3">
+             GridPane.columnSpan="2">
         <Menu text="Fichier">
             <MenuItem fx:id="saveAppStateItem" text="Sauvegarder état"/>
             <MenuItem fx:id="loadAppStateItem" text="Charger état"/>

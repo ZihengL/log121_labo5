@@ -38,6 +38,4 @@ public abstract class Command<T extends Event> implements EventHandler<T> {
     }
 
     public abstract void execute(T event);
-
-    public abstract void undo();
 }

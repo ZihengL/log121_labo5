@@ -3,6 +3,8 @@ package ets.log121_labo5.models.command;
 import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.memento.HistoryManager;
 import ets.log121_labo5.models.memento.State;
+import ets.log121_labo5.models.memento.StateNode;
+import ets.log121_labo5.models.memento.StatesManager;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -42,15 +44,15 @@ public class CommandsManager extends Observable implements Serializable {
     private Perspective leftside;
     private Perspective rightside;
 
-    private transient HistoryManager historyManager; // On ne sauvegarde pas l'historique
+    private transient StatesManager statesManager; // On ne sauvegarde pas l'historique
 
     private CommandsManager() {
         this.image = null;
         this.leftside = new Perspective();
         this.rightside = new Perspective();
-        this.historyManager = new HistoryManager();
+        this.statesManager = new StatesManager();
 
-        this.notifyObservers();
+        this.recordCurrentState();
     }
 
     // SERIALIZATION
@@ -88,40 +90,43 @@ public class CommandsManager extends Observable implements Serializable {
         return this.rightside;
     }
 
+    // Retourne un record de l'état actuel des composantes du programme.
+    // Utilise copie des objets Perspective afin de maintenir leur état courant.
     public State getState() {
         String imageURL = this.image != null ? this.image.getUrl() : "";
 
-        return new State(imageURL, this.leftside, this.rightside);
+        return new State(imageURL, this.leftside.copy(), this.rightside.copy());
     }
 
     // MUTATORS
 
     public void setImage(Image image) {
         this.image = image;
-
         double width = this.image.getWidth(), height = this.image.getHeight();
         this.leftside.setDimensions(width, height);
         this.rightside.setDimensions(width, height);
 
-        this.notifyObservers();
+        this.update();
     }
 
     public void setLeftside(Perspective leftside) {
+        this.recordCurrentState();
         this.leftside = leftside.copy();
 
-        this.notifyObservers();
+        this.update();
     }
 
     public void setRightside(Perspective rightside) {
+        this.recordCurrentState();
         this.rightside = rightside.copy();
 
-        this.notifyObservers();
+        this.update();
     }
 
     public void setState(State state) {
         if (state == null) return;
 
-        this.image = new Image(state.imageURL());
+        this.image = !state.imageURL().isEmpty() ? new Image(state.imageURL()) : null;
         this.leftside = state.leftside();
         this.rightside = state.rightside();
 
@@ -150,7 +155,7 @@ public class CommandsManager extends Observable implements Serializable {
                 this.leftside = leftside1;
                 this.rightside = rightside1;
 
-                this.notifyObservers();
+                this.update();
             }
         }
     }
@@ -167,21 +172,23 @@ public class CommandsManager extends Observable implements Serializable {
     // MENUBAR: EDITING
 
     public void undo() {
-        State state = this.historyManager.getPrevious();
+        if (!this.statesManager.moveLeft()) return;
 
-        this.setState(state);
+        State previous = this.statesManager.getCurrent().getState();
+        this.setState(previous);
     }
 
     public void redo() {
-        State state = this.historyManager.getNext();
+        if (!this.statesManager.moveRight()) return;
 
-        this.setState(state);
+        State next = this.statesManager.getCurrent().getState();
+        this.setState(next);
     }
 
     public void recordCurrentState() {
         State state = this.getState();
 
-        this.historyManager.add(state);
+        this.statesManager.add(state);
     }
 
     // MENUBAR: "PRESSE-PAPIER"
@@ -194,16 +201,21 @@ public class CommandsManager extends Observable implements Serializable {
     public void zoom(Perspective perspective, Point2D position, double delta) {
         perspective.zoom(position, delta);
 
-        this.notifyObservers();
+        this.update();
     }
 
     public void pan(Perspective perspective, Point2D position, Bounds bounds) {
         perspective.pan(position, bounds);
 
-        this.notifyObservers();
+        this.update();
     }
 
     // OTHER
+
+    public void update() {
+        this.recordCurrentState();
+        this.notifyObservers();
+    }
 
     public String toString() {
         return String.format("Leftside: %s - Rightside: %s", this.leftside, this.rightside);

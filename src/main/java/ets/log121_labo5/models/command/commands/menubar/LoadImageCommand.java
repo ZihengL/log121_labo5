@@ -29,11 +29,4 @@ public class LoadImageCommand extends FileDialogCommand {
     protected void invokeCommand(File file) {
         CommandsManager.getInstance().loadImage(file);
     }
-
-    // COMMAND INHERITED
-
-    @Override
-    public void undo() {
-
-    }
 }

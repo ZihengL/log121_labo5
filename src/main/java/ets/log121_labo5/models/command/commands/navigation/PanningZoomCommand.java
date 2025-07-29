@@ -29,19 +29,10 @@ public class PanningZoomCommand extends Command<ScrollEvent> {
         CommandsManager manager = CommandsManager.getInstance();
         Perspective perspective = controller.getPerspective();
 
-        double delta = -event.getDeltaY();
-//        manager.zoom(perspective, delta);
-
         Point2D point = new Point2D(event.getX(), event.getY());
         Point2D target = view.localToParent(point);
         Bounds bounds = view.getBoundsInLocal();
 
         manager.pan(perspective, target, bounds);
     }
-
-    @Override
-    public void undo() {
-
-    }
-
 }

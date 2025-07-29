@@ -191,6 +191,8 @@ public class Perspective implements Serializable {
     }
 
     public String toString() {
-        return this.bounds + " | " + this.viewport;
+        Rectangle2D v = this.viewport, b = this.bounds;
+
+        return String.format("[V(%.2f, %.2f) B(%.2f, %.2f)]", v.getWidth(), v.getHeight(), b.getWidth(), b.getHeight());
     }
 }

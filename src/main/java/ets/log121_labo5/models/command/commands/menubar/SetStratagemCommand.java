@@ -18,9 +18,4 @@ public class SetStratagemCommand extends Command<ActionEvent> {
     public void execute(ActionEvent event) {
 
     }
-
-    @Override
-    public void undo() {
-
-    }
 }

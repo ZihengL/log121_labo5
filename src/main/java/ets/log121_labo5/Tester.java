@@ -68,17 +68,20 @@ public class Tester {
         }
         System.out.println(list + " " + list.indexOf(item) + " " + list.indexOf(item2));
 
+        System.out.println(list.size());
         list.remove(item);
-        System.out.println(list.indexOf(item2));
+        System.out.println(list.size());
+//        System.out.println(list.indexOf(item2));
         list.remove(0);
+        System.out.println(list.size());
 
-        Stack<String> stack = new Stack<>();
-        stack.add(item);
-        stack.add(item2);
-
-        System.out.println(stack);
-        stack.remove(stack.getFirst());
-        System.out.println(stack);
-        System.out.println(stack.indexOf(item2));
+//        Stack<String> stack = new Stack<>();
+//        stack.add(item);
+//        stack.add(item2);
+//
+//        System.out.println(stack);
+//        stack.remove(stack.getFirst());
+//        System.out.println(stack);
+//        System.out.println(stack.indexOf(item2));
     }
 }

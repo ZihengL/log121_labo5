@@ -36,9 +36,4 @@ public class ZoomCommand extends Command<ScrollEvent> {
 
         CommandsManager.getInstance().zoom(perspective, position, delta);
     }
-
-    @Override
-    public void undo() {
-
-    }
 }

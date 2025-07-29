@@ -6,7 +6,7 @@ import java.util.ArrayList;
 /**
  * Class: HistoryManager
  * Created on: 7/27/2025
- * Description:
+ * Description: Implémentation du patron Memento
  *
  * @author liuzi | Zi heng Liu
  */
@@ -18,7 +18,6 @@ public class HistoryManager {
     private ArrayList<State> history;
     private State current;
 
-    // TODO: CAN CREATE A LIFO THING FOR STATE OBJECTS. STATE IMAGE CAN BE A PROXY FOR COMMANDSMANAGER
     public HistoryManager() {
         this.history = new ArrayList<State>();
         this.current = null;
@@ -36,15 +35,18 @@ public class HistoryManager {
 
     // MUTATORS
 
+    // TODO: FIX THIS SHIT ASDASJKHDASKDHASHJK
     public void add(State state) {
         if (this.size() >= MAX_HISTORY)
             this.remove(0);
 
-        if (this.history.indexOf(this.current) < this.size() - 1)
-            this.removePastCurrent();
+//        if (this.current != null && !this.current.equals(this.history.getLast()))
+//            this.removePastCurrent();
 
         this.history.add(state);
         this.current = state;
+
+        System.out.println("added: " + state + "\nIDX: " + this.history.indexOf(this.current));
     }
 
     public void remove(State state) {
@@ -74,11 +76,13 @@ public class HistoryManager {
         if (prevIdx < 0) return null;
 
         this.current = this.history.get(prevIdx);
+        System.out.println(this.current);
         return this.current;
     }
 
     public void removePastCurrent() {
         int threshold = this.getCurrentIndex();
+        System.out.println("THRESHOLD: " + threshold);
         if (threshold == -1) return;
 
         int i = this.size() - 1;

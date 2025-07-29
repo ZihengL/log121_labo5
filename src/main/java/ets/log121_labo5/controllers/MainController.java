@@ -60,7 +60,7 @@ public class MainController {
         this.contextMenuController.addToPanes(this.leftsidePane, this.rightsidePane);
 
         // TEMPORARY: DEFAULT IMG
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ets\\log121_labo5\\saves\\default.jpg";
+        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ets\\log121_labo5\\saves\\xp_background.png";
         Image image = new Image(path);
         manager.setImage(image);
 
