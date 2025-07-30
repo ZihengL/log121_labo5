@@ -1,4 +1,4 @@
-package ets.log121_labo5.models.command.commands.menubar;
+package ets.log121_labo5.models.command.commands.menubar.files;
 
 
 import ets.log121_labo5.models.command.CommandsManager;
@@ -9,37 +9,34 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Class: LoadPerspectiveAction
+ * Class: SavePerspectiveAction
  * Created on: 7/9/2025
  * Description:
  *
  * @author liuzi | Zi heng Liu
  */
 
-public class LoadStateCommand extends FileDialogCommand {
+public class SaveStateCommand extends FileDialogCommand {
 
     // TEMPLATE INHERITED
 
     @Override
     protected void setDialogOptions(FileChooser fc) {
-        fc.setTitle("Charger un état sauvegardé");
-        fc.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("Serializable", "*.ser")
-        );
+        fc.setTitle("Sauvegarder l'état courante.");
 
         super.setDialogOptions(fc);
     }
 
     @Override
     protected File fireDialog(Stage stage, FileChooser fc) {
-        return fc.showOpenDialog(stage);
+        return fc.showSaveDialog(stage);
     }
 
     @Override
     protected void invokeCommand(File file) {
         try {
-            CommandsManager.getInstance().loadStateFromFiles(file);
-        } catch (IOException | ClassNotFoundException e) {
+            CommandsManager.getInstance().saveStateToFiles(file);
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

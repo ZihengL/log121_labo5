@@ -1,4 +1,4 @@
-package ets.log121_labo5.models.command.commands.menubar;
+package ets.log121_labo5.models.command.commands.menubar.clipboard;
 
 
 import ets.log121_labo5.models.command.Command;
@@ -12,7 +12,7 @@ import javafx.event.ActionEvent;
  * @author liuzi | Zi heng Liu
  */
 
-public class SetStratagemCommand extends Command<ActionEvent> {
+public class SetClipboardCommand extends Command<ActionEvent> {
 
     @Override
     public void execute(ActionEvent event) {

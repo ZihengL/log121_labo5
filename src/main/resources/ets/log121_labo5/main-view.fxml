@@ -34,13 +34,10 @@
         <Menu text="Édition">
             <MenuItem fx:id="undoItem" text="Défaire"/>
             <MenuItem fx:id="redoItem" text="Refaire"/>
-            <SeparatorMenuItem/>
-            <MenuItem fx:id="zoomInItem" text="Zoom +"/>
-            <MenuItem fx:id="zoomOutItem" text="Zoom -"/>
         </Menu>
 
         <Menu text="Presse-Papier">
-            <MenuItem fx:id="pickStrategemItem" text="Stratégie"/>
+            <MenuItem fx:id="clipboardItem" text="Stratégie"/>
         </Menu>
     </MenuBar>
 
@@ -51,12 +48,12 @@
 
     <!--LEFTSIDE-->
     <fx:include fx:id="leftsidePane" source="image-navigator-view.fxml"
-                GridPane.halignment="LEFT"
+                GridPane.halignment="CENTER"
                 GridPane.rowIndex="2" GridPane.columnIndex="0"/>
 
     <!--RIGHTSIDE-->
     <fx:include fx:id="rightsidePane" source="image-navigator-view.fxml"
-                GridPane.halignment="RIGHT"
+                GridPane.halignment="CENTER"
                 GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 </GridPane>
 

@@ -27,6 +27,9 @@ public class Perspective implements Serializable {
 
     // INSTANCE
 
+    // Objets Rectangle2D transigeants puisqu'ils ne sont pas sérializables.
+    // Alternativement, nous aurons pu implémenter une classe adaptateur pour
+    // la sérialization.
     private transient Rectangle2D viewport;
     private transient Rectangle2D bounds;
 
@@ -160,9 +163,6 @@ public class Perspective implements Serializable {
                boundsY = this.bounds.getHeight();
         double y = this.getPanPosition(posY, minY, height, localBoundY, boundsY);
 
-        Point2D center = this.getViewportCenter();
-        System.out.printf("NEW (%.2f, %.2f) -- OLD (%.2f, %.2f)\n\n", x, y, center.getX(), center.getY());
-
         this.setViewport(x, y, width, height);
     }
 
@@ -191,8 +191,9 @@ public class Perspective implements Serializable {
     }
 
     public String toString() {
-        Rectangle2D v = this.viewport, b = this.bounds;
+        double width = this.viewport.getWidth(),
+               height = this.viewport.getHeight();
 
-        return String.format("[V(%.2f, %.2f) B(%.2f, %.2f)]", v.getWidth(), v.getHeight(), b.getWidth(), b.getHeight());
+        return String.format("(%.2f, %.2f)", width, height);
     }
 }

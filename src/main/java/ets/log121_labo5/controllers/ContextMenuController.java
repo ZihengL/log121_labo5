@@ -21,8 +21,6 @@ import javafx.scene.layout.Pane;
 
 public class ContextMenuController {
 
-    private PerspectiveGetter copyGetter;
-
     @FXML private final ContextMenu menu;
 
     // Instanciation et initialisation du menu clique-droit avec ses sous-menus(copier/coller).

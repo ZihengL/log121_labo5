@@ -1,4 +1,4 @@
-package ets.log121_labo5.models.command.commands.menubar;
+package ets.log121_labo5.models.command.commands.menubar.edit;
 
 
 import ets.log121_labo5.models.command.Command;

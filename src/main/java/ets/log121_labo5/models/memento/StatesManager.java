@@ -42,22 +42,19 @@ public class StatesManager {
     public void add(State state) {
         StateNode node = new StateNode(state);
 
+        if (this.current == null && this.head == null && this.tail == null) {
+            this.current = this.head = this.tail = node;
+        } else {
+            this.tail.setNext(node);
+            this.current = this.tail.next();
+            this.tail = this.tail.next();
+        }
+
         if (this.size >= MAX_STATES) {
             this.head = this.head.next();
             this.head.removePrevious();
-            this.size--;
-        }
-
-        this.current = this.current == null ? node : this.current;
-        this.head = this.head == null ? node : this.head;
-        this.tail = this.tail == null ? node : this.tail;
-
-        this.tail.setNext(node);
-        this.current = this.tail.next();
-        this.tail = this.tail.next();
-        this.size++;
-
-//        System.out.println("ADDED \n" + node + "\n" + node.previous());
+        } else
+            this.size++;
     }
 
     public void remove(StateNode node) {

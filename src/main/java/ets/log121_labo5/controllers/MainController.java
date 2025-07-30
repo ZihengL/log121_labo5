@@ -1,7 +1,13 @@
 package ets.log121_labo5.controllers;
 
 import ets.log121_labo5.models.command.CommandsManager;
-import ets.log121_labo5.models.command.commands.menubar.*;
+import ets.log121_labo5.models.command.commands.menubar.clipboard.SetClipboardCommand;
+import ets.log121_labo5.models.command.commands.menubar.edit.RedoCommand;
+import ets.log121_labo5.models.command.commands.menubar.edit.UndoCommand;
+import ets.log121_labo5.models.command.commands.menubar.files.LoadImageCommand;
+import ets.log121_labo5.models.command.commands.menubar.files.LoadStateCommand;
+import ets.log121_labo5.models.command.commands.menubar.files.QuitCommand;
+import ets.log121_labo5.models.command.commands.menubar.files.SaveStateCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
@@ -18,7 +24,7 @@ public class MainController {
     @FXML private MenuItem undoItem;
     @FXML private MenuItem redoItem;
     // MENUBAR: PRESSE-PAPIER
-    @FXML private MenuItem pickStrategemItem;
+    @FXML private MenuItem clipboardItem;
 
     // SUBCONTROLLERS
     @FXML private BorderPane thumbnailPane;
@@ -42,7 +48,7 @@ public class MainController {
         this.undoItem.setOnAction(new UndoCommand());
         this.redoItem.setOnAction(new RedoCommand());
             // PRESSE-PAPIER
-        this.pickStrategemItem.setOnAction(new SetStratagemCommand());
+        this.clipboardItem.setOnAction(new SetClipboardCommand());
 
         /* --- PERSPECTIVE --- */
         CommandsManager manager = CommandsManager.getInstance();
