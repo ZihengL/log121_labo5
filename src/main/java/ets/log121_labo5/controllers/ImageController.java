@@ -1,6 +1,5 @@
 package ets.log121_labo5.controllers;
 
-
 import ets.log121_labo5.controllers.command.CommandsManager;
 import ets.log121_labo5.models.observer.Observable;
 import ets.log121_labo5.models.observer.Observer;
@@ -12,7 +11,8 @@ import javafx.scene.layout.StackPane;
 /**
  * Class: ImageController
  * Created on: 8/1/2025
- * Description:
+ * Description: Classe abstraite de contrôleur qui regroupe ce qu'on en commun
+ * tous les 3 panneaux contenant l'image.
  *
  * @author liuzi | Zi heng Liu
  */

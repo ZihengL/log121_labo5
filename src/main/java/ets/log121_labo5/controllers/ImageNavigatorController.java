@@ -7,26 +7,25 @@ import ets.log121_labo5.controllers.command.commands.navigation.PanCommand;
 import ets.log121_labo5.controllers.command.commands.navigation.ZoomCommand;
 import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.observer.Observable;
-import ets.log121_labo5.models.observer.Observer;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
+
+/**
+ * Class: ImageNavigatorController
+ * Created on: 7/12/2025
+ * Description: Contrôleur pour les vues qui incluent une
+ * Perspective dans le modèle.
+ *
+ * @author liuzi | Zi heng Liu
+ */
 
 public class ImageNavigatorController extends ImageController {
-
-//    @FXML private StackPane rootPane;
-//    @FXML private ImageView view;
 
     private PerspectiveGetter perspectiveGetter;
     private PerspectiveSetter perspectiveSetter;
 
     @FXML
     protected void initialize() {
-//        CommandsManager manager = CommandsManager.getInstance();
-//        manager.addObserver(this);
         super.initialize();
 
         // Sauvegarde l'instance de la classe en tant que propriété
@@ -58,33 +57,13 @@ public class ImageNavigatorController extends ImageController {
 
     @Override
     public void update(Observable observable) {
-//        CommandsManager manager = (CommandsManager) observable;
-//
-//        Image image = manager.getImage();
-//        Perspective perspective = this.getPerspective();
-//
-//        this.updateImage(image, perspective.getBounds());
-
         super.update(observable);
 
         Perspective perspective = this.getPerspective();
         this.updateViewport(perspective);
     }
 
-    public void updateImage(Image image, Rectangle2D bounds) {
-        Image current = this.view.getImage();
-        if (image == null || image.equals(current)) return;
-
-        this.view.setImage(image);
-        this.view.setFitWidth(bounds.getWidth());
-        this.view.setFitHeight(bounds.getHeight());
-    }
-
     public boolean updateImage(CommandsManager manager) {
-//        Image current = this.view.getImage();
-//        if (image == null || image.equals(current)) return;
-//
-//        this.view.setImage(image);
         if (!super.updateImage(manager)) return false;
 
         Rectangle2D bounds = this.getPerspective().getBounds();
