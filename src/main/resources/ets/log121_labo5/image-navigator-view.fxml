@@ -8,9 +8,9 @@
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="ets.log121_labo5.controllers.ImageNavigatorController"
             style="-fx-border-color: black; -fx-border-width: 0.5;">
-<!--    <center>-->
+
         <ImageView fx:id="view"
                    preserveRatio="true"
                    style="-fx-border-color: black"/>
-<!--    </center>-->
+
 </StackPane>

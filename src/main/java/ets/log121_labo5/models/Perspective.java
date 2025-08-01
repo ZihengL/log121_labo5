@@ -35,16 +35,16 @@ public class Perspective implements Serializable {
         return Math.min(max, Math.max(min, value));
     }
 
-    // Retourne une nouvelle Image avec la hauteur maximale
+    // Retourne l'Image si sa hauteur ne dépasse pas le max défini,
+    // sinon retourne une nouvelle Image avec les mêmes proportions
+    // à la hauteur maximale.
     public static Image setImageDimensions(Image image) {
         double width = image.getWidth(), height = image.getHeight();
+        if (height <= MAX_HEIGHT) return image;
 
-        if (height > MAX_HEIGHT) {
-            double scale = MAX_HEIGHT / height;
-
-            width = width * scale;
-            height = height * scale;
-        }
+        double scale = MAX_HEIGHT / height;
+        width = width * scale;
+        height = height * scale;
 
         return new Image(image.getUrl(), width, height, true, true);
     }
@@ -112,10 +112,12 @@ public class Perspective implements Serializable {
         return this.bounds;
     }
 
+    // Retourne le centre des bornes de l'Image.
     public Point2D getCenter() {
         return new Point2D(this.bounds.getWidth() / 2, this.bounds.getHeight() / 2);
     }
 
+    // Retourne le centre du rectangle de la vue actuelle.
     public Point2D getViewportCenter() {
         double x = (this.viewport.getWidth() / 2) + this.viewport.getMinX(),
                 y = (this.viewport.getHeight() / 2) + this.viewport.getMinY();
@@ -123,16 +125,19 @@ public class Perspective implements Serializable {
         return new Point2D(x, y);
     }
 
-    public Point2D getPosition() {
+    // Retourne la position du coin supérieur gauche de la vue actuelle.
+    public Point2D getViewportPosition() {
         return new Point2D(this.viewport.getMinX(), this.viewport.getMinY());
     }
 
+    // Retourne un vecteur représentant la taille de la vue actuelle.
     public Point2D getSize() {
         return new Point2D(this.viewport.getWidth(), this.viewport.getHeight());
     }
 
     // MUTATORS
 
+    // Remet à neuf la vue et les bornes de l'Image selon les valeurs en paramètres.
     public void setDimensions(double width, double height) {
         this.viewport = this.bounds = new Rectangle2D(0., 0., width, height);
     }
@@ -149,6 +154,10 @@ public class Perspective implements Serializable {
         double width = this.viewport.getWidth(), height = this.viewport.getHeight();
 
         this.setViewport(position.getX(), position.getY(), width, height);
+    }
+
+    public void setCenter(Point2D position) {
+        // TODO: REPLACE SETPOSITION WITH THIS.
     }
 
     public void setSize(Point2D size) {

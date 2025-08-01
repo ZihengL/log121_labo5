@@ -26,24 +26,13 @@ module ets.log121_labo5 {
     opens ets.log121_labo5.controllers.command.commands.navigation to javafx.fxml;
     exports ets.log121_labo5.controllers.command.commands.navigation;
 
-//    opens ets.log121_labo5.controllers.command.navigation to javafx.fxml;
-//    exports ets.log121_labo5.controllers.command.navigation;
-
     // MODELS
     opens ets.log121_labo5.models to javafx.fxml;
     exports ets.log121_labo5.models;
 
-//    opens ets.log121_labo5.models.memento to javafx.fxml;
-//    exports ets.log121_labo5.models.memento;
-
     opens ets.log121_labo5.models.observer to javafx.fxml;
     exports ets.log121_labo5.models.observer;
+
     exports ets.log121_labo5.models.memento;
     opens ets.log121_labo5.models.memento to javafx.fxml;
-//    exports ets.log121_labo5.controllers.command.commands.menubar.files;
-//    opens ets.log121_labo5.controllers.command.commands.menubar.files to javafx.fxml;
-//    exports ets.log121_labo5.controllers.command.commands.menubar.edit;
-//    opens ets.log121_labo5.controllers.command.commands.menubar.edit to javafx.fxml;
-//    exports ets.log121_labo5.controllers.command.commands.menubar.clipboard;
-//    opens ets.log121_labo5.controllers.command.commands.menubar.clipboard to javafx.fxml;
 }
