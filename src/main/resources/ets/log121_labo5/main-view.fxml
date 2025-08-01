@@ -14,8 +14,8 @@
     <MenuBar GridPane.rowIndex="0" GridPane.columnIndex="0"
              GridPane.columnSpan="2">
         <Menu text="Fichier">
-            <MenuItem fx:id="saveAppStateItem" text="Sauvegarder état"/>
-            <MenuItem fx:id="loadAppStateItem" text="Charger état"/>
+            <MenuItem fx:id="saveAppStateItem" text="Sauvegarder"/>
+            <MenuItem fx:id="loadAppStateItem" text="Charger"/>
             <SeparatorMenuItem/>
             <MenuItem fx:id="loadImageItem" text="Charger image"/>
             <SeparatorMenuItem/>
