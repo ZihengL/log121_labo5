@@ -21,6 +21,7 @@ public class Perspective implements Serializable {
     // STATIC
 
     public static final double MAX_HEIGHT = 800.;
+    public static final double MAX_WIDTH = 1000.;
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -40,9 +41,9 @@ public class Perspective implements Serializable {
     // à la hauteur maximale.
     public static Image setImageDimensions(Image image) {
         double width = image.getWidth(), height = image.getHeight();
-        if (height <= MAX_HEIGHT) return image;
+        if (width <= MAX_WIDTH && height <= MAX_HEIGHT) return image;
 
-        double scale = MAX_HEIGHT / height;
+        double scale = Math.min(MAX_WIDTH / width, MAX_HEIGHT / height);
         width = width * scale;
         height = height * scale;
 
@@ -112,22 +113,12 @@ public class Perspective implements Serializable {
         return this.bounds;
     }
 
-    // Retourne le centre des bornes de l'Image.
-    public Point2D getCenter() {
-        return new Point2D(this.bounds.getWidth() / 2, this.bounds.getHeight() / 2);
-    }
-
     // Retourne le centre du rectangle de la vue actuelle.
-    public Point2D getViewportCenter() {
+    public Point2D getCenter() {
         double x = (this.viewport.getWidth() / 2) + this.viewport.getMinX(),
                 y = (this.viewport.getHeight() / 2) + this.viewport.getMinY();
 
         return new Point2D(x, y);
-    }
-
-    // Retourne la position du coin supérieur gauche de la vue actuelle.
-    public Point2D getViewportPosition() {
-        return new Point2D(this.viewport.getMinX(), this.viewport.getMinY());
     }
 
     // Retourne un vecteur représentant la taille de la vue actuelle.
@@ -150,16 +141,19 @@ public class Perspective implements Serializable {
         this.viewport = viewport;
     }
 
-    public void setPosition(Point2D position) {
+    // Défini le centre du rectangle. Utilisé pour copier/coller la position.
+    // Dans le but de faire une démonstration pour le projet, on ignore les
+    // contraintes par rapport aux bornes appliqués pour le panning dans ce cas-ci.
+    public void setCenter(Point2D position) {
         double width = this.viewport.getWidth(), height = this.viewport.getHeight();
 
-        this.setViewport(position.getX(), position.getY(), width, height);
+        double x = position.getX() - width / 2,
+                y = position.getY() - height / 2;
+
+        this.setViewport(x, y, this.viewport.getWidth(), this.viewport.getHeight());
     }
 
-    public void setCenter(Point2D position) {
-        // TODO: REPLACE SETPOSITION WITH THIS.
-    }
-
+    // Défini la taille du rectangle. Utilisé pour copier/coller le niveau de zoom.
     public void setSize(Point2D size) {
         double x = this.viewport.getMinX(), y = this.viewport.getMinY();
 

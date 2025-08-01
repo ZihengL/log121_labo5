@@ -3,7 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane xmlns:fx="http://javafx.com/fxml"
+<?import javafx.scene.shape.Rectangle?>
+<GridPane fx:id="rootPane"
+          xmlns:fx="http://javafx.com/fxml"
           fx:controller="ets.log121_labo5.controllers.MainController">
     <columnConstraints>
         <ColumnConstraints percentWidth="50"/>
@@ -33,14 +35,18 @@
                 GridPane.halignment="CENTER"
                 GridPane.rowIndex="1" GridPane.columnSpan="2"/>
 
+<!--    <Rectangle height="15"-->
+<!--               GridPane.halignment="CENTER"-->
+<!--               GridPane.rowIndex="2" GridPane.columnSpan="2"/>-->
+
     <!--LEFTSIDE-->
     <fx:include fx:id="leftsidePane" source="image-navigator-view.fxml"
                 GridPane.halignment="CENTER"
-                GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                GridPane.rowIndex="3" GridPane.columnIndex="0"/>
 
     <!--RIGHTSIDE-->
     <fx:include fx:id="rightsidePane" source="image-navigator-view.fxml"
                 GridPane.halignment="CENTER"
-                GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 </GridPane>
 

@@ -100,6 +100,7 @@ public class CommandsManager extends Observable implements Serializable {
 
     public void setImage(Image image) {
         this.image = Perspective.setImageDimensions(image);
+//        this.image = image;
 
         double width = this.image.getWidth(),
                height = this.image.getHeight();

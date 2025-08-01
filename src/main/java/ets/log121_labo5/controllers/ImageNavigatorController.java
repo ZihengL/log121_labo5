@@ -67,6 +67,8 @@ public class ImageNavigatorController extends ImageController {
         if (!super.updateImage(manager)) return false;
 
         Rectangle2D bounds = this.getPerspective().getBounds();
+        double width = bounds.getWidth(), height = bounds.getHeight();
+
         this.view.setFitWidth(bounds.getWidth());
         this.view.setFitHeight(bounds.getHeight());
 

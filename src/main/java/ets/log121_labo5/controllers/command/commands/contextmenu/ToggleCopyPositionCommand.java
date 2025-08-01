@@ -14,7 +14,7 @@ public class ToggleCopyPositionCommand extends CopyModifier {
 
     @Override
     public Perspective applyModifier(Perspective target, Perspective model) {
-        target.setPosition(model.getViewportPosition());
+        target.setCenter(model.getCenter());
         return target;
     }
 }

@@ -9,12 +9,17 @@ import ets.log121_labo5.controllers.command.commands.menubar.files.LoadImageComm
 import ets.log121_labo5.controllers.command.commands.menubar.files.LoadStateCommand;
 import ets.log121_labo5.controllers.command.commands.menubar.files.QuitCommand;
 import ets.log121_labo5.controllers.command.commands.menubar.files.SaveStateCommand;
+import ets.log121_labo5.models.observer.Observable;
+import ets.log121_labo5.models.observer.Observer;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
-public class MainController {
+public class MainController implements Observer {
+
+    @FXML private GridPane rootPane;
 
     // MENUBAR: FICHIER
     @FXML private MenuItem saveAppStateItem;
@@ -39,6 +44,9 @@ public class MainController {
     // UI
     @FXML
     private void initialize() {
+        CommandsManager manager = CommandsManager.getInstance();
+        manager.addObserver(this);
+
         /* --- MENUBAR --- */
             // FICHIER
         this.saveAppStateItem.setOnAction(new SaveStateCommand());
@@ -50,7 +58,7 @@ public class MainController {
         this.redoItem.setOnAction(new RedoCommand());
 
         /* --- PERSPECTIVE --- */
-        CommandsManager manager = CommandsManager.getInstance();
+//        CommandsManager manager = CommandsManager.getInstance();
 
         PerspectiveGetter leftsideGetter = manager::getLeftside;
         PerspectiveSetter leftsideSetter = manager::setLeftside;
@@ -67,5 +75,14 @@ public class MainController {
         // TEMPORARY: DEFAULT IMG
         String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ets\\log121_labo5\\images\\moon.jpg";
         manager.setImage(new Image(path));
+    }
+
+    @Override
+    public void update(Observable observable) {
+//        double width = this.leftsidePane.getWidth() + this.rightsidePane.getWidth();
+//
+//        System.out.println(this.rootPane.getWidth());
+//        this.rootPane.setMinWidth(width);
+//        System.out.println(this.rootPane.getWidth());
     }
 }
