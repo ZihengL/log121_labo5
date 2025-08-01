@@ -95,8 +95,6 @@ public class StatesManager {
         if (this.current == null || !this.current.hasPrevious())
             return false;
 
-//        System.out.println("CURRENT: " + this.current);
-//        System.out.println("PREV: " + this.current.previous());
         this.current = this.current.previous();
         return true;
     }

@@ -1,7 +1,8 @@
 package ets.log121_labo5.controllers;
 
+import ets.log121_labo5.models.PerspectiveGetter;
+import ets.log121_labo5.models.PerspectiveSetter;
 import ets.log121_labo5.models.command.CommandsManager;
-import ets.log121_labo5.models.command.commands.menubar.clipboard.SetClipboardCommand;
 import ets.log121_labo5.models.command.commands.menubar.edit.RedoCommand;
 import ets.log121_labo5.models.command.commands.menubar.edit.UndoCommand;
 import ets.log121_labo5.models.command.commands.menubar.files.LoadImageCommand;
@@ -23,16 +24,16 @@ public class MainController {
     // MENUBAR: ÉDITION
     @FXML private MenuItem undoItem;
     @FXML private MenuItem redoItem;
-    // MENUBAR: PRESSE-PAPIER
-    @FXML private MenuItem clipboardItem;
 
-    // SUBCONTROLLERS
+    // CONTROLLERS
     @FXML private BorderPane thumbnailPane;
     @FXML private ImageViewerController thumbnailPaneController;
     @FXML private BorderPane leftsidePane;
     @FXML private ImageNavigatorController leftsidePaneController;
     @FXML private BorderPane rightsidePane;
     @FXML private ImageNavigatorController rightsidePaneController;
+
+    // CONTEXT MENU CONTROLLER
     @FXML private ContextMenuController contextMenuController;
 
     // UI
@@ -47,8 +48,6 @@ public class MainController {
             // ÉDITION
         this.undoItem.setOnAction(new UndoCommand());
         this.redoItem.setOnAction(new RedoCommand());
-            // PRESSE-PAPIER
-        this.clipboardItem.setOnAction(new SetClipboardCommand());
 
         /* --- PERSPECTIVE --- */
         CommandsManager manager = CommandsManager.getInstance();
@@ -67,9 +66,6 @@ public class MainController {
 
         // TEMPORARY: DEFAULT IMG
         String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ets\\log121_labo5\\saves\\xp_background.png";
-        Image image = new Image(path);
-        manager.setImage(image);
-
-        System.out.println(image.getUrl());
+        manager.setImage(new Image(path));
     }
 }

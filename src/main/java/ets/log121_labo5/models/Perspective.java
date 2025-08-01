@@ -88,6 +88,25 @@ public class Perspective implements Serializable {
         return this.bounds;
     }
 
+    public Point2D getCenter() {
+        return new Point2D(this.bounds.getWidth() / 2, this.bounds.getHeight() / 2);
+    }
+
+    public Point2D getViewportCenter() {
+        double x = (this.viewport.getWidth() / 2) + this.viewport.getMinX(),
+                y = (this.viewport.getHeight() / 2) + this.viewport.getMinY();
+
+        return new Point2D(x, y);
+    }
+
+    public Point2D getPosition() {
+        return new Point2D(this.viewport.getMinX(), this.viewport.getMinY());
+    }
+
+    public Point2D getSize() {
+        return new Point2D(this.viewport.getWidth(), this.viewport.getHeight());
+    }
+
     // MUTATORS
 
     public void setViewport(double x, double y, double width, double height) {
@@ -102,9 +121,19 @@ public class Perspective implements Serializable {
         this.viewport = this.bounds = new Rectangle2D(0., 0., width, height);
     }
 
-    public void reset() {
-        this.viewport = this.bounds;
+    public void setPosition(Point2D position) {
+        double width = this.viewport.getWidth(), height = this.viewport.getHeight();
+
+        this.setViewport(position.getX(), position.getY(), width, height);
     }
+
+    public void setSize(Point2D size) {
+        double x = this.viewport.getMinX(), y = this.viewport.getMinY();
+
+        this.setViewport(x, y, size.getX(), size.getY());
+    }
+
+    // OTHER
 
     // COPY
     public Perspective copy() {
@@ -170,30 +199,17 @@ public class Perspective implements Serializable {
         return this.clamp((min + center * (max / localBound)) - (max / 2), 0, bound - max);
     }
 
-    // OTHER
-
-    public Point2D getCenter() {
-        return new Point2D(this.bounds.getWidth() / 2, this.bounds.getHeight() / 2);
-    }
-
-    public Point2D getViewportCenter() {
-        double x = (this.viewport.getWidth() / 2) + this.viewport.getMinX(),
-                y = (this.viewport.getHeight() / 2) + this.viewport.getMinY();
-
-        return new Point2D(x, y);
-    }
-
-    // Même implémentation que Math.clamp() à l'exception des gestions d'erreurs.
     // Méthode utilitaire pour s'assurer que les coordonnées de zoom et pan ne
-    // dépassent pas les bornes de l'image.
+    // dépassent pas les bornes de l'image. Même implémentation que Math.clamp()
+    // exluant la gestions d'erreurs.
     public double clamp(double value, double min, double max) {
         return Math.min(max, Math.max(min, value));
     }
 
     public String toString() {
-        double width = this.viewport.getWidth(),
-               height = this.viewport.getHeight();
+        double x = this.viewport.getMinX(), y = this.viewport.getMinY(),
+               width = this.viewport.getWidth(), height = this.viewport.getHeight();
 
-        return String.format("(%.2f, %.2f)", width, height);
+        return String.format("(%.2f, %.2f, %.2f, %.2f)", x, y, width, height);
     }
 }

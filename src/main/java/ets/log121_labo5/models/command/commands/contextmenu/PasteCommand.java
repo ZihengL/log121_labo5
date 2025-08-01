@@ -4,7 +4,6 @@ package ets.log121_labo5.models.command.commands.contextmenu;
 import ets.log121_labo5.controllers.ImageNavigatorController;
 import ets.log121_labo5.models.Perspective;
 import javafx.event.ActionEvent;
-import javafx.geometry.Rectangle2D;
 
 /**
  * Class: PasteCommand
@@ -18,9 +17,12 @@ public class PasteCommand extends ContextMenuCommand {
 
     @Override
     public void execute(ActionEvent event) {
-        if (ContextMenuCommand.copy == null) return;
-
         ImageNavigatorController controller = this.getEventController(event);
-        controller.setPerspective(ContextMenuCommand.copy);
+
+        Perspective target = controller.getPerspective().copy();
+        Perspective copy = ContextMenuCommand.getModifiedCopy(target);
+
+        if (copy != null)
+            controller.setPerspective(copy);
     }
 }

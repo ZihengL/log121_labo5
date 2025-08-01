@@ -1,7 +1,5 @@
-package ets.log121_labo5.controllers;
+package ets.log121_labo5.models;
 
-
-import ets.log121_labo5.models.Perspective;
 
 /**
  * Class: PerspectiveGetter

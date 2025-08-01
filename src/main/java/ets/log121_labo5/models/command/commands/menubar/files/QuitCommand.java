@@ -2,6 +2,7 @@ package ets.log121_labo5.models.command.commands.menubar.files;
 
 
 import ets.log121_labo5.models.command.Command;
+import ets.log121_labo5.models.command.CommandsManager;
 import javafx.event.ActionEvent;
 
 /**
@@ -14,9 +15,8 @@ import javafx.event.ActionEvent;
 
 public class QuitCommand extends Command<ActionEvent> {
 
-    // On n'invoque
     @Override
     public void execute(ActionEvent event) {
-        Command.stage.close();
+        CommandsManager.getInstance().quitApplication(Command.stage);
     }
 }

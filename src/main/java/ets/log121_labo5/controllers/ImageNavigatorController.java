@@ -1,18 +1,18 @@
 package ets.log121_labo5.controllers;
 
+import ets.log121_labo5.models.PerspectiveGetter;
+import ets.log121_labo5.models.PerspectiveSetter;
 import ets.log121_labo5.models.command.CommandsManager;
 import ets.log121_labo5.models.command.commands.navigation.PanCommand;
 import ets.log121_labo5.models.command.commands.navigation.ZoomCommand;
 import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.observer.Observable;
 import ets.log121_labo5.models.observer.Observer;
-import javafx.beans.binding.Bindings;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.StackPane;
 
 public class ImageNavigatorController implements Observer {
 

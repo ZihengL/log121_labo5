@@ -1,9 +1,7 @@
 package ets.log121_labo5.models.command;
 
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.memento.HistoryManager;
 import ets.log121_labo5.models.memento.State;
-import ets.log121_labo5.models.memento.StateNode;
 import ets.log121_labo5.models.memento.StatesManager;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.geometry.Bounds;
@@ -135,7 +133,7 @@ public class CommandsManager extends Observable implements Serializable {
 
     // MENUBAR: FILE MENU
 
-    public void saveStateToFiles(File file) throws IOException {
+    public void saveStateToFile(File file) throws IOException {
         String path = file.getPath().toLowerCase();
         file = !path.endsWith(".ser") ? new File(path + ".ser") : file;
 
@@ -145,15 +143,15 @@ public class CommandsManager extends Observable implements Serializable {
         }
     }
 
-    public void loadStateFromFiles(File file) throws IOException, ClassNotFoundException {
+    public void loadStateFromFile(File file) throws IOException, ClassNotFoundException {
         try (ObjectInputStream input = new ObjectInputStream(
                 new FileInputStream(file))) {
             Object object = input.readObject();
 
-            if (object instanceof State(String imageURL, Perspective leftside1, Perspective rightside1)) {
-                this.image = new Image(imageURL);
-                this.leftside = leftside1;
-                this.rightside = rightside1;
+            if (object instanceof CommandsManager loaded) {
+                this.image = loaded.image;
+                this.leftside = loaded.leftside;
+                this.rightside = loaded.rightside;
 
                 this.update();
             }
@@ -189,12 +187,6 @@ public class CommandsManager extends Observable implements Serializable {
         State state = this.getState();
 
         this.statesManager.add(state);
-    }
-
-    // MENUBAR: "PRESSE-PAPIER"
-
-    public void chooseStratagem() {
-
     }
 
     // ZOOM

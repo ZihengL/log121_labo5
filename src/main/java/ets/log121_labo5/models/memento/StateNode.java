@@ -50,10 +50,6 @@ public class StateNode {
     public void setNext(StateNode next) {
         this.next = next;
 
-        System.out.println(this);
-        System.out.println(this.next);
-        System.out.println();
-
         if (this.hasNext())
             this.next.previous = this;
     }

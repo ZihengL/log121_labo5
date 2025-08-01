@@ -35,7 +35,7 @@ public class SaveStateCommand extends FileDialogCommand {
     @Override
     protected void invokeCommand(File file) {
         try {
-            CommandsManager.getInstance().saveStateToFiles(file);
+            CommandsManager.getInstance().saveStateToFile(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
