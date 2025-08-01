@@ -1,12 +1,11 @@
 package ets.log121_labo5;
 
-import ets.log121_labo5.models.command.Command;
+import ets.log121_labo5.controllers.command.Command;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
 
 public class Application extends javafx.application.Application {
 

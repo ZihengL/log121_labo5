@@ -1,7 +1,7 @@
-package ets.log121_labo5.models.command.commands.menubar.files;
+package ets.log121_labo5.controllers.command.commands.menubar.files;
 
 
-import ets.log121_labo5.models.command.Command;
+import ets.log121_labo5.controllers.command.Command;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -11,18 +11,20 @@ import java.io.File;
 /**
  * Class: FileChooserDialogCommand
  * Created on: 7/11/2025
- * Description:
+ * Description: Classe abstraite qui défini une méthode skelette pour le procès de
+ * la création ou la récupération d'un fichier à partir d'une fenêtre modale de type
+ * FileChooser
  *
  * @author liuzi | Zi heng Liu
  */
 
 public abstract class FileDialogCommand extends Command<ActionEvent> {
 
-    public static final File DEFAULT_DIRECTORY = new File(".\\src\\main\\resources\\saves");
+    public static final File DEFAULT_DIRECTORY = new File(".\\src\\main\\resources\\ets\\log121_labo5");
 
     // TEMPLATE METHOD
     @Override
-    public final void execute(ActionEvent event) {
+    public final void handle(ActionEvent event) {
         FileChooser fc = new FileChooser();
         this.setDialogOptions(fc);
 

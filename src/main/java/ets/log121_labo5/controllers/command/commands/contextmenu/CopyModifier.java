@@ -1,4 +1,4 @@
-package ets.log121_labo5.models.command.commands.contextmenu;
+package ets.log121_labo5.controllers.command.commands.contextmenu;
 
 
 import ets.log121_labo5.models.Perspective;
@@ -28,7 +28,7 @@ public abstract class CopyModifier extends ContextMenuCommand {
     }
 
     @Override
-    public void execute(ActionEvent event) {
+    public void handle(ActionEvent event) {
         this.isActive = ((RadioMenuItem) event.getSource()).isSelected();
     }
 

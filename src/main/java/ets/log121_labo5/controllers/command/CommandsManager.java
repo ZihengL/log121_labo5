@@ -1,4 +1,4 @@
-package ets.log121_labo5.models.command;
+package ets.log121_labo5.controllers.command;
 
 import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.memento.State;
@@ -99,8 +99,10 @@ public class CommandsManager extends Observable implements Serializable {
     // MUTATORS
 
     public void setImage(Image image) {
-        this.image = image;
-        double width = this.image.getWidth(), height = this.image.getHeight();
+        this.image = Perspective.setImageDimensions(image);
+
+        double width = this.image.getWidth(),
+               height = this.image.getHeight();
         this.leftside.setDimensions(width, height);
         this.rightside.setDimensions(width, height);
 
@@ -196,6 +198,7 @@ public class CommandsManager extends Observable implements Serializable {
         this.update();
     }
 
+    // PAN
     public void pan(Perspective perspective, Point2D position, Bounds bounds) {
         perspective.pan(position, bounds);
 

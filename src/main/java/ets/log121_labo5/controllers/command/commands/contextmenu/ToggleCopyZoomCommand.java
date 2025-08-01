@@ -1,4 +1,4 @@
-package ets.log121_labo5.models.command.commands.contextmenu;
+package ets.log121_labo5.controllers.command.commands.contextmenu;
 
 
 import ets.log121_labo5.models.Perspective;

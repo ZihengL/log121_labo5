@@ -1,10 +1,8 @@
-package ets.log121_labo5.models.command;
+package ets.log121_labo5.controllers.command;
 
 
-import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.scene.Node;
 import javafx.stage.Stage;
 
 /**
@@ -13,9 +11,10 @@ import javafx.stage.Stage;
  * Description: Classe abstraite générique servant de racine pour la totalité
  * des commandes disponibles de l'application du laboratoire. La classe
  * implémente également l'interface EventHandler de quelconque type dérivant
- * d'Event. Ainsi, il permet beaucoup de flexibilité lorsque nous créons des classes
- * enfants de Command, puisqu'ils pourront prendre en paramètre n'importe quel type d'événement
- * sans besoins de gestions supplémentaires(ex: typecasting d'événement).
+ * d'Event. Ainsi, il permet une bonne flexibilité au niveau de la création
+ * des sous-classes puisque le type d'événement est déclaré dans la signature
+ * de la classe, ce qui permet moins de gestions supplémentaires au niveau
+ * des méthodes.
  *
  * @author liuzi | Zi heng Liu
  */
@@ -24,6 +23,8 @@ public abstract class Command<T extends Event> implements EventHandler<T> {
 
     // STATIC
 
+    // Nous gardons ici une instance de la fenêtre racine de l'application
+    // accessible pour les sous-classes de Command.
     protected static Stage stage;
 
     public static void setStage(Stage stage) {
@@ -32,10 +33,6 @@ public abstract class Command<T extends Event> implements EventHandler<T> {
 
     // INSTANCE
 
-    @Override
-    public final void handle(T event) {
-        this.execute(event);
-    }
-
-    public abstract void execute(T event);
+    // Déclaration explicite pour la clarté.
+    public abstract void handle(T event);
 }

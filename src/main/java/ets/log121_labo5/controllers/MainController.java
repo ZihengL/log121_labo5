@@ -2,17 +2,17 @@ package ets.log121_labo5.controllers;
 
 import ets.log121_labo5.models.PerspectiveGetter;
 import ets.log121_labo5.models.PerspectiveSetter;
-import ets.log121_labo5.models.command.CommandsManager;
-import ets.log121_labo5.models.command.commands.menubar.edit.RedoCommand;
-import ets.log121_labo5.models.command.commands.menubar.edit.UndoCommand;
-import ets.log121_labo5.models.command.commands.menubar.files.LoadImageCommand;
-import ets.log121_labo5.models.command.commands.menubar.files.LoadStateCommand;
-import ets.log121_labo5.models.command.commands.menubar.files.QuitCommand;
-import ets.log121_labo5.models.command.commands.menubar.files.SaveStateCommand;
+import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.controllers.command.commands.menubar.edit.RedoCommand;
+import ets.log121_labo5.controllers.command.commands.menubar.edit.UndoCommand;
+import ets.log121_labo5.controllers.command.commands.menubar.files.LoadImageCommand;
+import ets.log121_labo5.controllers.command.commands.menubar.files.LoadStateCommand;
+import ets.log121_labo5.controllers.command.commands.menubar.files.QuitCommand;
+import ets.log121_labo5.controllers.command.commands.menubar.files.SaveStateCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
 import javafx.scene.image.Image;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
 
 public class MainController {
 
@@ -26,11 +26,11 @@ public class MainController {
     @FXML private MenuItem redoItem;
 
     // CONTROLLERS
-    @FXML private BorderPane thumbnailPane;
+    @FXML private StackPane thumbnailPane;
     @FXML private ImageViewerController thumbnailPaneController;
-    @FXML private BorderPane leftsidePane;
+    @FXML private StackPane leftsidePane;
     @FXML private ImageNavigatorController leftsidePaneController;
-    @FXML private BorderPane rightsidePane;
+    @FXML private StackPane rightsidePane;
     @FXML private ImageNavigatorController rightsidePaneController;
 
     // CONTEXT MENU CONTROLLER
@@ -65,7 +65,7 @@ public class MainController {
         this.contextMenuController.addToPanes(this.leftsidePane, this.rightsidePane);
 
         // TEMPORARY: DEFAULT IMG
-        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ets\\log121_labo5\\saves\\xp_background.png";
+        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ets\\log121_labo5\\images\\moon.jpg";
         manager.setImage(new Image(path));
     }
 }

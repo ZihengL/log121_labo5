@@ -1,15 +1,12 @@
 package ets.log121_labo5.controllers;
 
 
-import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.command.commands.contextmenu.*;
-import javafx.event.EventHandler;
+import ets.log121_labo5.controllers.command.commands.contextmenu.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.input.ContextMenuEvent;
 import javafx.scene.layout.Pane;
 
 

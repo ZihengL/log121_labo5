@@ -1,17 +1,15 @@
-package ets.log121_labo5.models.command.commands.navigation;
+package ets.log121_labo5.controllers.command.commands.navigation;
 
 
 import ets.log121_labo5.controllers.ImageNavigatorController;
-import ets.log121_labo5.models.command.Command;
-import ets.log121_labo5.models.command.CommandsManager;
+import ets.log121_labo5.controllers.command.Command;
+import ets.log121_labo5.controllers.command.CommandsManager;
 import ets.log121_labo5.models.Perspective;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.transform.Affine;
-import javafx.scene.transform.NonInvertibleTransformException;
 
 /**
  * Class: PanCommand
@@ -24,7 +22,7 @@ import javafx.scene.transform.NonInvertibleTransformException;
 public class PanCommand extends Command<MouseEvent> {
 
     @Override
-    public void execute(MouseEvent event) {
+    public void handle(MouseEvent event) {
         if (event.getButton() != MouseButton.PRIMARY) return;
 
         ImageView view = (ImageView) event.getSource();

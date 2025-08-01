@@ -4,6 +4,7 @@ package ets.log121_labo5.models;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.image.Image;
 
 import java.io.*;
 
@@ -19,11 +20,34 @@ public class Perspective implements Serializable {
 
     // STATIC
 
+    public static final double MAX_HEIGHT = 800.;
+
     @Serial
     private static final long serialVersionUID = 1L;
 
     public static final double MIN_ZOOM = 10.;
     public static final double ZOOM_FACTOR = 1.01;
+
+    // Méthode utilitaire pour s'assurer que les coordonnées de zoom et pan ne
+    // dépassent pas les bornes de l'image. Même implémentation que Math.clamp()
+    // exluant la gestions d'erreurs.
+    public static double clamp(double value, double min, double max) {
+        return Math.min(max, Math.max(min, value));
+    }
+
+    // Retourne une nouvelle Image avec la hauteur maximale
+    public static Image setImageDimensions(Image image) {
+        double width = image.getWidth(), height = image.getHeight();
+
+        if (height > MAX_HEIGHT) {
+            double scale = MAX_HEIGHT / height;
+
+            width = width * scale;
+            height = height * scale;
+        }
+
+        return new Image(image.getUrl(), width, height, true, true);
+    }
 
     // INSTANCE
 
@@ -109,16 +133,16 @@ public class Perspective implements Serializable {
 
     // MUTATORS
 
+    public void setDimensions(double width, double height) {
+        this.viewport = this.bounds = new Rectangle2D(0., 0., width, height);
+    }
+
     public void setViewport(double x, double y, double width, double height) {
         this.setViewport(new Rectangle2D(x, y, width, height));
     }
 
     public void setViewport(Rectangle2D viewport) {
         this.viewport = viewport;
-    }
-
-    public void setDimensions(double width, double height) {
-        this.viewport = this.bounds = new Rectangle2D(0., 0., width, height);
     }
 
     public void setPosition(Point2D position) {
@@ -141,6 +165,7 @@ public class Perspective implements Serializable {
     }
 
     // ZOOM
+    // Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
     public void zoom(Point2D position, double delta) {
         double magnitude = this.getZoomMagnitude(delta);
         Rectangle2D port = this.viewport;
@@ -160,6 +185,8 @@ public class Perspective implements Serializable {
 
     // Retourne
     public double getZoomMagnitude(double delta) {
+        System.out.println(delta);
+
         double width = this.viewport.getWidth(), height = this.viewport.getHeight(),
                 boundX = this.bounds.getWidth(), boundY = this.bounds.getHeight();
 
@@ -167,14 +194,19 @@ public class Perspective implements Serializable {
                min = Math.min(MIN_ZOOM / width, MIN_ZOOM / height),
                max = Math.max(boundX / width, boundY / height);
 
-        return this.clamp(magnitude, min, max);
+        return Perspective.clamp(magnitude, min, max);
     }
 
     private double getZoomPosition(double center, double min, double max, double bound, double magnitude) {
-        return this.clamp(center - (center - min) * magnitude, 0, bound - max);
+        return Perspective.clamp(
+                center - (center - min) * magnitude,
+                0,
+                bound - max
+        );
     }
 
     // PAN
+    // Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
     public void pan(Point2D position, Bounds bounds) {
         Rectangle2D port = this.viewport;
 
@@ -196,14 +228,11 @@ public class Perspective implements Serializable {
     }
 
     private double getPanPosition(double center, double min, double max, double localBound, double bound) {
-        return this.clamp((min + center * (max / localBound)) - (max / 2), 0, bound - max);
-    }
-
-    // Méthode utilitaire pour s'assurer que les coordonnées de zoom et pan ne
-    // dépassent pas les bornes de l'image. Même implémentation que Math.clamp()
-    // exluant la gestions d'erreurs.
-    public double clamp(double value, double min, double max) {
-        return Math.min(max, Math.max(min, value));
+        return Perspective.clamp(
+                (min + center * (max / localBound)) - (max / 2),
+                0,
+                bound - max
+        );
     }
 
     public String toString() {

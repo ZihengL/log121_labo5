@@ -1,14 +1,11 @@
-package ets.log121_labo5.models.command.commands.navigation;
+package ets.log121_labo5.controllers.command.commands.navigation;
 
 
 import ets.log121_labo5.controllers.ImageNavigatorController;
-import ets.log121_labo5.models.command.Command;
-import ets.log121_labo5.models.command.CommandsManager;
+import ets.log121_labo5.controllers.command.Command;
+import ets.log121_labo5.controllers.command.CommandsManager;
 import ets.log121_labo5.models.Perspective;
-import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
 
@@ -20,11 +17,10 @@ import javafx.scene.input.ScrollEvent;
  * @author liuzi | Zi heng Liu
  */
 
-// Code basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
 public class ZoomCommand extends Command<ScrollEvent> {
 
     @Override
-    public void execute(ScrollEvent event) {
+    public void handle(ScrollEvent event) {
         ImageView view = (ImageView) event.getSource();
         if (view.getImage() == null) return;
 

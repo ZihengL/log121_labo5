@@ -1,8 +1,8 @@
-package ets.log121_labo5.models.command.commands.menubar.edit;
+package ets.log121_labo5.controllers.command.commands.menubar.edit;
 
 
-import ets.log121_labo5.models.command.Command;
-import ets.log121_labo5.models.command.CommandsManager;
+import ets.log121_labo5.controllers.command.Command;
+import ets.log121_labo5.controllers.command.CommandsManager;
 import javafx.event.ActionEvent;
 
 /**
@@ -16,7 +16,7 @@ import javafx.event.ActionEvent;
 public class RedoCommand extends Command<ActionEvent> {
 
     @Override
-    public void execute(ActionEvent event) {
+    public void handle(ActionEvent event) {
         CommandsManager.getInstance().redo();
     }
 }

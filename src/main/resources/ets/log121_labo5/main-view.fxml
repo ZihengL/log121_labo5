@@ -11,9 +11,9 @@
         <ColumnConstraints percentWidth="50"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints percentHeight="5"/>
-        <RowConstraints percentHeight="35"/>
-        <RowConstraints percentHeight="60"/>
+<!--        <RowConstraints percentHeight="5"/>-->
+<!--        <RowConstraints percentHeight="35"/>-->
+<!--        <RowConstraints percentHeight="60"/>-->
         </rowConstraints>
 
     <!--MENUBAR-->

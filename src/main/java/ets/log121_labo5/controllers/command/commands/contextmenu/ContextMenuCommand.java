@@ -1,9 +1,9 @@
-package ets.log121_labo5.models.command.commands.contextmenu;
+package ets.log121_labo5.controllers.command.commands.contextmenu;
 
 
 import ets.log121_labo5.controllers.ImageNavigatorController;
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.command.Command;
+import ets.log121_labo5.controllers.command.Command;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
@@ -14,7 +14,8 @@ import java.util.ArrayList;
  * Class: ContextMenuCommand
  * Created on: 7/13/2025
  * Description: Classe parent de tous les classes du menu de contexte. Les méthodes/attributs
- * statiques ont pour but de servir comme un
+ * statiques servent comme le gestionnaire d'options de copie. Bien que nous aurons pu
+ * créer une classe dédiée à ce rôle,
  *
  * @author liuzi | Zi heng Liu
  */

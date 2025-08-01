@@ -1,0 +1,45 @@
+package ets.log121_labo5.controllers;
+
+
+import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.models.observer.Observable;
+import ets.log121_labo5.models.observer.Observer;
+import javafx.fxml.FXML;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.StackPane;
+
+/**
+ * Class: ImageController
+ * Created on: 8/1/2025
+ * Description:
+ *
+ * @author liuzi | Zi heng Liu
+ */
+
+public abstract class ImageController implements Observer {
+
+    @FXML protected StackPane rootPane;
+    @FXML protected ImageView view;
+
+    @FXML
+    protected void initialize() {
+        CommandsManager manager = CommandsManager.getInstance();
+        manager.addObserver(this);
+    }
+
+    @Override
+    public void update(Observable observable) {
+        CommandsManager manager = (CommandsManager) observable;
+
+        this.updateImage(manager);
+    }
+
+    public boolean updateImage(CommandsManager manager) {
+        Image image = manager.getImage(), current = this.view.getImage();
+        if (image == null || image.equals(current)) return false;
+
+        this.view.setImage(manager.getImage());
+        return true;
+    }
+}

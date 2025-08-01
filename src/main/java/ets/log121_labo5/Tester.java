@@ -2,11 +2,10 @@ package ets.log121_labo5;
 
 
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.models.command.CommandsManager;
+import ets.log121_labo5.controllers.command.CommandsManager;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Stack;
 
 import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
