@@ -1,6 +1,5 @@
 package ets.log121_labo5;
 
-import ets.log121_labo5.controllers.command.Command;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;

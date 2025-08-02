@@ -1,12 +1,11 @@
 package ets.log121_labo5.controllers;
 
 import ets.log121_labo5.Application;
-import ets.log121_labo5.controllers.command.Command;
 import ets.log121_labo5.models.PerspectiveGetter;
 import ets.log121_labo5.models.PerspectiveSetter;
-import ets.log121_labo5.controllers.command.CommandsManager;
-import ets.log121_labo5.controllers.command.commands.navigation.PanCommand;
-import ets.log121_labo5.controllers.command.commands.navigation.ZoomCommand;
+import ets.log121_labo5.models.CommandsManager;
+import ets.log121_labo5.controllers.commands.navigation.PanCommand;
+import ets.log121_labo5.controllers.commands.navigation.ZoomCommand;
 import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.fxml.FXML;

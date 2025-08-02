@@ -1,7 +1,10 @@
 package ets.log121_labo5.controllers;
 
 
-import ets.log121_labo5.controllers.command.commands.contextmenu.*;
+import ets.log121_labo5.controllers.commands.contextmenu.CopyCommand;
+import ets.log121_labo5.controllers.commands.contextmenu.PasteCommand;
+import ets.log121_labo5.controllers.commands.contextmenu.ToggleCopyPositionCommand;
+import ets.log121_labo5.controllers.commands.contextmenu.ToggleCopyZoomCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;

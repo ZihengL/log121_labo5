@@ -2,7 +2,7 @@ package ets.log121_labo5;
 
 
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.models.CommandsManager;
 
 import java.io.*;
 import java.util.ArrayList;

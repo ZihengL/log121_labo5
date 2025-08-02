@@ -1,9 +1,8 @@
-package ets.log121_labo5.controllers.command.commands.menubar.files;
+package ets.log121_labo5.controllers.commands.menubar.files;
 
 
 import ets.log121_labo5.Application;
-import ets.log121_labo5.controllers.command.Command;
-import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.controllers.commands.Command;
 import javafx.event.ActionEvent;
 
 /**
@@ -17,7 +16,7 @@ import javafx.event.ActionEvent;
  * @author liuzi | Zi heng Liu
  */
 
-public class QuitCommand extends Command<ActionEvent> {
+public class QuitCommand implements Command<ActionEvent> {
 
     @Override
     public void handle(ActionEvent event) {

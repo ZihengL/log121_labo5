@@ -1,8 +1,8 @@
-package ets.log121_labo5.controllers.command.commands.menubar.files;
+package ets.log121_labo5.controllers.commands.menubar.files;
 
 
 import ets.log121_labo5.Application;
-import ets.log121_labo5.controllers.command.Command;
+import ets.log121_labo5.controllers.commands.Command;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -19,7 +19,7 @@ import java.io.File;
  * @author liuzi | Zi heng Liu
  */
 
-public abstract class FileDialogCommand extends Command<ActionEvent> {
+public abstract class FileDialogCommand implements Command<ActionEvent> {
 
     public static final File DEFAULT_DIRECTORY = new File(".\\src\\main\\resources\\ets\\log121_labo5");
 

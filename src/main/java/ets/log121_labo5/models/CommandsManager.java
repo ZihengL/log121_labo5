@@ -1,6 +1,5 @@
-package ets.log121_labo5.controllers.command;
+package ets.log121_labo5.models;
 
-import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.memento.State;
 import ets.log121_labo5.models.memento.StatesManager;
 import ets.log121_labo5.models.observer.Observable;
@@ -31,7 +30,7 @@ public class CommandsManager extends Observable implements Serializable {
     private static final CommandsManager instance = new CommandsManager();
 
     public static CommandsManager getInstance() {
-        return ets.log121_labo5.controllers.command.CommandsManager.instance;
+        return CommandsManager.instance;
     }
 
     /* --------- INSTANCE --------- */

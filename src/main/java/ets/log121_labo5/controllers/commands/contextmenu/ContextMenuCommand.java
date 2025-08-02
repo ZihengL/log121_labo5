@@ -1,9 +1,9 @@
-package ets.log121_labo5.controllers.command.commands.contextmenu;
+package ets.log121_labo5.controllers.commands.contextmenu;
 
 
 import ets.log121_labo5.controllers.ImageNavigatorController;
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.controllers.command.Command;
+import ets.log121_labo5.controllers.commands.Command;
 import javafx.event.ActionEvent;
 import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * @author liuzi | Zi heng Liu
  */
 
-public abstract class ContextMenuCommand extends Command<ActionEvent> {
+public abstract class ContextMenuCommand implements Command<ActionEvent> {
 
     // STATIC
 

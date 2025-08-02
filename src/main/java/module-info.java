@@ -14,17 +14,17 @@ module ets.log121_labo5 {
     opens ets.log121_labo5.controllers.command to javafx.fxml;
     exports ets.log121_labo5.controllers.command;
 
-    opens ets.log121_labo5.controllers.command.commands.menubar.edit to javafx.fxml;
-    exports ets.log121_labo5.controllers.command.commands.menubar.edit;
+    opens ets.log121_labo5.controllers.commands.menubar.edit to javafx.fxml;
+    exports ets.log121_labo5.controllers.commands.menubar.edit;
 
-    opens ets.log121_labo5.controllers.command.commands.menubar.files to javafx.fxml;
-    exports ets.log121_labo5.controllers.command.commands.menubar.files;
+    opens ets.log121_labo5.controllers.commands.menubar.files to javafx.fxml;
+    exports ets.log121_labo5.controllers.commands.menubar.files;
 
-    opens ets.log121_labo5.controllers.command.commands.contextmenu to javafx.fxml;
-    exports ets.log121_labo5.controllers.command.commands.contextmenu;
+    opens ets.log121_labo5.controllers.commands.contextmenu to javafx.fxml;
+    exports ets.log121_labo5.controllers.commands.contextmenu;
 
-    opens ets.log121_labo5.controllers.command.commands.navigation to javafx.fxml;
-    exports ets.log121_labo5.controllers.command.commands.navigation;
+    opens ets.log121_labo5.controllers.commands.navigation to javafx.fxml;
+    exports ets.log121_labo5.controllers.commands.navigation;
 
     // MODELS
     opens ets.log121_labo5.models to javafx.fxml;
@@ -35,4 +35,6 @@ module ets.log121_labo5 {
 
     exports ets.log121_labo5.models.memento;
     opens ets.log121_labo5.models.memento to javafx.fxml;
+    exports ets.log121_labo5.controllers.commands;
+    opens ets.log121_labo5.controllers.commands to javafx.fxml;
 }

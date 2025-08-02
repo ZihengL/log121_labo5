@@ -1,6 +1,6 @@
 package ets.log121_labo5.controllers;
 
-import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.models.CommandsManager;
 import ets.log121_labo5.models.observer.Observable;
 import ets.log121_labo5.models.observer.Observer;
 import javafx.fxml.FXML;

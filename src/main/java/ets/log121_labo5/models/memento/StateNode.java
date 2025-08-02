@@ -4,31 +4,25 @@ package ets.log121_labo5.models.memento;
 /**
  * Class: StateNode
  * Created on: 7/29/2025
- * Description:
+ * Description: Classe représentant un noeud avec une référence au
+ * noeud prochain, ainsi qu'au noeud précédent. Chaque noeud possède
+ * une instance de State, qui stocke l'état de l'application.
  *
  * @author liuzi | Zi heng Liu
  */
 
 public class StateNode {
 
-    private State state;
+    private final State state;
     private StateNode previous;
     private StateNode next;
 
     // CONSTRUCT
 
     public StateNode(State state) {
-        this(state, null);
-    }
-
-    public StateNode(State state, StateNode previous) {
-        this(state, previous, null);
-    }
-
-    public StateNode(State state, StateNode previous, StateNode next) {
         this.state = state;
-        this.previous = previous;
-        this.next = next;
+        this.previous = null;
+        this.next = null;
     }
 
     // ACCESSORS

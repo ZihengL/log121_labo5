@@ -1,9 +1,9 @@
-package ets.log121_labo5.controllers.command.commands.navigation;
+package ets.log121_labo5.controllers.commands.navigation;
 
 
 import ets.log121_labo5.controllers.ImageNavigatorController;
-import ets.log121_labo5.controllers.command.Command;
-import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.controllers.commands.Command;
+import ets.log121_labo5.models.CommandsManager;
 import ets.log121_labo5.models.Perspective;
 import javafx.geometry.Bounds;
 import javafx.geometry.Point2D;
@@ -19,7 +19,7 @@ import javafx.scene.input.MouseEvent;
  * @author liuzi | Zi heng Liu
  */
 
-public class PanCommand extends Command<MouseEvent> {
+public class PanCommand implements Command<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {

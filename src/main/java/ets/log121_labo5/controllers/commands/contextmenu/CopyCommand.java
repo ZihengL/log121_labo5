@@ -1,4 +1,4 @@
-package ets.log121_labo5.controllers.command.commands.contextmenu;
+package ets.log121_labo5.controllers.commands.contextmenu;
 
 
 import ets.log121_labo5.controllers.ImageNavigatorController;
@@ -7,7 +7,7 @@ import javafx.event.ActionEvent;
 /**
  * Class: CopyCommand
  * Created on: 7/12/2025
- * Description:
+ * Description: Classe commande qui invoque setCopy() de ContextMenuCommand.
  *
  * @author liuzi | Zi heng Liu
  */

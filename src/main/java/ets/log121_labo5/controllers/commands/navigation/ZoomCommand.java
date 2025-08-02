@@ -1,9 +1,9 @@
-package ets.log121_labo5.controllers.command.commands.navigation;
+package ets.log121_labo5.controllers.commands.navigation;
 
 
 import ets.log121_labo5.controllers.ImageNavigatorController;
-import ets.log121_labo5.controllers.command.Command;
-import ets.log121_labo5.controllers.command.CommandsManager;
+import ets.log121_labo5.controllers.commands.Command;
+import ets.log121_labo5.models.CommandsManager;
 import ets.log121_labo5.models.Perspective;
 import javafx.geometry.Point2D;
 import javafx.scene.image.ImageView;
@@ -17,7 +17,7 @@ import javafx.scene.input.ScrollEvent;
  * @author liuzi | Zi heng Liu
  */
 
-public class ZoomCommand extends Command<ScrollEvent> {
+public class ZoomCommand implements Command<ScrollEvent> {
 
     // On récolte les informations nécéssaires de la vue comme la position de la sourie
     // et le delta du rouleau de sourie(on inverse la valeur puisque rouler vers le haut
