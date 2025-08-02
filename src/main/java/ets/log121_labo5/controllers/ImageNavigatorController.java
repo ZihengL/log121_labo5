@@ -66,10 +66,6 @@ public class ImageNavigatorController extends ImageController {
 
         Perspective perspective = this.getPerspective();
         this.updateViewport(perspective);
-
-        Stage stage = Application.getStage();
-        stage.sizeToScene();
-        stage.centerOnScreen();
     }
 
     public boolean updateImage(CommandsManager manager) {
@@ -78,6 +74,10 @@ public class ImageNavigatorController extends ImageController {
         Rectangle2D bounds = this.getPerspective().getBounds();
         this.view.setFitWidth(bounds.getWidth());
         this.view.setFitHeight(bounds.getHeight());
+
+        Stage stage = Application.getStage();
+        stage.sizeToScene();
+        stage.centerOnScreen();
 
         return true;
     }

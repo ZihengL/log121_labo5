@@ -11,9 +11,6 @@ module ets.log121_labo5 {
     opens ets.log121_labo5.controllers to javafx.fxml;
     exports ets.log121_labo5.controllers;
 
-    opens ets.log121_labo5.controllers.command to javafx.fxml;
-    exports ets.log121_labo5.controllers.command;
-
     opens ets.log121_labo5.controllers.commands.menubar.edit to javafx.fxml;
     exports ets.log121_labo5.controllers.commands.menubar.edit;
 
