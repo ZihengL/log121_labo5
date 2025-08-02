@@ -21,7 +21,7 @@ import java.io.File;
 
 public abstract class FileDialogCommand implements Command<ActionEvent> {
 
-    public static final File DEFAULT_DIRECTORY = new File(".\\src\\main\\resources\\ets\\log121_labo5");
+    public static final String DEFAULT_DIRECTORY = ".\\src\\main\\resources\\ets\\log121_labo5";
 
     // TEMPLATE METHOD
     @Override
@@ -35,9 +35,12 @@ public abstract class FileDialogCommand implements Command<ActionEvent> {
     }
 
     protected void setDialogOptions(FileChooser fc) {
-        File target = FileDialogCommand.DEFAULT_DIRECTORY;
-        if (target.exists())
-            fc.setInitialDirectory(target);
+        this.setDefaultDirectory(fc, new File(DEFAULT_DIRECTORY));
+    }
+
+    protected void setDefaultDirectory(FileChooser fc, File dir) {
+        if (dir.exists())
+            fc.setInitialDirectory(dir);
     }
 
     protected abstract File fireDialog(Stage stage, FileChooser fc);

@@ -8,7 +8,7 @@ import javafx.event.ActionEvent;
 /**
  * Class: UndoCommand
  * Created on: 7/11/2025
- * Description:
+ * Description: Classe commande qui invoque undo() du gestionnaire de commandes.
  *
  * @author liuzi | Zi heng Liu
  */

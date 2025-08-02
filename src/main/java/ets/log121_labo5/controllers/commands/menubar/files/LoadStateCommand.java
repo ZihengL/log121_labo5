@@ -9,9 +9,12 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Class: LoadPerspectiveAction
+ * Class: LoadStateCommand
  * Created on: 7/9/2025
- * Description:
+ * Description: Classe commande de type FileDialogCommand qui invite
+ * l'utilisateur à récolter un fichier d'extension .ser, et invoque
+ * la méthode loadStateFromFile() du gestionnaire de commandes avec le
+ * fichier en argument.
  *
  * @author liuzi | Zi heng Liu
  */
@@ -20,6 +23,8 @@ public class LoadStateCommand extends FileDialogCommand {
 
     // TEMPLATE INHERITED
 
+    // Applique un filtre qui considère seulement les fichiers .ser comme valide
+    // et déplace l'usager au répertoire des sauvegardes.
     @Override
     protected void setDialogOptions(FileChooser fc) {
         fc.setTitle("Charger un état sauvegardé");
@@ -27,7 +32,8 @@ public class LoadStateCommand extends FileDialogCommand {
                 new FileChooser.ExtensionFilter("Serializable", "*.ser")
         );
 
-        super.setDialogOptions(fc);
+        File dir = new File(FileDialogCommand.DEFAULT_DIRECTORY + "\\saves");
+        this.setDefaultDirectory(fc, dir);
     }
 
     @Override
@@ -35,6 +41,9 @@ public class LoadStateCommand extends FileDialogCommand {
         return fc.showOpenDialog(stage);
     }
 
+    // Invoque la méthode loadState() du gestionnaire de commandes avec le fichier choisi
+    // en paramètre. Nous n'avons pas développé la gestion d'erreurs plus en profondeur
+    // pour des raisons de temps.
     @Override
     protected void invokeCommand(File file) {
         try {

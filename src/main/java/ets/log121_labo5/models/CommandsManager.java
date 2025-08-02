@@ -22,18 +22,19 @@ import java.io.*;
 // TODO: REMOVE SERIALIZABLE
 public class CommandsManager extends Observable implements Serializable {
 
-    /* --------- STATIC (SINGLETON) --------- */
+    // STATIC
 
     @Serial
     private static final long serialVersionUID = 1L;
 
+    // Gestionnaire de commande singleton avec accéssibilité universelle.
     private static final CommandsManager instance = new CommandsManager();
 
     public static CommandsManager getInstance() {
         return CommandsManager.instance;
     }
 
-    /* --------- INSTANCE --------- */
+    // INSTANCE
 
     private transient Image image;  // Image n'implémente pas Serializable
     private Perspective leftside;
@@ -146,6 +147,7 @@ public class CommandsManager extends Observable implements Serializable {
         }
     }
 
+    // TODO: FIX WEIRD REGRESSION BUG WITH PERSPECTIVE UPON LOADING.
     // Si l'extension du fichier en paramètre est valide, on procède à la
     // lecture et le rétablissement de l'état du programme à partir de celle-ci.
     public void loadStateFromFile(File file) throws IOException, ClassNotFoundException {
@@ -156,7 +158,7 @@ public class CommandsManager extends Observable implements Serializable {
             Object object = input.readObject();
 
             if (object instanceof CommandsManager loaded) {
-                this.image = loaded.image;
+                this.image = Perspective.setImageDimensions(loaded.image);
                 this.leftside = loaded.leftside;
                 this.rightside = loaded.rightside;
 

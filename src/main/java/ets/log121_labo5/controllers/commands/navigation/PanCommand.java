@@ -14,13 +14,17 @@ import javafx.scene.input.MouseEvent;
 /**
  * Class: PanCommand
  * Created on: 7/14/2025
- * Description:
+ * Description: Classe commande qui s'occupe du défilement de la vue.
  *
  * @author liuzi | Zi heng Liu
  */
 
 public class PanCommand implements Command<MouseEvent> {
 
+    // Si le bouton provenant de la source de l'événement est le clic gauche,
+    // et que la vue n'est pas nulle(lorsqu'il n'y a pas d'image),
+    // on récolte le contrôleur de l'ImageView qui a été stocké en tant que propriété.
+    // À partir de celle-ci, nous pouvons accéder à la Perspective
     @Override
     public void handle(MouseEvent event) {
         if (event.getButton() != MouseButton.PRIMARY) return;

@@ -10,7 +10,6 @@ import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 /**
@@ -41,8 +40,8 @@ public class ImageNavigatorController extends ImageController {
         this.view.setOnMouseClicked(new PanCommand());
     }
 
-    // On passe par la voie d'interfaces fonctionnels afin de donner accès à l'objet
-    // Perspective dédié à l'instance du controleur.
+    // On passe par la voie d'interfaces fonctionnelles afin de donner accès à l'objet
+    // Perspective dédiée à l'instance du contrôleur.
     public void setPerspectiveAccessors(PerspectiveGetter getter, PerspectiveSetter setter) {
         this.perspectiveGetter = getter;
         this.perspectiveSetter = setter;
@@ -56,6 +55,7 @@ public class ImageNavigatorController extends ImageController {
         this.perspectiveSetter.setPerspective(perspective);
     }
 
+    // Nous appelons la superclasse
     @Override
     public void update(Observable observable) {
         super.update(observable);

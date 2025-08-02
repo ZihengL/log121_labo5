@@ -11,6 +11,9 @@ public class LoadImageCommand extends FileDialogCommand {
 
     // TEMPLATE INHERITED
 
+    // Filtre d'extensions les plus communs pour les formats d'images.
+    // Nous plaçons également l'utilisateur au répertoire défaut de l'application
+    // pour stocker les images.
     @Override
     protected void setDialogOptions(FileChooser fc) {
         fc.setTitle("Charger un image");
@@ -18,7 +21,8 @@ public class LoadImageCommand extends FileDialogCommand {
                 new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
         );
 
-        super.setDialogOptions(fc);
+        File dir = new File(FileDialogCommand.DEFAULT_DIRECTORY + "\\images");
+        this.setDefaultDirectory(fc, dir);
     }
 
     @Override
@@ -26,10 +30,12 @@ public class LoadImageCommand extends FileDialogCommand {
         return fc.showOpenDialog(stage);
     }
 
+    // Si valide, on charge l'image et on invoque setImage() du gestionnaire de commandes.
     @Override
     protected void invokeCommand(File file) {
-        Image image = new Image(file.toURI().toString());
+        if (!file.exists()) return;
 
+        Image image = new Image(file.toURI().toString());
         CommandsManager.getInstance().setImage(image);
     }
 }

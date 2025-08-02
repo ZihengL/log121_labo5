@@ -57,7 +57,7 @@ public class MainController {
 
         /* --- PERSPECTIVE --- */
 
-        // Nous passons par la voie d'interfaces fonctionnels afin de définir
+        // Nous passons par la voie d'interfaces fonctionnelles afin de définir
         // les accesseurs de chaque instance de ImageNavigatorController afin
         // d'éviter de devoir créer des classes ou des méthodes supplémentaires
         // soit au niveau du gestionnaire de commandes(CommandsManager) ou au

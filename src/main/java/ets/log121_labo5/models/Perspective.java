@@ -126,7 +126,7 @@ public class Perspective implements Serializable {
         return new Point2D(x, y);
     }
 
-    // Retourne un vecteur représentant la taille de la vue actuelle.
+    // Retourne un vecteur OA représentant les dimensions de la vue.
     public Point2D getSize() {
         return new Point2D(this.viewport.getWidth(), this.viewport.getHeight());
     }
@@ -173,24 +173,31 @@ public class Perspective implements Serializable {
         return new Perspective(this.viewport, this.bounds);
     }
 
-    // ZOOM - Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
+    // Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
     // Applique le zoom par l'agrandissement ou le rétrécissement de la boîte
     // servant de vue selon la valeur du delta en argument.
     public void zoom(Point2D position, double delta) {
-        double magnitude = this.getZoomMagnitude(delta);
-        Rectangle2D port = this.viewport;
+        double magnitude = this.getZoomMagnitude(delta),
+               width = this.viewport.getWidth() * magnitude,
+               height = this.viewport.getHeight() * magnitude;
 
-        double minX = port.getMinX(),
-               maxX = port.getWidth() * magnitude,
-               boundX = this.bounds.getWidth();
-        double x = this.getZoomPosition(position.getX(), minX, maxX, boundX, magnitude);
+        double x = this.getZoomPosition(
+                position.getX(),
+                this.viewport.getMinX(),
+                width,
+                this.bounds.getWidth(),
+                magnitude
+        );
 
-        double minY = port.getMinY(),
-               maxY = port.getHeight() * magnitude,
-               boundY = this.bounds.getHeight();
-        double y = this.getZoomPosition(position.getY(), minY, maxY, boundY, magnitude);
+        double y = this.getZoomPosition(
+                position.getY(),
+                this.viewport.getMinY(),
+                height,
+                this.bounds.getHeight(),
+                magnitude
+        );
 
-        this.setViewport(x, y, maxX, maxY);
+        this.setViewport(x, y, width, height);
     }
 
     // Retourne le facteur multiplicatif par lequel la vue
@@ -216,30 +223,30 @@ public class Perspective implements Serializable {
         );
     }
 
-    // PAN - Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
+    // Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
     // Déplace la boîte servant de vue selon la position donnée en argument.
-    public void pan(Point2D position, Bounds bounds) {
-        Rectangle2D port = this.viewport;
+    public void pan(Point2D position, Bounds localBounds) {
+        double x = this.getPanPosition(
+            position.getX(),
+            this.viewport.getMinX(),
+            this.viewport.getWidth(),
+            localBounds.getWidth(),
+            this.bounds.getWidth()
+        );
 
-        double posX = position.getX(),
-               minX = port.getMinX(),
-               width = port.getWidth(),
-               localBoundX = bounds.getWidth(),
-               boundX = this.bounds.getWidth();
-        double x = this.getPanPosition(posX, minX, width, localBoundX, boundX);
+        double y = this.getPanPosition(
+            position.getY(),
+            this.viewport.getMinY(),
+            this.viewport.getHeight(),
+            localBounds.getHeight(),
+            this.bounds.getHeight()
+        );
 
-        double posY = position.getY(),
-               minY = port.getMinY(),
-               height = port.getHeight(),
-               localBoundY = bounds.getHeight(),
-               boundsY = this.bounds.getHeight();
-        double y = this.getPanPosition(posY, minY, height, localBoundY, boundsY);
-
-        this.setViewport(x, y, width, height);
+        this.setViewport(x, y, this.viewport.getWidth(), this.viewport.getHeight());
     }
 
-    // Retourne la valeur de après avoir appliqué les contraintes
-    // dictées par les dimensions de l'image.
+    // Retourne la valeur de la position x/y du coin supérieur gauche de la vue après
+    // les ajustements de compensation selon les attributs courantes de la vue et les bornes du cadre.
     private double getPanPosition(double center, double min, double max, double localBound, double bound) {
         return Perspective.clamp(
                 (min + center * (max / localBound)) - (max / 2),

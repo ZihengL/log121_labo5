@@ -9,9 +9,11 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * Class: SavePerspectiveAction
+ * Class: SaveStateCommand
  * Created on: 7/9/2025
- * Description:
+ * Description: Classe commande de type FileDialogCommand. À l'éxécution,
+ * il crée une fenêtre qui invite l'utilisateur à créer ou écraser un fichier
+ * existant , et invoque
  *
  * @author liuzi | Zi heng Liu
  */
@@ -22,9 +24,13 @@ public class SaveStateCommand extends FileDialogCommand {
 
     @Override
     protected void setDialogOptions(FileChooser fc) {
-        fc.setTitle("Sauvegarder l'état courante.");
+        fc.setTitle("Sauvegarder l'état courant.");
+        fc.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("Serializable", "*.ser")
+        );
 
-        super.setDialogOptions(fc);
+        File dir = new File(FileDialogCommand.DEFAULT_DIRECTORY + "\\saves");
+        this.setDefaultDirectory(fc, dir);
     }
 
     @Override
