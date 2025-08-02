@@ -21,8 +21,8 @@ import javafx.scene.layout.StackPane;
 
 public class ImageViewerController extends ImageController {
 
-    public static final int FITWIDTH = 300;
-    public static final int FITHEIGHT = 200;
+    public static final int FITWIDTH = 400;
+    public static final int FITHEIGHT = 300;
 
     public boolean updateImage(CommandsManager manager) {
         if (!super.updateImage(manager)) return false;

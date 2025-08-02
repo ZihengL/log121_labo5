@@ -91,7 +91,7 @@ public class StatesManager {
         return this.size;
     }
 
-    public boolean moveLeft() {
+    public boolean moveToPrevious() {
         if (this.current == null || !this.current.hasPrevious())
             return false;
 
@@ -99,7 +99,7 @@ public class StatesManager {
         return true;
     }
 
-    public boolean moveRight() {
+    public boolean moveToNext() {
         if (this.current == null || !this.current.hasNext())
             return false;
 

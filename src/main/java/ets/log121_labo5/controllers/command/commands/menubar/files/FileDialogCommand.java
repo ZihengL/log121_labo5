@@ -1,6 +1,7 @@
 package ets.log121_labo5.controllers.command.commands.menubar.files;
 
 
+import ets.log121_labo5.Application;
 import ets.log121_labo5.controllers.command.Command;
 import javafx.event.ActionEvent;
 import javafx.stage.FileChooser;
@@ -28,7 +29,7 @@ public abstract class FileDialogCommand extends Command<ActionEvent> {
         FileChooser fc = new FileChooser();
         this.setDialogOptions(fc);
 
-        File file = this.fireDialog(Command.stage, fc);
+        File file = this.fireDialog(Application.getStage(), fc);
         if (file != null)
             this.invokeCommand(file);
     }

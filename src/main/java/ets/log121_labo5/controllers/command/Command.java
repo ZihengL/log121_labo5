@@ -6,7 +6,7 @@ import javafx.event.EventHandler;
 import javafx.stage.Stage;
 
 /**
- * Class: Commander
+ * Class: Command
  * Created on: 7/9/2025
  * Description: Classe abstraite générique servant de racine pour la totalité
  * des commandes disponibles de l'application du laboratoire. La classe
@@ -20,18 +20,6 @@ import javafx.stage.Stage;
  */
 
 public abstract class Command<T extends Event> implements EventHandler<T> {
-
-    // STATIC
-
-    // Nous gardons ici une instance de la fenêtre racine de l'application
-    // accessible pour les sous-classes de Command.
-    protected static Stage stage;
-
-    public static void setStage(Stage stage) {
-        Command.stage = stage;
-    }
-
-    // INSTANCE
 
     // Déclaration explicite pour la clarté.
     public abstract void handle(T event);

@@ -28,6 +28,10 @@ public abstract class ImageController implements Observer {
         manager.addObserver(this);
     }
 
+    public ImageView getImageView() {
+        return this.view;
+    }
+
     @Override
     public void update(Observable observable) {
         CommandsManager manager = (CommandsManager) observable;

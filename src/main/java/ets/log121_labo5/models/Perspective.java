@@ -11,7 +11,12 @@ import java.io.*;
 /**
  * Class: Perspective
  * Created on: 7/7/2025
- * Description:
+ * Description: Classe primordiale à l'application. Il représente les
+ * attributs d'un cadre de photo numérique et permet également de défiler et
+ * de zoomer dans la photo. Il contient la vue présente ainsi que les bornes
+ * qui servent de contraintes. À noter que cette classe représente uniquement
+ * le cadre de photo, et donc, son métier est contraint uniquement à la logique
+ * derrière les manipulations d'un cadre numérique.
  *
  * @author liuzi | Zi heng Liu
  */
@@ -20,11 +25,11 @@ public class Perspective implements Serializable {
 
     // STATIC
 
-    public static final double MAX_HEIGHT = 800.;
-    public static final double MAX_WIDTH = 1000.;
-
     @Serial
     private static final long serialVersionUID = 1L;
+
+    public static final double MAX_HEIGHT = 800.;
+    public static final double MAX_WIDTH = 1000.;
 
     public static final double MIN_ZOOM = 10.;
     public static final double ZOOM_FACTOR = 1.01;
@@ -162,13 +167,15 @@ public class Perspective implements Serializable {
 
     // OTHER
 
-    // COPY
+    // Retourne une nouvelle instance de Perspective avec
+    // les mêmes bornes et vue que l'instance invoquée.
     public Perspective copy() {
         return new Perspective(this.viewport, this.bounds);
     }
 
-    // ZOOM
-    // Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
+    // ZOOM - Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
+    // Applique le zoom par l'agrandissement ou le rétrécissement de la boîte
+    // servant de vue selon la valeur du delta en argument.
     public void zoom(Point2D position, double delta) {
         double magnitude = this.getZoomMagnitude(delta);
         Rectangle2D port = this.viewport;
@@ -186,10 +193,9 @@ public class Perspective implements Serializable {
         this.setViewport(x, y, maxX, maxY);
     }
 
-    // Retourne
+    // Retourne le facteur multiplicatif par lequel la vue
+    // doit s'agrandir ou rétrécir en fonction du delta en paramètre.
     public double getZoomMagnitude(double delta) {
-        System.out.println(delta);
-
         double width = this.viewport.getWidth(), height = this.viewport.getHeight(),
                 boundX = this.bounds.getWidth(), boundY = this.bounds.getHeight();
 
@@ -200,6 +206,8 @@ public class Perspective implements Serializable {
         return Perspective.clamp(magnitude, min, max);
     }
 
+    // Retourne la position x/y du coin supérieur gauche de la vue après
+    // avoir appliqué les contraintes dictées par les bornes de l'image.
     private double getZoomPosition(double center, double min, double max, double bound, double magnitude) {
         return Perspective.clamp(
                 center - (center - min) * magnitude,
@@ -208,8 +216,8 @@ public class Perspective implements Serializable {
         );
     }
 
-    // PAN
-    // Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
+    // PAN - Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
+    // Déplace la boîte servant de vue selon la position donnée en argument.
     public void pan(Point2D position, Bounds bounds) {
         Rectangle2D port = this.viewport;
 
@@ -230,6 +238,8 @@ public class Perspective implements Serializable {
         this.setViewport(x, y, width, height);
     }
 
+    // Retourne la valeur de après avoir appliqué les contraintes
+    // dictées par les dimensions de l'image.
     private double getPanPosition(double center, double min, double max, double localBound, double bound) {
         return Perspective.clamp(
                 (min + center * (max / localBound)) - (max / 2),

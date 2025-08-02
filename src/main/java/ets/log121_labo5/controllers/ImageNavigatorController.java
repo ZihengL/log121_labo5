@@ -1,5 +1,7 @@
 package ets.log121_labo5.controllers;
 
+import ets.log121_labo5.Application;
+import ets.log121_labo5.controllers.command.Command;
 import ets.log121_labo5.models.PerspectiveGetter;
 import ets.log121_labo5.models.PerspectiveSetter;
 import ets.log121_labo5.controllers.command.CommandsManager;
@@ -9,6 +11,8 @@ import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 /**
  * Class: ImageNavigatorController
@@ -38,6 +42,10 @@ public class ImageNavigatorController extends ImageController {
         this.view.setOnMouseClicked(new PanCommand());
     }
 
+    public void setBinding(Pane pane) {
+        this.view.fitWidthProperty().bind(pane.widthProperty());
+    }
+
     // On passe par la voie d'interfaces fonctionnels afin de donner accès à l'objet
     // Perspective dédié à l'instance du controleur.
     public void setPerspectiveAccessors(PerspectiveGetter getter, PerspectiveSetter setter) {
@@ -53,22 +61,22 @@ public class ImageNavigatorController extends ImageController {
         this.perspectiveSetter.setPerspective(perspective);
     }
 
-    // UPDATE
-
     @Override
     public void update(Observable observable) {
         super.update(observable);
 
         Perspective perspective = this.getPerspective();
         this.updateViewport(perspective);
+
+        Stage stage = Application.getStage();
+        stage.sizeToScene();
+        stage.centerOnScreen();
     }
 
     public boolean updateImage(CommandsManager manager) {
         if (!super.updateImage(manager)) return false;
 
         Rectangle2D bounds = this.getPerspective().getBounds();
-        double width = bounds.getWidth(), height = bounds.getHeight();
-
         this.view.setFitWidth(bounds.getWidth());
         this.view.setFitHeight(bounds.getHeight());
 

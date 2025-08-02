@@ -3,10 +3,10 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import javafx.scene.shape.Rectangle?>
 <GridPane fx:id="rootPane"
           xmlns:fx="http://javafx.com/fxml"
-          fx:controller="ets.log121_labo5.controllers.MainController">
+          fx:controller="ets.log121_labo5.controllers.MainController"
+          minWidth="300" minHeight="200">
     <columnConstraints>
         <ColumnConstraints percentWidth="50"/>
         <ColumnConstraints percentWidth="50"/>
@@ -34,10 +34,6 @@
     <fx:include fx:id="thumbnailPane" source="image-viewer-view.fxml"
                 GridPane.halignment="CENTER"
                 GridPane.rowIndex="1" GridPane.columnSpan="2"/>
-
-<!--    <Rectangle height="15"-->
-<!--               GridPane.halignment="CENTER"-->
-<!--               GridPane.rowIndex="2" GridPane.columnSpan="2"/>-->
 
     <!--LEFTSIDE-->
     <fx:include fx:id="leftsidePane" source="image-navigator-view.fxml"

@@ -8,7 +8,8 @@ import javafx.event.ActionEvent;
 /**
  * Class: RedoCommand
  * Created on: 7/11/2025
- * Description:
+ * Description: Classe dérivative de Command qui invoque
+ * la méthode redo(), ou refaire, de CommandsManager.
  *
  * @author liuzi | Zi heng Liu
  */

@@ -1,6 +1,7 @@
 package ets.log121_labo5.controllers.command.commands.menubar.files;
 
 import ets.log121_labo5.controllers.command.CommandsManager;
+import javafx.scene.image.Image;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -27,6 +28,8 @@ public class LoadImageCommand extends FileDialogCommand {
 
     @Override
     protected void invokeCommand(File file) {
-        CommandsManager.getInstance().loadImage(file);
+        Image image = new Image(file.toURI().toString());
+
+        CommandsManager.getInstance().setImage(image);
     }
 }
