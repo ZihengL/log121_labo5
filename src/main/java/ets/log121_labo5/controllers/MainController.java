@@ -11,6 +11,7 @@ import ets.log121_labo5.controllers.commands.menubar.files.QuitCommand;
 import ets.log121_labo5.controllers.commands.menubar.files.SaveStateCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.Image;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
@@ -24,8 +25,6 @@ import javafx.scene.layout.StackPane;
 
 public class MainController {
 
-    @FXML private GridPane rootPane;
-
     // MENUBAR: FICHIER
     @FXML private MenuItem saveAppStateItem;
     @FXML private MenuItem loadAppStateItem;
@@ -36,30 +35,38 @@ public class MainController {
     @FXML private MenuItem redoItem;
 
     // CONTROLLERS
-    @FXML private StackPane thumbnailPane;
-    @FXML private ImageViewerController thumbnailPaneController;
     @FXML private StackPane leftsidePane;
     @FXML private ImageNavigatorController leftsidePaneController;
     @FXML private StackPane rightsidePane;
     @FXML private ImageNavigatorController rightsidePaneController;
 
-    // CONTEXT MENU CONTROLLER
-    @FXML private ContextMenuController contextMenuController;
-
     // UI
     @FXML
     private void initialize() {
         /* --- MENUBAR --- */
-            // FICHIER
+
+        // Ajout des fonctionnalités de commandes aux boutons du bar de menu.
+        // FICHIER
         this.saveAppStateItem.setOnAction(new SaveStateCommand());
         this.loadAppStateItem.setOnAction(new LoadStateCommand());
         this.loadImageItem.setOnAction(new LoadImageCommand());
         this.quitItem.setOnAction(new QuitCommand());
-            // ÉDITION
+        // ÉDITION
         this.undoItem.setOnAction(new UndoCommand());
         this.redoItem.setOnAction(new RedoCommand());
 
         /* --- PERSPECTIVE --- */
+
+        // Nous passons par la voie d'interfaces fonctionnels afin de définir
+        // les accesseurs de chaque instance de ImageNavigatorController afin
+        // d'éviter de devoir créer des classes ou des méthodes supplémentaires
+        // soit au niveau du gestionnaire de commandes(CommandsManager) ou au
+        // niveau des contrôleurs. Ces interfaces fonctionnels diminue donc
+        // le masse de code nécéssaire. Il est aussi à noter que si nous décidons
+        // d'ajouter d'autres panneaux d'images dans une mise à jour futur de l'application,
+        // il ne serait pas impossible de réusiner le code afin d'utiliser
+        // une collection d'objets Perspective et de contrôleurs ImageNavigatorController en
+        // utilisant ce même méthode.
         CommandsManager manager = CommandsManager.getInstance();
 
         PerspectiveGetter leftsideGetter = manager::getLeftside;
@@ -71,10 +78,14 @@ public class MainController {
         this.rightsidePaneController.setPerspectiveAccessors(rightsideGetter, rightsideSetter);
 
         /* --- CONTEXT MENU --- */
-        this.contextMenuController = new ContextMenuController();
-        this.contextMenuController.addToPanes(this.leftsidePane, this.rightsidePane);
 
-        // TEMPORARY: DEFAULT IMG
+        // Une seule instance du menu de contexte est crée, et ses fonctions sont injectées
+        // dans chacun des panneaux.
+        ContextMenuController contextMenuController = new ContextMenuController();
+        contextMenuController.addToPanes(this.leftsidePane, this.rightsidePane);
+
+        // Enlever les commentaires pour charger une image
+        // tout de suite après le lancement de l'application.
 //        String path = System.getProperty("user.dir") + "\\src\\main\\resources\\ets\\log121_labo5\\images\\moon.jpg";
 //        manager.setImage(new Image(path));
     }

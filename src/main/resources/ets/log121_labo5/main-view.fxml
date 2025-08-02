@@ -3,8 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<GridPane fx:id="rootPane"
-          xmlns:fx="http://javafx.com/fxml"
+<GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="ets.log121_labo5.controllers.MainController"
           minWidth="300" minHeight="200">
     <columnConstraints>
@@ -31,7 +30,7 @@
     </MenuBar>
 
     <!--THUMBNAIL-->
-    <fx:include fx:id="thumbnailPane" source="image-viewer-view.fxml"
+    <fx:include source="image-viewer-view.fxml"
                 GridPane.halignment="CENTER"
                 GridPane.rowIndex="1" GridPane.columnSpan="2"/>
 

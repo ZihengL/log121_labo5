@@ -41,10 +41,6 @@ public class ImageNavigatorController extends ImageController {
         this.view.setOnMouseClicked(new PanCommand());
     }
 
-    public void setBinding(Pane pane) {
-        this.view.fitWidthProperty().bind(pane.widthProperty());
-    }
-
     // On passe par la voie d'interfaces fonctionnels afin de donner accès à l'objet
     // Perspective dédié à l'instance du controleur.
     public void setPerspectiveAccessors(PerspectiveGetter getter, PerspectiveSetter setter) {
