@@ -1,7 +1,6 @@
-package ets.log121_labo5.controllers.commands.contextmenu;
+package ets.log121_labo5.controllers.commands.imageviewCommand.contextmenu;
 
 
-import ets.log121_labo5.controllers.ImageNavigatorController;
 import ets.log121_labo5.models.Perspective;
 import javafx.event.ActionEvent;
 
@@ -24,11 +23,13 @@ public class PasteCommand extends ContextMenuCommand {
     // destinataire pour appliquer les modifications.
     @Override
     public void handle(ActionEvent event) {
-        ImageNavigatorController controller = this.getEventController(event);
-        Perspective recipient = controller.getPerspective().copy();
+//        ImageNavigatorController controller = this.getEventController(event);
+//        Perspective recipient = controller.getPerspective().copy();
+        Perspective recipient = this.getPerspective(event).copy();
         if (recipient == null) return;
 
         ContextMenuCommand.applyModifiers(recipient);
-        controller.setPerspective(recipient);
+        this.setPerspective(event, recipient);
+//        controller.setPerspective(recipient);
     }
 }

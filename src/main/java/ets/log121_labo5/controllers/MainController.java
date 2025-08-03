@@ -11,8 +11,7 @@ import ets.log121_labo5.controllers.commands.menubar.files.QuitCommand;
 import ets.log121_labo5.controllers.commands.menubar.files.SaveStateCommand;
 import javafx.fxml.FXML;
 import javafx.scene.control.MenuItem;
-import javafx.scene.image.Image;
-import javafx.scene.layout.GridPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -76,13 +75,6 @@ public class MainController {
         PerspectiveGetter rightsideGetter = manager::getRightside;
         PerspectiveSetter rightsideSetter = manager::setRightside;
         this.rightsidePaneController.setPerspectiveAccessors(rightsideGetter, rightsideSetter);
-
-        /* --- CONTEXT MENU --- */
-
-        // Une seule instance du menu de contexte est crée, et ses fonctions sont injectées
-        // dans chacun des panneaux.
-        ContextMenuController contextMenuController = new ContextMenuController();
-        contextMenuController.addToPanes(this.leftsidePane, this.rightsidePane);
 
         // Enlever les commentaires pour charger une image
         // tout de suite après le lancement de l'application.

@@ -1,4 +1,4 @@
-package ets.log121_labo5.controllers.commands.contextmenu;
+package ets.log121_labo5.controllers.commands.imageviewCommand.contextmenu;
 
 
 import ets.log121_labo5.models.Perspective;
@@ -8,8 +8,8 @@ import javafx.scene.control.RadioMenuItem;
 /**
  * Class: CopyModifierCommand
  * Created on: 7/31/2025
- * Description: Classe abstraite qui défini le noyau pour tout commande
- * appliquant une stratégie de copie.
+ * Description: Classe abstraite dérivant de ContextMenuCommand
+ * qui défini le noyau pour tout commande appliquant une stratégie de copie.
  *
  * @author liuzi | Zi heng Liu
  */

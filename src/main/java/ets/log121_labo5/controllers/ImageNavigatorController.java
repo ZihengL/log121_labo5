@@ -4,8 +4,8 @@ import ets.log121_labo5.Application;
 import ets.log121_labo5.models.PerspectiveGetter;
 import ets.log121_labo5.models.PerspectiveSetter;
 import ets.log121_labo5.models.CommandsManager;
-import ets.log121_labo5.controllers.commands.navigation.PanCommand;
-import ets.log121_labo5.controllers.commands.navigation.ZoomCommand;
+import ets.log121_labo5.controllers.commands.imageviewCommand.navigation.PanCommand;
+import ets.log121_labo5.controllers.commands.imageviewCommand.navigation.ZoomCommand;
 import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.fxml.FXML;
@@ -21,7 +21,7 @@ import javafx.stage.Stage;
  * @author liuzi | Zi heng Liu
  */
 
-public class ImageNavigatorController extends ImageController {
+public class ImageNavigatorController extends ImageViewController {
 
     private PerspectiveGetter perspectiveGetter;
     private PerspectiveSetter perspectiveSetter;
@@ -30,14 +30,15 @@ public class ImageNavigatorController extends ImageController {
     protected void initialize() {
         super.initialize();
 
-        // Sauvegarde l'instance de la classe en tant que propriété
-        // afin d'y avoir accès dans la commande lorsqu'on source un événement.
-        this.rootPane.getProperties().put("controller", this);
-        this.view.getProperties().put("controller", this);
-
         // ZOOM & PAN
         this.view.setOnScroll(new ZoomCommand());
         this.view.setOnMouseClicked(new PanCommand());
+
+        // Invocation de la méthode statique du contrôleur de
+        // menu de contexte pour ajouter la fonction cacher/révéler
+        // le menu de contexte de son instance unique
+        // à l'instance présente d'ImageView.
+        ContextMenuController.addFunctionToView(this.view);
     }
 
     // On passe par la voie d'interfaces fonctionnelles afin de donner accès à l'objet
@@ -45,17 +46,25 @@ public class ImageNavigatorController extends ImageController {
     public void setPerspectiveAccessors(PerspectiveGetter getter, PerspectiveSetter setter) {
         this.perspectiveGetter = getter;
         this.perspectiveSetter = setter;
+
+        // Ajout des interfaces fonctionnelles en tant que propriétés dans le panneau
+        // afin que les commandes de type ImageViewCommand/ContextMenuCommand puissent avoir accès.
+        this.view.getProperties().put("PerspectiveGetter", this.perspectiveGetter);
+        this.view.getProperties().put("PerspectiveSetter", this.perspectiveSetter);
     }
 
+    // Getter utlisant l'interface fonctionelle.
     public Perspective getPerspective() {
         return this.perspectiveGetter.getPerspective();
     }
 
+    // Setter utlisant l'interface fonctionelle.
     public void setPerspective(Perspective perspective) {
         this.perspectiveSetter.setPerspective(perspective);
     }
 
-    // Nous appelons la superclasse
+    // Invocation de la mise à jour de la superclasse(qui invoque updateImage()),
+    // et par après, la mise à jour de la vue.
     @Override
     public void update(Observable observable) {
         super.update(observable);
@@ -64,6 +73,9 @@ public class ImageNavigatorController extends ImageController {
         this.updateViewport(perspective);
     }
 
+    // Si la méthode de la superclasse retourne vrai, on adapte la taille
+    // de la vue selon les bornes de l'image ainsi qu'on change la taille
+    // de l'écran pour inclure la totalité des éléments.
     public boolean updateImage(CommandsManager manager) {
         if (!super.updateImage(manager)) return false;
 
@@ -78,6 +90,7 @@ public class ImageNavigatorController extends ImageController {
         return true;
     }
 
+    // Mise à jour de la vue
     public void updateViewport(Perspective perspective) {
         Rectangle2D viewport = perspective.getViewport();
 

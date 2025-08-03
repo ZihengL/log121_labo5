@@ -5,7 +5,8 @@
 
 <GridPane xmlns:fx="http://javafx.com/fxml"
           fx:controller="ets.log121_labo5.controllers.MainController"
-          minWidth="300" minHeight="200">
+          minWidth="600" minHeight="400" vgap="30"
+          style="-fx-background-color: #e5e5e5;">
     <columnConstraints>
         <ColumnConstraints percentWidth="50"/>
         <ColumnConstraints percentWidth="50"/>

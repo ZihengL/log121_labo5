@@ -3,16 +3,27 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.effect.DropShadow?>
 
+<?import javafx.scene.shape.Rectangle?>
 <StackPane fx:id="rootPane"
            xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           fx:controller="ets.log121_labo5.controllers.ImageNavigatorController"
-           style="-fx-border-color: black; -fx-border-width: 0.5;">
+           fx:controller="ets.log121_labo5.controllers.ImageNavigatorController">
         <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
+                <Insets top="20" right="20" bottom="20" left="20"/>
         </padding>
 
-        <ImageView fx:id="view" preserveRatio="true"/>
+        <ImageView fx:id="view" preserveRatio="true" styleClass="shadow-box">
+                <clip>
+                        <Rectangle arcWidth="20" arcHeight="20"
+                                   width="${view.fitWidth}"
+                                   height="${view.fitHeight}"/>
+                </clip>
+
+                <effect>
+                        <DropShadow radius="15" spread="0.2" color="rgba(0,0,0,0.3)"/>
+                </effect>
+        </ImageView>
 
 </StackPane>

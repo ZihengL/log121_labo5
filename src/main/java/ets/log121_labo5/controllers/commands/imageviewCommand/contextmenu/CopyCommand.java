@@ -1,7 +1,7 @@
-package ets.log121_labo5.controllers.commands.contextmenu;
+package ets.log121_labo5.controllers.commands.imageviewCommand.contextmenu;
 
 
-import ets.log121_labo5.controllers.ImageNavigatorController;
+import ets.log121_labo5.models.Perspective;
 import javafx.event.ActionEvent;
 
 /**
@@ -18,7 +18,7 @@ public class CopyCommand extends ContextMenuCommand {
     // On utilise une copie pour briser la référence et maintenir son état actuel.
     @Override
     public void handle(ActionEvent event) {
-        ImageNavigatorController controller = this.getEventController(event);
-        ContextMenuCommand.setCopy(controller.getPerspective());
+        Perspective perspective = this.getPerspective(event);
+        ContextMenuCommand.setCopy(perspective);
     }
 }

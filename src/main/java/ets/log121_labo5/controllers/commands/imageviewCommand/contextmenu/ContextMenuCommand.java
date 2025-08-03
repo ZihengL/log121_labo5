@@ -1,12 +1,11 @@
-package ets.log121_labo5.controllers.commands.contextmenu;
+package ets.log121_labo5.controllers.commands.imageviewCommand.contextmenu;
 
 
-import ets.log121_labo5.controllers.ImageNavigatorController;
+import ets.log121_labo5.controllers.commands.imageviewCommand.ImageViewCommand;
 import ets.log121_labo5.models.Perspective;
-import ets.log121_labo5.controllers.commands.Command;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.control.MenuItem;
+import javafx.scene.image.ImageView;
 
 import java.util.ArrayList;
 
@@ -23,7 +22,7 @@ import java.util.ArrayList;
  * @author liuzi | Zi heng Liu
  */
 
-public abstract class ContextMenuCommand implements Command<ActionEvent> {
+public abstract class ContextMenuCommand extends ImageViewCommand<ActionEvent> {
 
     // STATIC
 
@@ -56,12 +55,10 @@ public abstract class ContextMenuCommand implements Command<ActionEvent> {
 
     // INSTANCE
 
-    // Fonctionne en tandem avec les instances de lambdas dans PerspectiveGetter/PerspectiveSetter
-    // afin de pouvoir accéder à la bonne instance de Perspective dépendamment de l'instance
-    // de ImageNavigatorController.
-    protected ImageNavigatorController getEventController(ActionEvent event) {
-        Node node = ((MenuItem) event.getSource()).getParentPopup().getOwnerNode();
-
-        return (ImageNavigatorController) node.getProperties().get("controller");
+    // Override de la superclasse car la source de l'événement provient du bouton du
+    // menu de contexte tandis que l'ImageView que nous cherchons est le parent du menu.
+    @Override
+    public ImageView getImageView(ActionEvent event) {
+        return (ImageView) ((MenuItem) event.getSource()).getParentPopup().getOwnerNode();
     }
 }

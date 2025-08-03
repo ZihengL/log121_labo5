@@ -159,10 +159,13 @@ public class Perspective implements Serializable {
     }
 
     // Défini la taille du rectangle. Utilisé pour copier/coller le niveau de zoom.
+    // On place également la position au centre, sinon quoi la fenêtre bougerait
+    // selon le coin supérieur gauche.
     public void setSize(Point2D size) {
-        double x = this.viewport.getMinX(), y = this.viewport.getMinY();
+        Point2D center = this.getCenter();
 
-        this.setViewport(x, y, size.getX(), size.getY());
+        this.setViewport(this.viewport.getMinX(), this.viewport.getMinY(), size.getX(), size.getY());
+        this.setCenter(center);
     }
 
     // OTHER

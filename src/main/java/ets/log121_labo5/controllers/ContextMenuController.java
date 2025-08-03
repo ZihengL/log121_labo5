@@ -1,27 +1,45 @@
 package ets.log121_labo5.controllers;
 
 
-import ets.log121_labo5.controllers.commands.contextmenu.CopyCommand;
-import ets.log121_labo5.controllers.commands.contextmenu.PasteCommand;
-import ets.log121_labo5.controllers.commands.contextmenu.ToggleCopyPositionCommand;
-import ets.log121_labo5.controllers.commands.contextmenu.ToggleCopyZoomCommand;
+import ets.log121_labo5.controllers.commands.imageviewCommand.contextmenu.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.RadioMenuItem;
 import javafx.scene.control.SeparatorMenuItem;
-import javafx.scene.layout.Pane;
+import javafx.scene.image.ImageView;
 
 
 /**
  * Class: ContextMenuController
  * Created on: 7/12/2025
- * Description:
+ * Description: Classe contrôleur pour le menu de contexte.
  *
  * @author liuzi | Zi heng Liu
  */
 
 public class ContextMenuController {
+
+    // STATIC
+
+    // Singleton parce qu'une instance unique du contrôleur existe afin de pouvoir copier/coller
+    // la Perspective d'un ImageView à un autre. Par conséquent, nous ne faisons
+    // que propager, ou ajouter sa fonctionnalité aux ImageViews.
+    private static final ContextMenuController contextMenuController = new ContextMenuController();
+
+    public static ContextMenuController getInstance() {
+        return ContextMenuController.contextMenuController;
+    }
+
+    // Ajoute la fonction de pouvoir cacher et révéler le menu de contexte à
+    // l'ImageView en paramètre lors d'un clique.
+    public static void addFunctionToView(ImageView view) {
+        ContextMenu menu = contextMenuController.menu;
+
+        view.setOnMousePressed(new ShowContextMenuCommand(menu));
+    }
+
+    // INSTANCE
 
     @FXML private final ContextMenu menu;
 
@@ -55,20 +73,5 @@ public class ContextMenuController {
                 radioToggleCopyZoom,
                 radioToggleCopyPosition
         );
-    }
-
-    // On ajoute la fonctionalité du menu clique-droit à tous les panneaux en argument.
-    // Pas de classe Command puisque nous n'avons pas de raison d'enregistrer l'ouverture
-    // ou la fermeture d'une fenêtre de contexte.
-    public void addToPanes(Pane ...panes) {
-        for (Pane pane : panes)
-            pane.setOnMousePressed(event -> {
-                if (!this.menu.isShowing() && event.isSecondaryButtonDown())
-                    this.menu.show(pane, event.getScreenX(), event.getScreenY());
-                else
-                    this.menu.hide();
-
-                event.consume();
-            });
     }
 }
