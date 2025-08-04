@@ -11,7 +11,7 @@
            xmlns:fx="http://javafx.com/fxml"
            fx:controller="ets.log121_labo5.controllers.ImageViewerController">
 
-        <ImageView fx:id="view" preserveRatio="true" styleClass="shadow-box">
+        <ImageView fx:id="view" preserveRatio="true">
                 <effect>
                         <DropShadow radius="15" spread="0.2" color="rgba(0,0,0,0.3)"/>
                 </effect>

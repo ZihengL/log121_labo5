@@ -13,7 +13,8 @@ import javafx.scene.image.ImageView;
 /**
  * Class: ContextMenuController
  * Created on: 7/12/2025
- * Description: Classe contrôleur pour le menu de contexte.
+ * Description: Classe contrôleur pour le menu de contexte. Une seule instance existe, et ses fonctions
+ * sont propagés à tous les instances d'ImageNavigatorController systématiquement dans la méthode initialize().
  *
  * @author liuzi | Zi heng Liu
  */
@@ -57,7 +58,7 @@ public class ContextMenuController {
 
         SeparatorMenuItem separator = new SeparatorMenuItem();
 
-        // STRATÉGIE DE COPIE
+        // STRATÉGIES DE COPIE
         RadioMenuItem radioToggleCopyZoom = new RadioMenuItem("Zoom");
         radioToggleCopyZoom.setOnAction(new ToggleCopyZoomCommand());
         radioToggleCopyZoom.setSelected(true);

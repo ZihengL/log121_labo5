@@ -17,6 +17,8 @@ public class ImageViewerController extends ImageViewController {
     public static final int FITWIDTH = 400;
     public static final int FITHEIGHT = 300;
 
+    // Si l'appelle à la méthode de la superclasse retourne vrai,
+    // on modifie la taille de l'image.
     public boolean updateImage(CommandsManager manager) {
         if (!super.updateImage(manager)) return false;
 

@@ -48,6 +48,10 @@ public class StatesManager {
 
     // MUTATORS
 
+    public int size() {
+        return this.size;
+    }
+
     // Ajout d'un nouveau noeud dans la chaîne.
     public void add(State state) {
         StateNode node = new StateNode(state);
@@ -62,7 +66,9 @@ public class StatesManager {
         } else {
             this.tail.setNext(node);
             this.tail = this.tail.next();
-            this.current = this.current.equals(this.tail.previous()) ? this.tail : this.current;
+
+            if (this.current.equals(this.tail.previous()))
+                this.current = this.tail.previous();
         }
 
         // On n'incrémente pas le compteur dans le cas où on ajoute un noeud
@@ -74,40 +80,9 @@ public class StatesManager {
             this.size++;
     }
 
-    public void remove(StateNode node) {
-        if (this.size == 1) {
-            this.current = this.head = this.tail = null;
-        } else if (node.equals(this.head)) {
-            this.head = this.head.next();
-            this.size--;
-        } else if (node.equals(this.tail)) {
-            this.tail = this.tail.previous();
-            this.size--;
-        }
-
-        if (node.equals(this.current)) {
-            this.current = this.tail = this.current.previous();
-            this.tail.removeNext();
-            this.recount();
-        }
-    }
-
-    public void removePastNode(StateNode node) {
-        this.size -= node.countPastSelf(0);
-        node.removeNext();
-    }
-
-    public int recount() {
-        this.size = this.head.countPastSelf(1);
-        return this.size;
-    }
-
     // OTHER
 
-    public int size() {
-        return this.size;
-    }
-
+    // Retourne vrai si le pointeur courant se déplace au noeud qui lui précède.
     public boolean moveToPrevious() {
         if (this.current == null || !this.current.hasPrevious())
             return false;
@@ -116,6 +91,7 @@ public class StatesManager {
         return true;
     }
 
+    // Retourne vrai si le pointeur courant se déplace au noeud suivant.
     public boolean moveToNext() {
         if (this.current == null || !this.current.hasNext())
             return false;

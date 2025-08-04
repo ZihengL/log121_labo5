@@ -7,7 +7,8 @@ import javafx.event.EventHandler;
 /**
  * Class: Observer
  * Created on: 7/6/2025
- * Description:
+ * Description: Interface observateur. Les classes qui l'implémente sont les classes contrôleurs pour les
+ * ImageView, donc ImageViewController et ses classes enfants.
  *
  * @author liuzi | Zi heng Liu
  */

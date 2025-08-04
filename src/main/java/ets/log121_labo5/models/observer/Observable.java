@@ -6,7 +6,10 @@ import java.util.ArrayList;
 /**
  * Class: Subject
  * Created on: 7/6/2025
- * Description:
+ * Description: Classe abstraite observable/sujet générique incluant
+ * une liste d'abonnés permettant l'ajout ou la suppression d'éléments,
+ * et une méthode notify() qui invoque update() à tous les instances d'observer
+ * dans sa liste.
  *
  * @author liuzi | Zi heng Liu
  */

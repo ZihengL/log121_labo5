@@ -12,6 +12,10 @@ import javafx.event.EventHandler;
  * d'EventHandler. Son rôle ne sert donc qu'à renforcer une visualisation de l'hiérarchie de
  * l'application d'une manière explicite pour les autres développeurs.
  *
+ * N'inclus pas une méthode undo() car l'action de défaire ou de refaire se font en
+ * reconstituant l'état entier de l'application, et non par l'éxécution de l'action
+ * précédent à l'envers.
+ *
  * @author liuzi | Zi heng Liu
  */
 
