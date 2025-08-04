@@ -23,13 +23,10 @@ public class PasteCommand extends ContextMenuCommand {
     // destinataire pour appliquer les modifications.
     @Override
     public void handle(ActionEvent event) {
-//        ImageNavigatorController controller = this.getEventController(event);
-//        Perspective recipient = controller.getPerspective().copy();
         Perspective recipient = this.getPerspective(event).copy();
         if (recipient == null) return;
 
         ContextMenuCommand.applyModifiers(recipient);
         this.setPerspective(event, recipient);
-//        controller.setPerspective(recipient);
     }
 }

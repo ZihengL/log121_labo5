@@ -24,7 +24,8 @@ public class PanCommand extends ImageViewCommand<MouseEvent> {
     // et que la vue n'est pas nulle(lorsqu'il n'y a pas d'image),
     // on récolte l'objet Perspective lié à la vue, et on invoque la commande de défilement
     // du gestionnaire de commandes en injectant la Perspective ainsi que
-    //
+    // l'information par rapport à sa position, et les bornes du rectangle par
+    // rapport au cadre d'image, l'ImageView.
     @Override
     public void handle(MouseEvent event) {
         if (event.getButton() != MouseButton.PRIMARY) return;
