@@ -8,7 +8,7 @@ import java.io.*;
  * Created on: 7/6/2025
  * Description: Record de l'état de l'application. Utilisé dans notre
  * implémentation du patron memento. L'action de défaire ou de refaire
- * implique la restoration d'un objet State.
+ * implique la restoration d'un objet State.o,
  *
  * @author liuzi | Zi heng Liu
  */

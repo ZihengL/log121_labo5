@@ -12,7 +12,7 @@ import ets.log121_labo5.models.CommandsManager;
  * @author liuzi | Zi heng Liu
  */
 
-public class ImageViewerController extends ImageViewController {
+public class ThumbnailController extends ImageViewController {
 
     public static final int FITWIDTH = 400;
     public static final int FITHEIGHT = 300;

@@ -26,18 +26,16 @@ public class ContextMenuController {
     // Singleton parce qu'une instance unique du contrôleur existe afin de pouvoir copier/coller
     // la Perspective d'un ImageView à un autre. Par conséquent, nous ne faisons
     // que propager, ou ajouter sa fonctionnalité aux ImageViews.
-    private static final ContextMenuController contextMenuController = new ContextMenuController();
+    private static final ContextMenuController instance = new ContextMenuController();
 
     public static ContextMenuController getInstance() {
-        return ContextMenuController.contextMenuController;
+        return ContextMenuController.instance;
     }
 
     // Ajoute la fonction de pouvoir cacher et révéler le menu de contexte à
     // l'ImageView en paramètre lors d'un clique.
     public static void addFunctionToView(ImageView view) {
-        ContextMenu menu = contextMenuController.menu;
-
-        view.setOnMousePressed(new ShowContextMenuCommand(menu));
+        view.setOnMousePressed(new ShowContextMenuCommand(instance.menu));
     }
 
     // INSTANCE

@@ -9,7 +9,7 @@
 <StackPane fx:id="rootPane"
            xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
-           fx:controller="ets.log121_labo5.controllers.ImageViewerController">
+           fx:controller="ets.log121_labo5.controllers.ThumbnailController">
 
         <ImageView fx:id="view" preserveRatio="true">
                 <effect>

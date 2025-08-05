@@ -107,7 +107,7 @@ public class CommandsManager extends Observable implements Serializable {
     // Ensuite, on remet à neuf l'état des cadres de photos selon les dimensions
     // de Image, et finalement, on appele les contrôleurs pour qu'ils font une mise à jour.
     public void setImage(Image image) {
-        this.image = Perspective.setImageDimensions(image);
+        this.image = Perspective.validateDimensions(image);
 
         double width = this.image.getWidth(),
                height = this.image.getHeight();
@@ -158,7 +158,7 @@ public class CommandsManager extends Observable implements Serializable {
             Object object = input.readObject();
 
             if (object instanceof CommandsManager loaded) {
-                this.image = Perspective.setImageDimensions(loaded.image);
+                this.image = Perspective.validateDimensions(loaded.image);
                 this.leftside = loaded.leftside;
                 this.rightside = loaded.rightside;
 

@@ -44,7 +44,7 @@ public class Perspective implements Serializable {
     // Retourne l'Image si sa hauteur ne dépasse pas le max défini,
     // sinon retourne une nouvelle Image avec les mêmes proportions
     // à la hauteur maximale.
-    public static Image setImageDimensions(Image image) {
+    public static Image validateDimensions(Image image) {
         double width = image.getWidth(), height = image.getHeight();
         if (width <= MAX_WIDTH && height <= MAX_HEIGHT) return image;
 
@@ -170,12 +170,6 @@ public class Perspective implements Serializable {
 
     // OTHER
 
-    // Retourne une nouvelle instance de Perspective avec
-    // les mêmes bornes et vue que l'instance invoquée.
-    public Perspective copy() {
-        return new Perspective(this.viewport, this.bounds);
-    }
-
     // Partiellement basé sur: https://gist.github.com/james-d/ce5ec1fd44ce6c64e81a
     // Applique le zoom par l'agrandissement ou le rétrécissement de la boîte
     // servant de vue selon la valeur du delta en argument.
@@ -218,7 +212,7 @@ public class Perspective implements Serializable {
 
     // Retourne la position x/y du coin supérieur gauche de la vue après
     // avoir appliqué les contraintes dictées par les bornes de l'image.
-    private double getZoomPosition(double center, double min, double max, double bound, double magnitude) {
+    public double getZoomPosition(double center, double min, double max, double bound, double magnitude) {
         return Perspective.clamp(
                 center - (center - min) * magnitude,
                 0,
@@ -250,12 +244,18 @@ public class Perspective implements Serializable {
 
     // Retourne la valeur de la position x/y du coin supérieur gauche de la vue après
     // les ajustements de compensation selon les attributs courantes de la vue et les bornes du cadre.
-    private double getPanPosition(double center, double min, double max, double localBound, double bound) {
+    public double getPanPosition(double center, double min, double max, double localBound, double bound) {
         return Perspective.clamp(
                 (min + center * (max / localBound)) - (max / 2),
                 0,
                 bound - max
         );
+    }
+
+    // Retourne une nouvelle instance de Perspective avec
+    // les mêmes bornes et vue que l'instance invoquée.
+    public Perspective copy() {
+        return new Perspective(this.viewport, this.bounds);
     }
 
     public String toString() {
