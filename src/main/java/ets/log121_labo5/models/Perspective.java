@@ -28,8 +28,8 @@ public class Perspective implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    public static final double MAX_HEIGHT = 800.;
-    public static final double MAX_WIDTH = 1000.;
+    public static final double MAX_HEIGHT = 600.;
+    public static final double MAX_WIDTH = 800.;
 
     public static final double MIN_ZOOM = 10.;
     public static final double ZOOM_FACTOR = 1.01;
