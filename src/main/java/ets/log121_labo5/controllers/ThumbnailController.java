@@ -2,6 +2,7 @@ package ets.log121_labo5.controllers;
 
 
 import ets.log121_labo5.models.CommandsManager;
+import javafx.scene.image.Image;
 
 /**
  * Class: ImageViewController
@@ -19,8 +20,8 @@ public class ThumbnailController extends ImageViewController {
 
     // Si l'appelle à la méthode de la superclasse retourne vrai,
     // on modifie la taille de l'image.
-    public boolean updateImage(CommandsManager manager) {
-        if (!super.updateImage(manager)) return false;
+    public boolean updateImage(Image image) {
+        if (!super.updateImage(image)) return false;
 
         this.view.setFitWidth(FITWIDTH);
         this.view.setFitHeight(FITHEIGHT);

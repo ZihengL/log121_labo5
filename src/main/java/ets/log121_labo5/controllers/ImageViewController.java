@@ -39,15 +39,16 @@ public abstract class ImageViewController implements Observer {
     public void update(Observable observable) {
         CommandsManager manager = (CommandsManager) observable;
 
-        this.updateImage(manager);
+        Image image = manager.getImage();
+        this.updateImage(image);
     }
 
     // Retourne vrai s'il effectue un changement de l'image.
-    public boolean updateImage(CommandsManager manager) {
-        Image image = manager.getImage(), current = this.view.getImage();
+    public boolean updateImage(Image image) {
+        Image current = this.view.getImage();
         if (image == null || image.equals(current)) return false;
 
-        this.view.setImage(manager.getImage());
+        this.view.setImage(image);
         return true;
     }
 }

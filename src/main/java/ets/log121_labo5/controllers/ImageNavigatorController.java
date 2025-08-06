@@ -10,6 +10,7 @@ import ets.log121_labo5.models.Perspective;
 import ets.log121_labo5.models.observer.Observable;
 import javafx.fxml.FXML;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
@@ -76,8 +77,8 @@ public class ImageNavigatorController extends ImageViewController {
     // Si la méthode de la superclasse retourne vrai, on adapte la taille
     // de la vue selon les bornes de l'image ainsi qu'on change la taille
     // de l'écran pour inclure la totalité des éléments.
-    public boolean updateImage(CommandsManager manager) {
-        if (!super.updateImage(manager)) return false;
+    public boolean updateImage(Image image) {
+        if (!super.updateImage(image)) return false;
 
         Rectangle2D bounds = this.getPerspective().getBounds();
         this.view.setFitWidth(bounds.getWidth());

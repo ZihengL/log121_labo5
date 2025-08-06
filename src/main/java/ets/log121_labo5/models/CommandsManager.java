@@ -19,7 +19,6 @@ import java.io.*;
  * @author liuzi | Zi heng Liu
  */
 
-// TODO: REMOVE SERIALIZABLE
 public class CommandsManager extends Observable implements Serializable {
 
     // STATIC
