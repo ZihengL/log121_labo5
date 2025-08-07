@@ -157,11 +157,12 @@ public class CommandsManager extends Observable implements Serializable {
             Object object = input.readObject();
 
             if (object instanceof CommandsManager loaded) {
-                this.image = Perspective.validateDimensions(loaded.image);
-                this.leftside = loaded.leftside;
-                this.rightside = loaded.rightside;
-
-                this.update();
+                this.setState(loaded.getState());
+//                this.image = Perspective.validateDimensions(loaded.image);
+//                this.leftside = loaded.leftside;
+//                this.rightside = loaded.rightside;
+//
+//                this.update();
             }
         }
     }
@@ -171,11 +172,7 @@ public class CommandsManager extends Observable implements Serializable {
     // Si possible, déplace et prends la référence courante dans le gestionnaire à celui qui lui
     // précède, et rétabli les attributs de CommandsManager selon celle-ci.
     public void undo() {
-        System.out.println("undo");
-
         if (!this.statesManager.moveToPrevious()) return;
-
-        System.out.println("valid");
 
         State previous = this.statesManager.getCurrent().getState();
         this.setState(previous);
@@ -242,9 +239,6 @@ public class CommandsManager extends Observable implements Serializable {
     // Cette méthode est invoquée après chaque instance où une modification d'état
     public void update() {
         this.recordCurrentState();
-
-        System.out.println(this.statesManager.getCurrent().toString());
-
         this.notifyObservers();
     }
 
