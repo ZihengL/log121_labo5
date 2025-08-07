@@ -27,7 +27,7 @@ public class ZoomCommand extends ImageViewCommand<ScrollEvent> {
         ImageView view = this.getImageView(event);
         if (view.getImage() == null) return;
 
-        Perspective perspective = this.getPerspective(event);
+        Perspective perspective = this.getPerspective(view);
         Point2D position = new Point2D(event.getX(), event.getY());
         double delta = -event.getDeltaY();
 

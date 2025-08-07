@@ -25,6 +25,11 @@ public abstract class ImageViewCommand<T extends Event> implements Command<T> {
     // à être la source des événements.
     public Perspective getPerspective(T event) {
         ImageView view = this.getImageView(event);
+
+        return this.getPerspective(view);
+    }
+
+    public Perspective getPerspective(ImageView view) {
         PerspectiveGetter getter = (PerspectiveGetter) view.getProperties().get("PerspectiveGetter");
 
         return getter.getPerspective();
@@ -34,6 +39,11 @@ public abstract class ImageViewCommand<T extends Event> implements Command<T> {
     // stocké sous forme de propriété.
     public void setPerspective(T event, Perspective perspective) {
         ImageView view = this.getImageView(event);
+
+        this.setPerspective(view, perspective);
+    }
+
+    public void setPerspective(ImageView view, Perspective perspective) {
         PerspectiveSetter setter = (PerspectiveSetter) view.getProperties().get("PerspectiveSetter");
 
         setter.setPerspective(perspective);

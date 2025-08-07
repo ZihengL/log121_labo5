@@ -33,7 +33,7 @@ public class PanCommand extends ImageViewCommand<MouseEvent> {
         ImageView view = this.getImageView(event);
         if (view.getImage() == null) return;
 
-        Perspective perspective = this.getPerspective(event);
+        Perspective perspective = this.getPerspective(view);
         Point2D position = new Point2D(event.getX(), event.getY());
         Bounds bounds = view.getBoundsInLocal();
 

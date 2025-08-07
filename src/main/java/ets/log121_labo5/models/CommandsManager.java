@@ -146,7 +146,6 @@ public class CommandsManager extends Observable implements Serializable {
         }
     }
 
-    // TODO: FIX WEIRD REGRESSION BUG WITH PERSPECTIVE UPON LOADING.
     // Si l'extension du fichier en paramètre est valide, on procède à la
     // lecture et le rétablissement de l'état du programme à partir de celle-ci.
     public void loadStateFromFile(File file) throws IOException, ClassNotFoundException {
