@@ -45,9 +45,6 @@ public class StateNode {
     // Assigne le pointeur du noeud prochain à celui en paramètre,
     // et assigne le pointeur précédent de ce noeud à soi-même.
     public void setNext(StateNode next) {
-        if (this.hasNext())
-            this.next.remove();
-
         this.next = next;
 
         if (this.hasNext())
@@ -103,6 +100,6 @@ public class StateNode {
     }
 
     public String toString() {
-        return this.state.toString();
+        return this.state.toString() + (this.hasNext() ? "\n" + this.next.toString() : "");
     }
 }

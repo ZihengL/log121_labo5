@@ -66,9 +66,7 @@ public class StatesManager {
         } else {
             this.tail.setNext(node);
             this.tail = this.tail.next();
-
-            if (this.current.equals(this.tail.previous()))
-                this.current = this.tail.previous();
+            this.current = this.current.equals(this.tail.previous()) ? this.tail : this.current;
         }
 
         // On n'incrémente pas le compteur dans le cas où on ajoute un noeud
