@@ -27,6 +27,11 @@ public abstract class FileDialogCommand implements Command<ActionEvent> {
     @Override
     public final void handle(ActionEvent event) {
         FileChooser fc = new FileChooser();
+
+        File dir = this.getDefaultDirectory();
+        if (dir.exists())
+            fc.setInitialDirectory(dir);
+
         this.setDialogOptions(fc);
 
         File file = this.fireDialog(Application.getStage(), fc);
@@ -34,14 +39,11 @@ public abstract class FileDialogCommand implements Command<ActionEvent> {
             this.invokeCommand(file);
     }
 
-    protected void setDialogOptions(FileChooser fc) {
-        this.setDefaultDirectory(fc, new File(DEFAULT_DIRECTORY));
+    protected File getDefaultDirectory() {
+        return new File(FileDialogCommand.DEFAULT_DIRECTORY);
     }
 
-    protected void setDefaultDirectory(FileChooser fc, File dir) {
-        if (dir.exists())
-            fc.setInitialDirectory(dir);
-    }
+    protected abstract void setDialogOptions(FileChooser fc);
 
     protected abstract File fireDialog(Stage stage, FileChooser fc);
 

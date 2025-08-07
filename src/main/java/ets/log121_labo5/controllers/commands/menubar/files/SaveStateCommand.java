@@ -20,17 +20,17 @@ import java.io.IOException;
 
 public class SaveStateCommand extends FileDialogCommand {
 
-    // TEMPLATE INHERITED
-
     @Override
     protected void setDialogOptions(FileChooser fc) {
         fc.setTitle("Sauvegarder l'état courant.");
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Serializable", "*.ser")
         );
+    }
 
-        File dir = new File(FileDialogCommand.DEFAULT_DIRECTORY + "\\saves");
-        this.setDefaultDirectory(fc, dir);
+    @Override
+    protected File getDefaultDirectory() {
+        return new File(FileDialogCommand.DEFAULT_DIRECTORY + "\\saves");
     }
 
     @Override

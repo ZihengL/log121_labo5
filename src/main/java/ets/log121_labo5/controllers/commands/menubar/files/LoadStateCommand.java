@@ -24,16 +24,17 @@ public class LoadStateCommand extends FileDialogCommand {
     // TEMPLATE INHERITED
 
     // Applique un filtre qui considère seulement les fichiers .ser comme valide
-    // et déplace l'usager au répertoire des sauvegardes.
     @Override
     protected void setDialogOptions(FileChooser fc) {
         fc.setTitle("Charger un état sauvegardé");
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Serializable", "*.ser")
         );
+    }
 
-        File dir = new File(FileDialogCommand.DEFAULT_DIRECTORY + "\\saves");
-        this.setDefaultDirectory(fc, dir);
+    @Override
+    protected File getDefaultDirectory() {
+        return new File(FileDialogCommand.DEFAULT_DIRECTORY + "\\saves");
     }
 
     @Override

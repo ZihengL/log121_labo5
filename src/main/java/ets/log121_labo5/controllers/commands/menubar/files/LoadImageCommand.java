@@ -9,8 +9,6 @@ import java.io.File;
 
 public class LoadImageCommand extends FileDialogCommand {
 
-    // TEMPLATE INHERITED
-
     // Filtre d'extensions les plus communs pour les formats d'images.
     // Nous plaçons également l'utilisateur au répertoire défaut de l'application
     // pour stocker les images.
@@ -20,9 +18,11 @@ public class LoadImageCommand extends FileDialogCommand {
         fc.getExtensionFilters().addAll(
                 new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg")
         );
+    }
 
-        File dir = new File(FileDialogCommand.DEFAULT_DIRECTORY + "\\images");
-        this.setDefaultDirectory(fc, dir);
+    @Override
+    protected File getDefaultDirectory() {
+        return new File(FileDialogCommand.DEFAULT_DIRECTORY + "\\images");
     }
 
     @Override

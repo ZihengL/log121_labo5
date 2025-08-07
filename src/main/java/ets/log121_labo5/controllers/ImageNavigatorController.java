@@ -50,6 +50,7 @@ public class ImageNavigatorController extends ImageViewController {
 
         // Ajout des interfaces fonctionnelles en tant que propriétés dans le panneau
         // afin que les commandes de type ImageViewCommand/ContextMenuCommand puissent avoir accès.
+        // Cela ajoute ainsi une couche additionnelle de découplage.
         this.view.getProperties().put("PerspectiveGetter", this.perspectiveGetter);
         this.view.getProperties().put("PerspectiveSetter", this.perspectiveSetter);
     }
